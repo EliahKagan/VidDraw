@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows.Forms;
 using SharpAvi.Output;
@@ -29,19 +30,48 @@ namespace VidDraw {
 
         private const int IntervalInMilliseconds = 30;
 
-        // FIXME: Use a different filename if the file already exists.
-        // Currently, the program crashes when that happens.
-        //
-        // To avoid a race condition, maybe this should open and return a
-        // StreamWriter instead.
         private static string GetSavePath()
             => Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyVideos),
                 $"VidDraw capture {DateTime.Now:yyyy-MM-dd HH-mm-ss}.avi");
 
+        private static string IncrementPath(string path)
+        {
+            var match = pathParser.Match(path);
+
+            if (!match.Success) {
+                throw new InvalidOperationException(
+                        "Can't increment path: " + path);
+            }
+
+            var number = match.Groups["number"].Success
+                            ? int.Parse(match.Groups["number"].Value)
+                            : 1;
+
+            var beforeSuffix = $"{match.Groups["prefix"]} ({number + 1})";
+
+            return match.Groups["suffix"].Success
+                    ? beforeSuffix + match.Groups["suffix"].Value
+                    : beforeSuffix;
+        }
+
+        private static FileStream OpenFileStream()
+        {
+            var path = GetSavePath();
+
+            for (; ; ) {
+                try {
+                    return new FileStream(path, FileMode.CreateNew);
+                }
+                catch (IOException ex) when (ex.HResult == -2147024816) {
+                    path = IncrementPath(path);
+                }
+            }
+        }
+
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (stream is null) return;
+            if (videoStream is null) return;
 
             var data = new byte[rectangle.Width * rectangle.Height * 4];
 
@@ -52,7 +82,7 @@ namespace VidDraw {
             Marshal.Copy(bits.Scan0, data, 0, data.Length);
             bitmap.UnlockBits(bits);
 
-            stream.WriteFrame(true, data, 0, data.Length);
+            videoStream.WriteFrame(true, data, 0, data.Length);
         }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
@@ -85,15 +115,17 @@ namespace VidDraw {
 
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
-            if (writer is not null) return;
+            if (aviWriter is not null) return;
 
-            writer = new(GetSavePath()) {
+            fileStream = OpenFileStream();
+
+            aviWriter = new(fileStream, leaveOpen: false) {
                 FramesPerSecond = 1000m / IntervalInMilliseconds,
                 EmitIndex1 = true,
             };
 
-            Debug.Assert(stream is null);
-            stream = writer.AddVideoStream(width: rectangle.Width,
+            Debug.Assert(videoStream is null);
+            videoStream = aviWriter.AddVideoStream(width: rectangle.Width,
                                            height: rectangle.Height);
 
             BackColor = Color.Red;
@@ -103,19 +135,21 @@ namespace VidDraw {
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
-            if (MouseButtons is not MouseButtons.None || writer is null)
+            if (MouseButtons is not MouseButtons.None || aviWriter is null)
                 return;
 
             timer.Enabled = false;
 
-            stream = null;
-            // FIXME: After this, it should be possible to play the file. But
-            // for some reason, I can't do that until this program has quit.
-            writer.Close();
-            writer = null;
+            videoStream = null;
+            aviWriter.Close();
+            aviWriter = null;
+            fileStream = null;
 
             BackColor = DefaultBackColor;
         }
+
+        private static readonly Regex pathParser = new(
+            @"^(?<prefix>.+?)(?: \((?<number>\d+)\))?(?<suffix>\.[^.]+)?$");
 
         private readonly System.Timers.Timer timer;
 
@@ -129,8 +163,12 @@ namespace VidDraw {
 
         private Point oldLocation = Point.Empty;
 
-        private AviWriter? writer = null;
+        // FIXME: The AviWriter correctly closes this, so don't bother storing
+        //        it in a field.
+        private Stream? fileStream = null;
 
-        private IAviVideoStream? stream = null;
+        private AviWriter? aviWriter = null;
+
+        private IAviVideoStream? videoStream = null;
     }
 }
