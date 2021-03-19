@@ -30,6 +30,8 @@ namespace VidDraw {
 
         private const int IntervalInMilliseconds = 30;
 
+        private const int FileExistsHResult = -2147024816;
+
         private static string GetSavePath()
             => Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyVideos),
@@ -63,7 +65,7 @@ namespace VidDraw {
                 try {
                     return new FileStream(path, FileMode.CreateNew);
                 }
-                catch (IOException ex) when (ex.HResult == -2147024816) {
+                catch (IOException ex) when (ex.HResult == FileExistsHResult) {
                     path = IncrementPath(path);
                 }
             }
@@ -117,9 +119,7 @@ namespace VidDraw {
         {
             if (aviWriter is not null) return;
 
-            fileStream = OpenFileStream();
-
-            aviWriter = new(fileStream, leaveOpen: false) {
+            aviWriter = new(OpenFileStream(), leaveOpen: false) {
                 FramesPerSecond = 1000m / IntervalInMilliseconds,
                 EmitIndex1 = true,
             };
@@ -143,7 +143,6 @@ namespace VidDraw {
             videoStream = null;
             aviWriter.Close();
             aviWriter = null;
-            fileStream = null;
 
             BackColor = DefaultBackColor;
         }
@@ -162,10 +161,6 @@ namespace VidDraw {
         private readonly Pen pen = new(Color.Black);
 
         private Point oldLocation = Point.Empty;
-
-        // FIXME: The AviWriter correctly closes this, so don't bother storing
-        //        it in a field.
-        private Stream? fileStream = null;
 
         private AviWriter? aviWriter = null;
 
