@@ -75,16 +75,28 @@ namespace VidDraw {
         {
             if (videoStream is null) return;
 
-            var data = new byte[rectangle.Width * rectangle.Height * 4];
+            var bytesPerRow = rectangle.Width * 4;
+            var buffer = new byte[rectangle.Height * bytesPerRow];
 
             var bits = bitmap.LockBits(rectangle,
                                        ImageLockMode.ReadOnly,
-                                       PixelFormat.Format32bppRgb);
-            // FIXME: This vertically reflects the image. Don't do that.
-            Marshal.Copy(bits.Scan0, data, 0, data.Length);
-            bitmap.UnlockBits(bits);
+                                       PixelFormat.Format32bppArgb);
+            try {
+                nint bottom = bits.Scan0;
 
-            videoStream.WriteFrame(true, data, 0, data.Length);
+                for (var fromTop = 0; fromTop < rectangle.Height; ++fromTop) {
+                    var fromBottom = rectangle.Height - (fromTop + 1);
+
+                    Marshal.Copy(source: bottom + fromBottom * bytesPerRow,
+                                 destination: buffer,
+                                 startIndex: fromTop * bytesPerRow,
+                                 length: bytesPerRow);
+                }
+            } finally {
+                bitmap.UnlockBits(bits);
+            }
+
+            videoStream.WriteFrame(true, buffer, 0, buffer.Length);
         }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
