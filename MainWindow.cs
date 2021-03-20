@@ -39,9 +39,10 @@ namespace VidDraw {
 
         private static string IncrementPath(string path)
         {
-            var match = pathParser.Match(path);
+            var directory = Path.GetDirectoryName(path);
+            var match = filenameParser.Match(Path.GetFileName(path));
 
-            if (!match.Success) {
+            if (directory is null || !match.Success) {
                 throw new InvalidOperationException(
                         "Can't increment path: " + path);
             }
@@ -50,11 +51,13 @@ namespace VidDraw {
                             ? int.Parse(match.Groups["number"].Value)
                             : 1;
 
-            var beforeSuffix = $"{match.Groups["prefix"]} ({number + 1})";
+            var nextBasename = $"{match.Groups["prefix"]} ({number + 1})";
 
-            return match.Groups["suffix"].Success
-                    ? beforeSuffix + match.Groups["suffix"].Value
-                    : beforeSuffix;
+            var nextFilename = match.Groups["suffix"].Success
+                                ? nextBasename + match.Groups["suffix"].Value
+                                : nextBasename;
+
+            return Path.Combine(directory, nextFilename);
         }
 
         private static FileStream OpenFileStream()
@@ -159,7 +162,7 @@ namespace VidDraw {
             BackColor = DefaultBackColor;
         }
 
-        private static readonly Regex pathParser = new(
+        private static readonly Regex filenameParser = new(
             @"^(?<prefix>.+?)(?: \((?<number>\d+)\))?(?<suffix>\.[^.]+)?$");
 
         private readonly System.Timers.Timer timer;
