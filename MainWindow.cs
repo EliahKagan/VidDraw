@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Timers;
 using System.Windows.Forms;
 using SharpAvi.Output;
 
@@ -18,7 +17,7 @@ namespace VidDraw {
                 Enabled = false,
                 SynchronizingObject = this,
             };
-            timer.Elapsed += timer_Elapsed;
+            timer.Elapsed += (_, _) => CaptureFrame();
 
             rectangle = new(Point.Empty, canvas.Size);
             bitmap = new(width: rectangle.Width, height: rectangle.Height);
@@ -33,34 +32,6 @@ namespace VidDraw {
             => Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyVideos),
                 $"VidDraw capture {DateTime.Now:yyyy-MM-dd HH-mm-ss}.avi");
-
-        private void timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            if (videoStream is null) return;
-
-            var bytesPerRow = rectangle.Width * 4;
-            var buffer = new byte[rectangle.Height * bytesPerRow];
-
-            var bits = bitmap.LockBits(rectangle,
-                                       ImageLockMode.ReadOnly,
-                                       PixelFormat.Format32bppArgb);
-            try {
-                nint bottom = bits.Scan0;
-
-                for (var fromTop = 0; fromTop < rectangle.Height; ++fromTop) {
-                    var fromBottom = rectangle.Height - (fromTop + 1);
-
-                    Marshal.Copy(source: bottom + fromBottom * bytesPerRow,
-                                 destination: buffer,
-                                 startIndex: fromTop * bytesPerRow,
-                                 length: bytesPerRow);
-                }
-            } finally {
-                bitmap.UnlockBits(bits);
-            }
-
-            videoStream.WriteFrame(true, buffer, 0, buffer.Length);
-        }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
@@ -105,8 +76,8 @@ namespace VidDraw {
             videoStream = aviWriter.AddVideoStream(width: rectangle.Width,
                                            height: rectangle.Height);
 
+            CaptureFrame(); // Ensure we always get an initial frame.
             BackColor = Color.Red;
-
             timer.Enabled = true;
         }
 
@@ -122,6 +93,34 @@ namespace VidDraw {
             aviWriter = null;
 
             BackColor = DefaultBackColor;
+        }
+
+        private void CaptureFrame()
+        {
+            if (videoStream is null) return;
+
+            var bytesPerRow = rectangle.Width * 4;
+            var buffer = new byte[rectangle.Height * bytesPerRow];
+
+            var bits = bitmap.LockBits(rectangle,
+                                       ImageLockMode.ReadOnly,
+                                       PixelFormat.Format32bppArgb);
+            try {
+                nint bottom = bits.Scan0;
+
+                for (var fromTop = 0; fromTop < rectangle.Height; ++fromTop) {
+                    var fromBottom = rectangle.Height - (fromTop + 1);
+
+                    Marshal.Copy(source: bottom + fromBottom * bytesPerRow,
+                                 destination: buffer,
+                                 startIndex: fromTop * bytesPerRow,
+                                 length: bytesPerRow);
+                }
+            } finally {
+                bitmap.UnlockBits(bits);
+            }
+
+            videoStream.WriteFrame(true, buffer, 0, buffer.Length);
         }
 
         private readonly System.Timers.Timer timer;
