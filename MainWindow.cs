@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows.Forms;
 using SharpAvi.Output;
@@ -30,49 +29,10 @@ namespace VidDraw {
 
         private const int IntervalInMilliseconds = 30;
 
-        private const int FileExistsHResult = -2147024816;
-
-        private static string GetSavePath()
+        private static string GetPreferredSavePath()
             => Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyVideos),
                 $"VidDraw capture {DateTime.Now:yyyy-MM-dd HH-mm-ss}.avi");
-
-        private static string IncrementPath(string path)
-        {
-            var directory = Path.GetDirectoryName(path);
-            var match = filenameParser.Match(Path.GetFileName(path));
-
-            if (directory is null || !match.Success) {
-                throw new InvalidOperationException(
-                        "Can't increment path: " + path);
-            }
-
-            var number = match.Groups["number"].Success
-                            ? int.Parse(match.Groups["number"].Value)
-                            : 1;
-
-            var nextBasename = $"{match.Groups["prefix"]} ({number + 1})";
-
-            var nextFilename = match.Groups["suffix"].Success
-                                ? nextBasename + match.Groups["suffix"].Value
-                                : nextBasename;
-
-            return Path.Combine(directory, nextFilename);
-        }
-
-        private static FileStream OpenFileStream()
-        {
-            var path = GetSavePath();
-
-            for (; ; ) {
-                try {
-                    return new FileStream(path, FileMode.CreateNew);
-                }
-                catch (IOException ex) when (ex.HResult == FileExistsHResult) {
-                    path = IncrementPath(path);
-                }
-            }
-        }
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -134,7 +94,9 @@ namespace VidDraw {
         {
             if (aviWriter is not null) return;
 
-            aviWriter = new(OpenFileStream(), leaveOpen: false) {
+            var fileStream = Files.CreateWithoutClash(GetPreferredSavePath());
+
+            aviWriter = new(fileStream, leaveOpen: false) {
                 FramesPerSecond = 1000m / IntervalInMilliseconds,
                 EmitIndex1 = true,
             };
@@ -161,9 +123,6 @@ namespace VidDraw {
 
             BackColor = DefaultBackColor;
         }
-
-        private static readonly Regex filenameParser = new(
-            @"^(?<prefix>.+?)(?: \((?<number>\d+)\))?(?<suffix>\.[^.]+)?$");
 
         private readonly System.Timers.Timer timer;
 
