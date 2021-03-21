@@ -13,7 +13,7 @@
         {
             if (disposing) {
                 components?.Dispose();
-                timer.Dispose();
+                recorder.Dispose();
             }
 
             base.Dispose(disposing);
