@@ -1,4 +1,4 @@
-﻿namespace VidDraw {
+namespace VidDraw {
     partial class MainWindow {
         /// <summary>
         ///  Clean up any resources being used.

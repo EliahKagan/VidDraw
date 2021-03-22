@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -49,7 +49,7 @@ namespace VidDraw {
                                                    height: rectangle.Height);
 
             CaptureFrame(); // Ensure we always get an initial frame.
-            
+
             timer.Enabled = true;
         }
 
