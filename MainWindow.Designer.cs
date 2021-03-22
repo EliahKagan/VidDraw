@@ -66,4 +66,3 @@
         private System.Windows.Forms.PictureBox canvas;
     }
 }
-

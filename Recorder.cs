@@ -25,7 +25,11 @@ namespace VidDraw {
             timer.Elapsed += (_, _) => CaptureFrame();
         }
 
-        public void Dispose() => timer.Dispose();
+        public void Dispose()
+        {
+            if (IsRunning) Finish();
+            timer.Dispose();
+        }
 
         internal bool IsRunning => aviWriter is not null;
 
