@@ -33,14 +33,14 @@ namespace VidDraw {
 
         internal bool IsRunning => aviWriter is not null;
 
-        internal void Start(FileStream fileStream)
+        internal void Start(Stream outputStream)
         {
             if (IsRunning) {
                 throw new InvalidOperationException(
                         "Can't start: already recording");
             }
 
-            aviWriter = new(fileStream, leaveOpen: false) {
+            aviWriter = new(outputStream, leaveOpen: false) {
                 FramesPerSecond = 1000m / IntervalInMilliseconds,
                 EmitIndex1 = true,
             };
