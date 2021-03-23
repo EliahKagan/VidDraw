@@ -15,6 +15,7 @@ namespace VidDraw {
         {
             this.bitmap = bitmap;
             rectangle = new(Point.Empty, bitmap.Size);
+            buffer = new byte[Height * BytesPerRow];
 
             timer = new(interval: IntervalInMilliseconds) {
                 AutoReset = true,
@@ -71,12 +72,15 @@ namespace VidDraw {
 
         private const int IntervalInMilliseconds = 30;
 
+        private int Width => rectangle.Width;
+
+        private int Height => rectangle.Height;
+
+        private int BytesPerRow => Width * 4;
+
         private void CaptureFrame()
         {
             if (videoStream is null) return;
-
-            var bytesPerRow = rectangle.Width * 4;
-            var buffer = new byte[rectangle.Height * bytesPerRow];
 
             var bits = bitmap.LockBits(rectangle,
                                        ImageLockMode.ReadOnly,
@@ -84,13 +88,13 @@ namespace VidDraw {
             try {
                 nint bottom = bits.Scan0;
 
-                for (var fromTop = 0; fromTop < rectangle.Height; ++fromTop) {
-                    var fromBottom = rectangle.Height - (fromTop + 1);
+                for (var fromTop = 0; fromTop < Height; ++fromTop) {
+                    var fromBottom = Height - (fromTop + 1);
 
-                    Marshal.Copy(source: bottom + fromBottom * bytesPerRow,
+                    Marshal.Copy(source: bottom + fromBottom * BytesPerRow,
                                  destination: buffer,
-                                 startIndex: fromTop * bytesPerRow,
-                                 length: bytesPerRow);
+                                 startIndex: fromTop * BytesPerRow,
+                                 length: BytesPerRow);
                 }
             } finally {
                 bitmap.UnlockBits(bits);
@@ -102,6 +106,8 @@ namespace VidDraw {
         private readonly Bitmap bitmap;
 
         private readonly Rectangle rectangle;
+
+        private readonly byte[] buffer;
 
         private readonly Timer timer;
 
