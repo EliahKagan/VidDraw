@@ -34,7 +34,7 @@ namespace VidDraw {
 
         internal bool IsRunning => aviWriter is not null;
 
-        internal void Start(Stream outputStream)
+        internal void Start(Stream outputStream, Action? onFinish = null)
         {
             if (IsRunning) {
                 throw new InvalidOperationException(
@@ -48,6 +48,8 @@ namespace VidDraw {
 
             videoStream = aviWriter.AddVideoStream(width: rectangle.Width,
                                                    height: rectangle.Height);
+
+            this.onFinish = onFinish;
 
             CaptureFrame(); // Ensure we always get an initial frame.
 
@@ -68,6 +70,11 @@ namespace VidDraw {
             Debug.Assert(aviWriter is not null);
             aviWriter.Close();
             aviWriter = null;
+
+            if (this.onFinish is Action onFinish) {
+                this.onFinish = null;
+                onFinish();
+            }
         }
 
         private const int IntervalInMilliseconds = 30;
@@ -114,5 +121,7 @@ namespace VidDraw {
         private AviWriter? aviWriter = null;
 
         private IAviVideoStream? videoStream = null;
+
+        private Action? onFinish = null;
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace VidDraw {
     internal partial class MainWindow : Form {
@@ -21,6 +22,15 @@ namespace VidDraw {
             => Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.MyVideos),
                 $"VidDraw capture {DateTime.Now:yyyy-MM-dd HH-mm-ss}.avi");
+
+        private static Action CreateSaveNotifier(string path)
+        {
+            var toast = new ToastContentBuilder()
+                .AddText("Video capture saved")
+                .AddText(path);
+
+            return () => toast.Show();
+        }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
@@ -55,7 +65,8 @@ namespace VidDraw {
             if (recorder.IsRunning) return;
 
             BackColor = Color.Red;
-            recorder.Start(Files.CreateWithoutClash(GetPreferredSavePath()));
+            var output = Files.CreateWithoutClash(GetPreferredSavePath());
+            recorder.Start(output, CreateSaveNotifier(output.Name));
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
