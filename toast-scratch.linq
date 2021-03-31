@@ -1,5 +1,5 @@
 <Query Kind="Statements">
-  <NuGetReference Version="7.0.0">Microsoft.Toolkit.Uwp.Notifications</NuGetReference>
+  <NuGetReference Version="7.0.1">Microsoft.Toolkit.Uwp.Notifications</NuGetReference>
 </Query>
 
 // Hmm, ToastContentBuilder doesn't have a Show() method, even though
