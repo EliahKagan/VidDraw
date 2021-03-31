@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace VidDraw {
     internal static class Program {
@@ -11,6 +12,8 @@ namespace VidDraw {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainWindow());
+
+            ToastNotificationManagerCompat.Uninstall();
         }
     }
 }

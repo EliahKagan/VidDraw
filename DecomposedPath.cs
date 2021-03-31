@@ -9,7 +9,7 @@ namespace VidDraw {
     internal sealed record DecomposedPath {
         internal DecomposedPath(string path)
         {
-            Directory = GetDirectory(path);
+            Directory = path.GetDirectoryOrThrow();
 
             var match = MatchFilename(path);
 
@@ -29,17 +29,15 @@ namespace VidDraw {
         public override string ToString()
             => Path.Combine(Directory, BuildFilename());
 
+        internal DecomposedPath Next => this with {
+            Number = (Number ?? 1) + 1,
+        };
+
         private static Regex FilenameParser { get; } =
             new(@"^(?<prefix>.+?)
                    (?:[ ]\((?<number>\d+)\))?
                    (?<suffix>(?:\.[^.]+)?)$",
                 RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
-
-        private static string GetDirectory(string path)
-            => Path.GetDirectoryName(path)
-                ?? throw new ArgumentException(
-                    paramName: nameof(path),
-                    message: "Must include filename, not just folder/drive");
 
         private static Match MatchFilename(string path)
         {

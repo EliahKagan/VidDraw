@@ -1,9 +1,16 @@
+using System;
 using System.Diagnostics;
 using System.IO;
 
 namespace VidDraw {
-    /// <summary>Specialized file creation methods.</summary>
+    /// <summary>Methods for querying and accessing files.</summary>
     internal static class Files {
+        internal static string GetDirectoryOrThrow(this string path)
+            => Path.GetDirectoryName(path)
+                ?? throw new ArgumentException(
+                    paramName: nameof(path),
+                    message: "Must include filename, not just folder/drive");
+
         /// <summary>
         /// Creates a new file with the given filename or one based on it,
         /// ensuring no conflict with any existing file.
@@ -22,17 +29,12 @@ namespace VidDraw {
                     return new FileStream(path, FileMode.CreateNew);
                 }
                 catch (IOException ex) when (ex.HResult == FileExistsHResult) {
-                    parts = parts.Increment();
+                    parts = parts.Next;
                     path = parts.ToString();
                 }
             }
         }
 
         private const int FileExistsHResult = -2147024816;
-
-        private static DecomposedPath Increment(this DecomposedPath parts)
-            => parts with {
-                Number = (parts.Number ?? 1) + 1,
-            };
     }
 }

@@ -18,19 +18,25 @@ namespace VidDraw {
             recorder = new Recorder(bitmap, this);
         }
 
-        private static string GetPreferredSavePath()
+        private static string MyVideos
+            => Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+
+        private static string CurrentPreferredSavePath
             => Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.MyVideos),
+                MyVideos,
                 $"VidDraw capture {DateTime.Now:yyyy-MM-dd HH-mm-ss}.avi");
 
-        private static Action CreateSaveNotifier(string path)
-        {
-            var toast = new ToastContentBuilder()
-                .AddText("Video capture saved")
-                .AddText(path);
+        private static string GetDisplayPath(string path)
+            => path.GetDirectoryOrThrow()
+                   .Equals(MyVideos, StringComparison.Ordinal)
+                ? Path.GetFileName(path)
+                : path;
 
-            return () => toast.Show();
-        }
+        private static void NotifySaved(string path)
+            => new ToastContentBuilder()
+                .AddText("Video capture saved")
+                .AddText(GetDisplayPath(path))
+                .Show();
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
@@ -65,8 +71,9 @@ namespace VidDraw {
             if (recorder.IsRunning) return;
 
             BackColor = Color.Red;
-            var output = Files.CreateWithoutClash(GetPreferredSavePath());
-            recorder.Start(output, CreateSaveNotifier(output.Name));
+            var output = Files.CreateWithoutClash(CurrentPreferredSavePath);
+            var path = output.Name;
+            recorder.Start(output, () => NotifySaved(path));
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
