@@ -2,6 +2,7 @@ using System;
 using System.Text.RegularExpressions;
 
 namespace VidDraw {
+    /// <summary>Extensions for clearer and more compact regex usage.</summary>
     internal static class MatchExtensions {
         internal static string? TryGet(this Match match, string name)
             => match.Groups[name] switch {

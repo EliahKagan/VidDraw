@@ -1,11 +1,11 @@
 using System;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace VidDraw {
+    /// <summary>The application window, containing a drawing canvas.</summary>
     internal partial class MainWindow : Form {
         public MainWindow()
         {
