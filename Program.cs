@@ -14,7 +14,7 @@ namespace VidDraw {
 
         static Program()
         {
-            var path = Me.GetPath();
+            var path = Me.TryGetPath();
             Debug.Assert(path is not null);
             MyPath = path;
         }
@@ -33,14 +33,14 @@ namespace VidDraw {
 
         private static bool InstanceIsUnique
             => !Process.GetProcesses().Any(p => p.SessionId == Me.SessionId
-                                             && p.HasPath(MyPath)
+                                             && p.HasKnownPath(MyPath)
                                              && p.Id != Me.Id);
 
         [STAThread]
         private static void Main()
         {
             using var mutex = CreateMutex();
-            mutex.WaitOne();
+            mutex.Acquire();
             mutex.ReleaseMutex();
 
             ToastNotificationManagerCompat.OnActivated +=
@@ -49,10 +49,12 @@ namespace VidDraw {
             try {
                 Run();
             } finally {
-                mutex.WaitOne();
+                mutex.Acquire();
                 try {
-                    if (InstanceIsUnique)
+                    if (InstanceIsUnique) {
                         ToastNotificationManagerCompat.Uninstall();
+                        MessageBox.Show("Toasts uninstalled.");
+                    }
                 } finally {
                     mutex.ReleaseMutex();
                 }

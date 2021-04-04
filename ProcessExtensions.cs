@@ -1,13 +1,21 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace VidDraw {
     /// <summary>Extensions for comparing processes.</summary>
     internal static class ProcessExtensions {
-        internal static string? GetPath(this Process process)
-            => process.MainModule?.FileName;
+        internal static string? TryGetPath(this Process process)
+        {
+            try {
+                return process.MainModule?.FileName;
+            } catch (Win32Exception) {
+                return null;
+            }
+        }
 
-        internal static bool HasPath(this Process process, string fileName)
-            => fileName.Equals(process.GetPath(), StringComparison.Ordinal);
+        internal static bool HasKnownPath(this Process process,
+                                          string fileName)
+            => fileName.Equals(process.TryGetPath(), StringComparison.Ordinal);
     }
 }
