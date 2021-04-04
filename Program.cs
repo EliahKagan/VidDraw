@@ -51,10 +51,8 @@ namespace VidDraw {
             } finally {
                 mutex.Acquire();
                 try {
-                    if (InstanceIsUnique) {
+                    if (InstanceIsUnique)
                         ToastNotificationManagerCompat.Uninstall();
-                        MessageBox.Show("Toasts uninstalled.");
-                    }
                 } finally {
                     mutex.ReleaseMutex();
                 }
