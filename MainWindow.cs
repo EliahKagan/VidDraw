@@ -1,7 +1,6 @@
 using System;
 using System.Drawing;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Toolkit.Uwp.Notifications;
 
@@ -34,12 +33,10 @@ namespace VidDraw {
                 : path;
 
         private static void NotifySaved(string path)
-            => ThreadPool.QueueUserWorkItem(delegate {
-                new ToastContentBuilder()
-                    .AddText("Video capture saved")
-                    .AddText(GetDisplayPath(path))
-                    .Show();
-            });
+            => new ToastContentBuilder()
+                .AddText("Video capture saved")
+                .AddText(GetDisplayPath(path))
+                .Show();
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
