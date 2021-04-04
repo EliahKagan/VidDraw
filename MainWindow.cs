@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Toolkit.Uwp.Notifications;
 
@@ -34,6 +35,7 @@ namespace VidDraw {
 
         private static void NotifySaved(string path)
             => new ToastContentBuilder()
+                .AddArgument(path)
                 .AddText("Video capture saved")
                 .AddText(GetDisplayPath(path))
                 .Show();
