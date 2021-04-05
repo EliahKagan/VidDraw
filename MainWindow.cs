@@ -16,7 +16,7 @@ namespace VidDraw {
             graphics = Graphics.FromImage(bitmap);
             graphics.FillRectangle(Brushes.White, rectangle);
             canvas.Image = bitmap;
-            recorder = new Recorder(bitmap, this);
+            recorder = new(bitmap, this);
         }
 
         private static string MyVideos

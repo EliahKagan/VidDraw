@@ -60,7 +60,7 @@ namespace VidDraw {
         }
 
         private static Mutex CreateMutex()
-            => new Mutex(initiallyOwned: false, $"{Uuid}-{MyPathHash}");
+            => new(initiallyOwned: false, $"{Uuid}-{MyPathHash}");
 
         private static void ToastNotificationManagerCompat_OnActivated(
                 ToastNotificationActivatedEventArgsCompat e)
