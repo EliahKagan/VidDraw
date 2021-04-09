@@ -2,20 +2,20 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Timers;
 using SharpAvi.Output;
 
 namespace VidDraw {
+    /// <summary>Captures frames from a bitmap as AVI video.</summary>
+    /// <remarks>This class is single-threaded.</remarks>
     internal sealed class Recorder : IDisposable {
         internal Recorder(Bitmap bitmap,
                           ISynchronizeInvoke synchronizingObject)
         {
             this.bitmap = bitmap;
             rectangle = new(Point.Empty, bitmap.Size);
-            buffer = new byte[Height * BytesPerRow];
+            buffer = new byte[rectangle.Width * rectangle.Height * 4];
 
             timer = new(interval: IntervalInMilliseconds) {
                 AutoReset = true,
@@ -79,33 +79,12 @@ namespace VidDraw {
 
         private const int IntervalInMilliseconds = 30;
 
-        private int Width => rectangle.Width;
-
-        private int Height => rectangle.Height;
-
-        private int BytesPerRow => Width * 4;
-
         private void CaptureFrame()
         {
             if (videoStream is null) return;
 
-            var bits = bitmap.LockBits(rectangle,
-                                       ImageLockMode.ReadOnly,
-                                       PixelFormat.Format32bppArgb);
-            try {
-                nint bottom = bits.Scan0;
-
-                for (var fromTop = 0; fromTop < Height; ++fromTop) {
-                    var fromBottom = Height - (fromTop + 1);
-
-                    Marshal.Copy(source: bottom + fromBottom * BytesPerRow,
-                                 destination: buffer,
-                                 startIndex: fromTop * BytesPerRow,
-                                 length: BytesPerRow);
-                }
-            } finally {
-                bitmap.UnlockBits(bits);
-            }
+            using (var lb = new LockedBits(bitmap, rectangle))
+                lb.UpsideDownCopyTo(buffer);
 
             videoStream.WriteFrame(true, buffer, 0, buffer.Length);
         }
