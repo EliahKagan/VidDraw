@@ -2,3 +2,4 @@
 GetMenuItemInfo
 GetSystemMenu
 SetMenuItemInfo
+SetWindowText

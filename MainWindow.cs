@@ -19,6 +19,7 @@ namespace VidDraw {
             bitmap = new(width: rectangle.Width, height: rectangle.Height);
             graphics = Graphics.FromImage(bitmap);
             graphics.FillRectangle(Brushes.White, rectangle);
+            pen = new(colorPicker.Color);
             canvas.Image = bitmap;
             recorder = new(bitmap, this);
         }
@@ -33,11 +34,25 @@ namespace VidDraw {
         {
             // If the message is WM_SYSCOMMAND *and* it is one of our system-
             // menu customizations, handle it here instead of pasing it upward.
-            if ((WM)m.Msg is WM.SYSCOMMAND) {
-                var codec = (MyMenuItemId)m.WParam;
-                if (Codecs.Contains(codec)) {
-                    CurrentCodec = codec;
+            if ((WindowMessage)m.Msg is WindowMessage.SYSCOMMAND) {
+                var id = (MyMenuItemId)m.WParam;
+
+                switch (id) {
+                case MyMenuItemId.PickColor:
+                    PickColor();
                     return;
+
+                case MyMenuItemId.About:
+                    ShowAboutBox();
+                    return;
+
+                default:
+                    var codec = (Codec)id;
+                    if (Codecs.Contains(codec)) {
+                        CurrentCodec = codec;
+                        return;
+                    }
+                    break;
                 }
             }
 
@@ -52,22 +67,26 @@ namespace VidDraw {
             CHECKED = 0x00000008,
         }
 
-        /// <summary>Window message codes.</summary>
-        private enum WM : uint {
-            SYSCOMMAND = 0x112,
-        }
-
         private enum MyMenuItemId : uint {
             UnusedId, // For clarity, pass this when the ID will be ignored.
-            Raw,
+
+            Raw = Codec.Raw,
+            Uncompressed = Codec.Uncompressed,
+            MotionJpeg = Codec.MotionJpeg,
+            H264 = Codec.H264,
+
+            PickColor,
+            About,
+        }
+
+        private enum Codec : uint {
+            Raw = MyMenuItemId.UnusedId + 1,
             Uncompressed,
             MotionJpeg,
             H264,
         }
 
-        private static IEnumerable<MyMenuItemId> Codecs
-            => FastEnumInfo<MyMenuItemId>.Values
-                .Without(MyMenuItemId.UnusedId);
+        private static IEnumerable<Codec> Codecs => FastEnumInfo<Codec>.Values;
 
         private static string MyVideos
             => Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
@@ -90,13 +109,13 @@ namespace VidDraw {
                 .AddText(GetDisplayPath(path))
                 .Show();
 
-        private MyMenuItemId CurrentCodec
+        private Codec CurrentCodec
         {
-            get => Codecs.Single(IsCheckedMenuItem);
+            get => Codecs.Single(HasCheck);
 
             set {
                 foreach (var codec in Codecs)
-                    SetMenuItemCheck(codec, codec == value);
+                    SetCheck(codec, codec == value);
 
                 Debug.Assert(CurrentCodec == value);
             }
@@ -122,7 +141,10 @@ namespace VidDraw {
             }
         }
 
-        private unsafe bool IsCheckedMenuItem(MyMenuItemId item)
+        private void AddMenuItem(Codec codec, string lpNewItem)
+            => AddMenuItem((MyMenuItemId)codec, lpNewItem);
+
+        private unsafe bool HasCheck(Codec codec)
         {
             var mii = new MENUITEMINFOW {
                 cbSize = (uint)sizeof(MENUITEMINFOW),
@@ -130,14 +152,14 @@ namespace VidDraw {
             };
 
             PInvoke.GetMenuItemInfo(hmenu: MenuHandle,
-                                    item: (uint)item,
+                                    item: (uint)codec,
                                     fByPosition: false,
                                     &mii);
 
             return (mii.fState & (uint)MF.CHECKED) != 0;
         }
 
-        private unsafe void SetMenuItemCheck(MyMenuItemId item, bool @checked)
+        private unsafe void SetCheck(Codec codec, bool @checked)
         {
             var mii = new MENUITEMINFOW {
                 cbSize = (uint)sizeof(MENUITEMINFOW),
@@ -146,7 +168,7 @@ namespace VidDraw {
             };
 
             PInvoke.SetMenuItemInfo(hmenu: MenuHandle,
-                                    item: (uint)item,
+                                    item: (uint)codec,
                                     fByPositon: false, // Misspelled in API.
                                     &mii);
         }
@@ -155,12 +177,17 @@ namespace VidDraw {
         {
             AddMenuSeparator();
 
-            AddMenuItem(MyMenuItemId.Raw, "Raw (no encoder)");
-            AddMenuItem(MyMenuItemId.Uncompressed, "Uncompressed");
-            AddMenuItem(MyMenuItemId.MotionJpeg, "Motion JPEG");
-            AddMenuItem(MyMenuItemId.H264, "H.264 (MPEG-4 AVC)");
+            AddMenuItem(Codec.Raw, "Raw (no encoder)");
+            AddMenuItem(Codec.Uncompressed, "Uncompressed");
+            AddMenuItem(Codec.MotionJpeg, "Motion JPEG");
+            AddMenuItem(Codec.H264, "H.264 (MPEG-4 AVC)");
 
-            CurrentCodec = MyMenuItemId.Uncompressed;
+            AddMenuSeparator();
+
+            AddMenuItem(MyMenuItemId.PickColor, $"Pick Color{Ch.Hellip}");
+            AddMenuItem(MyMenuItemId.About, $"About VidDraw{Ch.Hellip}");
+
+            CurrentCodec = Codec.Uncompressed;
         }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
@@ -210,13 +237,26 @@ namespace VidDraw {
             BackColor = DefaultBackColor;
         }
 
+        private void PickColor()
+        {
+            if (colorPicker.ShowDialog(owner: this) is DialogResult.OK)
+                pen.Color = colorPicker.Color;
+        }
+
+        // TODO: Make a custom About dialog listing dependencies and their
+        //       copyright notices / licenses.
+        private void ShowAboutBox()
+            => MessageBox.Show(owner: this,
+                               text: "VidDraw (alpha), by Eliah Kagan",
+                               caption: "About VidDraw");
+
         private readonly Rectangle rectangle;
 
         private readonly Bitmap bitmap;
 
         private readonly Graphics graphics;
 
-        private readonly Pen pen = new(Color.Black);
+        private readonly Pen pen;
 
         private Point oldLocation = Point.Empty;
 

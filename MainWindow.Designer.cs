@@ -8,6 +8,7 @@ namespace VidDraw {
         {
             if (disposing) {
                 components?.Dispose();
+                colorPicker.Dispose(); // TODO: Check if this really is useful.
                 recorder.Dispose();
             }
 
@@ -23,6 +24,7 @@ namespace VidDraw {
         private void InitializeComponent()
         {
             this.canvas = new System.Windows.Forms.PictureBox();
+            this.colorPicker = new VidDraw.ColorPicker();
             ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,5 +65,6 @@ namespace VidDraw {
         private System.ComponentModel.IContainer components = null;
 
         private System.Windows.Forms.PictureBox canvas;
+        private ColorPicker colorPicker;
     }
 }
