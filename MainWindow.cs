@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.Windows.Sdk;
+using Nier.Commons.Collections;
 
 namespace VidDraw {
     /// <summary>The application window, containing a drawing canvas.</summary>
@@ -35,9 +36,7 @@ namespace VidDraw {
             // If the message is WM_SYSCOMMAND *and* it is one of our system-
             // menu customizations, handle it here instead of pasing it upward.
             if ((WindowMessage)m.Msg is WindowMessage.SYSCOMMAND) {
-                var id = (MyMenuItemId)m.WParam;
-
-                switch (id) {
+                switch ((MyMenuItemId)m.WParam) {
                 case MyMenuItemId.PickColor:
                     PickColor();
                     return;
@@ -46,13 +45,12 @@ namespace VidDraw {
                     ShowAboutBox();
                     return;
 
+                case MyMenuItemId id when Map.TryGetCodec(id) is Codec codec:
+                    CurrentCodec = codec;
+                    return;
+
                 default:
-                    var codec = (Codec)id;
-                    if (Codecs.Contains(codec)) {
-                        CurrentCodec = codec;
-                        return;
-                    }
-                    break;
+                    break; // We'll pass other IDs (e.g., for "Close") upward.
                 }
             }
 
@@ -70,23 +68,43 @@ namespace VidDraw {
         private enum MyMenuItemId : uint {
             UnusedId, // For clarity, pass this when the ID will be ignored.
 
-            Raw = Codec.Raw,
-            Uncompressed = Codec.Uncompressed,
-            MotionJpeg = Codec.MotionJpeg,
-            H264 = Codec.H264,
+            Raw,
+            Uncompressed,
+            MotionJpeg,
+            H264,
 
             PickColor,
             About,
         }
 
-        private enum Codec : uint {
-            Raw = MyMenuItemId.UnusedId + 1,
-            Uncompressed,
-            MotionJpeg,
-            H264,
-        }
+        private static class Map {
+            internal readonly struct Entry {
+                internal Entry(MyMenuItemId id, Codec codec)
+                    => (Id, Codec) = (id, codec);
 
-        private static IEnumerable<Codec> Codecs => FastEnumInfo<Codec>.Values;
+                internal MyMenuItemId Id { get; }
+
+                internal Codec Codec { get; }
+            }
+
+            internal static IEnumerable<Entry> Entries
+                => idToCodec
+                    .Select(kv => new Entry(id: kv.Key, codec: kv.Value));
+
+            internal static Codec? TryGetCodec(MyMenuItemId id)
+                => idToCodec.TryGet(id);
+
+            internal static MyMenuItemId? ToId(Codec codec)
+                => idToCodec.ReverseDirection.TryGet(codec);
+
+            private static readonly IBiDirectionDictionary<MyMenuItemId, Codec>
+            idToCodec = new BiDirectionDictionary<MyMenuItemId, Codec> {
+                { MyMenuItemId.Raw, Codec.Raw },
+                { MyMenuItemId.Uncompressed, Codec.Uncompressed },
+                { MyMenuItemId.MotionJpeg, Codec.MotionJpeg },
+                { MyMenuItemId.H264, Codec.H264 },
+            };
+        }
 
         private static string MyVideos
             => Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
@@ -111,11 +129,11 @@ namespace VidDraw {
 
         private Codec CurrentCodec
         {
-            get => Codecs.Single(HasCheck);
+            get => Map.Entries.Single(ent => HasCheck(ent.Id)).Codec;
 
             set {
-                foreach (var codec in Codecs)
-                    SetCheck(codec, codec == value);
+                foreach (var ent in Map.Entries)
+                    SetCheck(ent.Id, ent.Codec == value);
 
                 Debug.Assert(CurrentCodec == value);
             }
@@ -141,10 +159,7 @@ namespace VidDraw {
             }
         }
 
-        private void AddMenuItem(Codec codec, string lpNewItem)
-            => AddMenuItem((MyMenuItemId)codec, lpNewItem);
-
-        private unsafe bool HasCheck(Codec codec)
+        private unsafe bool HasCheck(MyMenuItemId id)
         {
             var mii = new MENUITEMINFOW {
                 cbSize = (uint)sizeof(MENUITEMINFOW),
@@ -152,14 +167,14 @@ namespace VidDraw {
             };
 
             PInvoke.GetMenuItemInfo(hmenu: MenuHandle,
-                                    item: (uint)codec,
+                                    item: (uint)id,
                                     fByPosition: false,
                                     &mii);
 
             return (mii.fState & (uint)MF.CHECKED) != 0;
         }
 
-        private unsafe void SetCheck(Codec codec, bool @checked)
+        private unsafe void SetCheck(MyMenuItemId id, bool @checked)
         {
             var mii = new MENUITEMINFOW {
                 cbSize = (uint)sizeof(MENUITEMINFOW),
@@ -168,7 +183,7 @@ namespace VidDraw {
             };
 
             PInvoke.SetMenuItemInfo(hmenu: MenuHandle,
-                                    item: (uint)codec,
+                                    item: (uint)id,
                                     fByPositon: false, // Misspelled in API.
                                     &mii);
         }
@@ -177,10 +192,10 @@ namespace VidDraw {
         {
             AddMenuSeparator();
 
-            AddMenuItem(Codec.Raw, "Raw (no encoder)");
-            AddMenuItem(Codec.Uncompressed, "Uncompressed");
-            AddMenuItem(Codec.MotionJpeg, "Motion JPEG");
-            AddMenuItem(Codec.H264, "H.264 (MPEG-4 AVC)");
+            AddMenuItem(MyMenuItemId.Raw, "Raw (no encoder)");
+            AddMenuItem(MyMenuItemId.Uncompressed, "Uncompressed");
+            AddMenuItem(MyMenuItemId.MotionJpeg, "Motion JPEG");
+            AddMenuItem(MyMenuItemId.H264, "H.264 (MPEG-4 AVC)");
 
             AddMenuSeparator();
 
