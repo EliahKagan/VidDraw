@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.Windows.Sdk;
-using Nier.Commons.Collections;
 
 namespace VidDraw {
     /// <summary>The application window, containing a drawing canvas.</summary>
@@ -45,7 +45,7 @@ namespace VidDraw {
                     ShowAboutBox();
                     return;
 
-                case MyMenuItemId id when Map.TryGetCodec(id) is Codec codec:
+                case MyMenuItemId id when AsCodec(id) is Codec codec:
                     CurrentCodec = codec;
                     return;
 
@@ -77,34 +77,9 @@ namespace VidDraw {
             About,
         }
 
-        private static class Map {
-            internal readonly struct Entry {
-                internal Entry(MyMenuItemId id, Codec codec)
-                    => (Id, Codec) = (id, codec);
-
-                internal MyMenuItemId Id { get; }
-
-                internal Codec Codec { get; }
-            }
-
-            internal static IEnumerable<Entry> Entries
-                => idToCodec
-                    .Select(kv => new Entry(id: kv.Key, codec: kv.Value));
-
-            internal static Codec? TryGetCodec(MyMenuItemId id)
-                => idToCodec.TryGet(id);
-
-            internal static MyMenuItemId? ToId(Codec codec)
-                => idToCodec.ReverseDirection.TryGet(codec);
-
-            private static readonly IBiDirectionDictionary<MyMenuItemId, Codec>
-            idToCodec = new BiDirectionDictionary<MyMenuItemId, Codec> {
-                { MyMenuItemId.Raw, Codec.Raw },
-                { MyMenuItemId.Uncompressed, Codec.Uncompressed },
-                { MyMenuItemId.MotionJpeg, Codec.MotionJpeg },
-                { MyMenuItemId.H264, Codec.H264 },
-            };
-        }
+        private sealed record CodecChoice(Codec Codec,
+                                          MyMenuItemId Id,
+                                          string Label);
 
         private static string MyVideos
             => Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
@@ -113,6 +88,32 @@ namespace VidDraw {
             => Path.Combine(
                 MyVideos,
                 $"VidDraw capture {DateTime.Now:yyyy-MM-dd HH-mm-ss}.avi");
+
+        private static IReadOnlyList<CodecChoice> BuildCodecChoices()
+        {
+            var builder = ImmutableArray.CreateBuilder<CodecChoice>();
+
+            builder.Add(new(Codec.Raw,
+                            MyMenuItemId.Raw,
+                            "Raw (no encoder)"));
+
+            builder.Add(new(Codec.Uncompressed,
+                            MyMenuItemId.Uncompressed,
+                            "Uncompressed"));
+
+            builder.Add(new(Codec.MotionJpeg,
+                            MyMenuItemId.MotionJpeg,
+                            "Motion JPEG"));
+
+            builder.Add(new(Codec.H264,
+                            MyMenuItemId.H264,
+                            "H.264 (MPEG-4 AVC)"));
+
+            return builder.ToImmutable();
+        }
+
+        private static Codec? AsCodec(MyMenuItemId id)
+            => codecs.FirstOrDefault(c => c.Id == id)?.Codec;
 
         private static string GetDisplayPath(string path)
             => path.GetDirectoryOrThrow()
@@ -129,11 +130,11 @@ namespace VidDraw {
 
         private Codec CurrentCodec
         {
-            get => Map.Entries.Single(ent => HasCheck(ent.Id)).Codec;
+            get => codecs.Single(c => HasCheck(c.Id)).Codec;
 
             set {
-                foreach (var ent in Map.Entries)
-                    SetCheck(ent.Id, ent.Codec == value);
+                foreach (var (codec, id, _) in codecs)
+                    SetCheck(id, codec == value);
 
                 Debug.Assert(CurrentCodec == value);
             }
@@ -191,18 +192,12 @@ namespace VidDraw {
         private void BuildMenu()
         {
             AddMenuSeparator();
-
-            AddMenuItem(MyMenuItemId.Raw, "Raw (no encoder)");
-            AddMenuItem(MyMenuItemId.Uncompressed, "Uncompressed");
-            AddMenuItem(MyMenuItemId.MotionJpeg, "Motion JPEG");
-            AddMenuItem(MyMenuItemId.H264, "H.264 (MPEG-4 AVC)");
+            foreach (var (_, id, label) in codecs) AddMenuItem(id, label);
+            CurrentCodec = Codec.Uncompressed;
 
             AddMenuSeparator();
-
             AddMenuItem(MyMenuItemId.PickColor, $"Pick Color{Ch.Hellip}");
             AddMenuItem(MyMenuItemId.About, $"About VidDraw{Ch.Hellip}");
-
-            CurrentCodec = Codec.Uncompressed;
         }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
@@ -264,6 +259,9 @@ namespace VidDraw {
             => MessageBox.Show(owner: this,
                                text: "VidDraw (alpha), by Eliah Kagan",
                                caption: "About VidDraw");
+
+        private static readonly IReadOnlyList<CodecChoice> codecs =
+            BuildCodecChoices();
 
         private readonly Rectangle rectangle;
 
