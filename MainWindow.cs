@@ -235,7 +235,7 @@ namespace VidDraw {
             BackColor = Color.Red;
             var output = Files.CreateWithoutClash(CurrentPreferredSavePath);
             var path = output.Name;
-            recorder.Start(output, () => NotifySaved(path));
+            recorder.Start(output, CurrentCodec, () => NotifySaved(path));
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)

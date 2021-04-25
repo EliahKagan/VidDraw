@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Timers;
+using SharpAvi;
+using SharpAvi.Codecs;
 using SharpAvi.Output;
 
 namespace VidDraw {
@@ -34,25 +36,21 @@ namespace VidDraw {
 
         internal bool IsRunning => aviWriter is not null;
 
-        internal void Start(Stream outputStream, Action? onFinish = null)
+        internal void Start(Stream outputStream,
+                            Codec codec,
+                            Action? onFinish = null)
         {
             if (IsRunning) {
                 throw new InvalidOperationException(
                         "Can't start: already recording");
             }
 
-            aviWriter = new(outputStream, leaveOpen: false) {
-                FramesPerSecond = 1000m / IntervalInMilliseconds,
-                EmitIndex1 = true,
-            };
-
-            videoStream = aviWriter.AddVideoStream(width: rectangle.Width,
-                                                   height: rectangle.Height);
-
+            aviWriter = CreateAviWriter(outputStream);
+            videoStream = CreateVideoStream(codec);
+            flip = codec is Codec.Raw;
             this.onFinish = onFinish;
 
             CaptureFrame(); // Ensure we always get an initial frame.
-
             timer.Enabled = true;
         }
 
@@ -79,12 +77,57 @@ namespace VidDraw {
 
         private const int IntervalInMilliseconds = 30;
 
+        private AviWriter CreateAviWriter(Stream outputStream)
+            => new(outputStream, leaveOpen: false) {
+                FramesPerSecond = 1000m / IntervalInMilliseconds,
+                EmitIndex1 = true,
+            };
+
+        // TODO: Let the user set/adjust the quality of Motion JPEG and H.264.
+        private IAviVideoStream CreateVideoStream(Codec codec)
+        {
+            Debug.Assert(aviWriter is not null);
+
+            return codec switch {
+                Codec.Raw
+                    => aviWriter.AddVideoStream(
+                                    width: rectangle.Width,
+                                    height: rectangle.Height),
+
+                Codec.Uncompressed
+                    => aviWriter.AddUncompressedVideoStream(
+                                    width: rectangle.Width,
+                                    height: rectangle.Height),
+
+                Codec.MotionJpeg
+                    => aviWriter.AddMotionJpegVideoStream(
+                                    width: rectangle.Width,
+                                    height: rectangle.Height,
+                                    quality: 100),
+
+                Codec.H264
+                    => aviWriter.AddMpeg4VideoStream(
+                                    width: rectangle.Width,
+                                    height: rectangle.Height,
+                                    fps: 1000.0 / IntervalInMilliseconds,
+                                    codec: KnownFourCCs.Codecs.X264),
+
+                _ => throw new InvalidOperationException(
+                        "Unrecognized codec enumerator"),
+            };
+        }
+
         private void CaptureFrame()
         {
             if (videoStream is null) return;
 
-            using (var lb = new LockedBits(bitmap, rectangle))
-                lb.UpsideDownCopyTo(buffer);
+            using (var lb = new LockedBits(bitmap, rectangle)) {
+                if (flip) {
+                    lb.UpsideDownCopyTo(buffer);
+                } else {
+                    lb.CopyTo(buffer);
+                }
+            }
 
             videoStream.WriteFrame(true, buffer, 0, buffer.Length);
         }
@@ -100,6 +143,8 @@ namespace VidDraw {
         private AviWriter? aviWriter = null;
 
         private IAviVideoStream? videoStream = null;
+
+        private bool flip = false;
 
         private Action? onFinish = null;
     }
