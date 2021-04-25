@@ -5,6 +5,7 @@
     <TargetFramework>net5.0-windows10.0.17763</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +14,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SharpAvi" Version="2.1.2" />
+    <PackageReference Include="SharpAvi.Net5" Version="2.1.2-rc" />
   </ItemGroup>
 
   <ItemGroup>

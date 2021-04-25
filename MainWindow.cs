@@ -95,7 +95,7 @@ namespace VidDraw {
 
             builder.Add(new(Codec.Raw,
                             MyMenuItemId.Raw,
-                            "Raw (no encoder)"));
+                            "Raw (frame copy)"));
 
             builder.Add(new(Codec.Uncompressed,
                             MyMenuItemId.Uncompressed,
@@ -193,7 +193,7 @@ namespace VidDraw {
         {
             AddMenuSeparator();
             foreach (var (_, id, label) in codecs) AddMenuItem(id, label);
-            CurrentCodec = Codec.Uncompressed;
+            CurrentCodec = Codec.MotionJpeg;
 
             AddMenuSeparator();
             AddMenuItem(MyMenuItemId.PickColor, $"Pick Color{Ch.Hellip}");

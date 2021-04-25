@@ -1,5 +1,5 @@
 <Query Kind="Statements">
-  <NuGetReference Version="2.1.2">SharpAvi</NuGetReference>
+  <NuGetReference Version="2.1.2-rc" Prerelease="true">SharpAvi.Net5</NuGetReference>
 </Query>
 
 using System.Drawing;
