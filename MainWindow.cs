@@ -45,7 +45,7 @@ namespace VidDraw {
                     ShowAboutBox();
                     return;
 
-                case MyMenuItemId id when AsCodec(id) is Codec codec:
+                case var id when TryAsCodec(id) is Codec codec:
                     CurrentCodec = codec;
                     return;
 
@@ -112,7 +112,7 @@ namespace VidDraw {
             return builder.ToImmutable();
         }
 
-        private static Codec? AsCodec(MyMenuItemId id)
+        private static Codec? TryAsCodec(MyMenuItemId id)
             => codecs.FirstOrDefault(c => c.Id == id)?.Codec;
 
         private static string GetDisplayPath(string path)
