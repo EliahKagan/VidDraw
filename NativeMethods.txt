@@ -1,4 +1,5 @@
-﻿AppendMenu
+AppendMenu
+EnableMenuItem
 GetMenuItemInfo
 GetSystemMenu
 SetMenuItemInfo

@@ -1,4 +1,4 @@
-﻿namespace VidDraw {
+namespace VidDraw {
     /// <summary>Named aliases for some Unicode characters.</summary>
     internal static class Ch {
         /// <summary>Horizontal ellipsis.</summary>

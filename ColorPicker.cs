@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 using Microsoft.Windows.Sdk;
 
@@ -9,7 +9,7 @@ namespace VidDraw {
         protected override IntPtr
         HookProc(IntPtr hWnd, int msg, IntPtr wparam, IntPtr lparam)
         {
-            if ((WindowMessage)msg is WindowMessage.INITDIALOG)
+            if ((Native.WM)msg is Native.WM.INITDIALOG)
                 PInvoke.SetWindowText(new(hWnd), "Choose a pen color");
 
             return base.HookProc(hWnd, msg, wparam, lparam);

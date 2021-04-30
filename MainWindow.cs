@@ -8,6 +8,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Toolkit.Uwp.Notifications;
 using Microsoft.Windows.Sdk;
+using SharpAvi;
+using SharpAvi.Codecs;
 
 namespace VidDraw {
     /// <summary>The application window, containing a drawing canvas.</summary>
@@ -33,9 +35,8 @@ namespace VidDraw {
 
         protected override void WndProc(ref Message m)
         {
-            // If the message is WM_SYSCOMMAND *and* it is one of our system-
-            // menu customizations, handle it here instead of pasing it upward.
-            if ((WindowMessage)m.Msg is WindowMessage.SYSCOMMAND) {
+            switch ((Native.WM)m.Msg) {
+            case Native.WM.SYSCOMMAND:
                 switch ((MyMenuItemId)m.WParam) {
                 case MyMenuItemId.PickColor:
                     PickColor();
@@ -52,17 +53,17 @@ namespace VidDraw {
                 default:
                     break; // We'll pass other IDs (e.g., for "Close") upward.
                 }
+                break;
+
+            case Native.WM.INITMENU:
+                UpdateMenuCodecs();
+                return;
+
+            default:
+                break; // Other message types must alwayas be passed upward.
             }
 
-            // Otherwise, the message MUST be passed upward.
             base.WndProc(ref m);
-        }
-
-        /// <summary>Menu flags.</summary>
-        // TODO: Can I make C#/Win32 give me this from metadata?
-        private enum MF : uint {
-            UNCHECKED = 0x00000000,
-            CHECKED = 0x00000008,
         }
 
         private enum MyMenuItemId : uint {
@@ -81,6 +82,8 @@ namespace VidDraw {
                                           MyMenuItemId Id,
                                           string Label);
 
+        private const Codec DefaultCodec = Codec.MotionJpeg;
+
         private static string MyVideos
             => Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
 
@@ -88,6 +91,11 @@ namespace VidDraw {
             => Path.Combine(
                 MyVideos,
                 $"VidDraw capture {DateTime.Now:yyyy-MM-dd HH-mm-ss}.avi");
+
+        private static bool CanEncodeH264
+            => Mpeg4VideoEncoderVcm.GetAvailableCodecs()
+                .Select(c => c.Codec)
+                .Contains(KnownFourCCs.Codecs.X264);
 
         private static IReadOnlyList<CodecChoice> BuildCodecChoices()
         {
@@ -172,7 +180,7 @@ namespace VidDraw {
                                     fByPosition: false,
                                     &mii);
 
-            return (mii.fState & (uint)MF.CHECKED) != 0;
+            return (mii.fState & (uint)MENU_FLAGS.MF_CHECKED) != 0;
         }
 
         private unsafe void SetCheck(MyMenuItemId id, bool @checked)
@@ -180,7 +188,8 @@ namespace VidDraw {
             var mii = new MENUITEMINFOW {
                 cbSize = (uint)sizeof(MENUITEMINFOW),
                 fMask = MENUITEMINFOA_fMask.MIIM_STATE,
-                fState = (uint)(@checked ? MF.CHECKED : MF.UNCHECKED),
+                fState = (uint)(@checked ? MENU_FLAGS.MF_CHECKED
+                                         : MENU_FLAGS.MF_UNCHECKED),
             };
 
             PInvoke.SetMenuItemInfo(hmenu: MenuHandle,
@@ -189,15 +198,33 @@ namespace VidDraw {
                                     &mii);
         }
 
+        private void SetEnabled(MyMenuItemId id, bool enabled)
+            => PInvoke.EnableMenuItem(
+                    hMenu: MenuHandle,
+                    uIDEnableItem: (uint)id,
+                    uEnable: (enabled ? MENU_FLAGS.MF_ENABLED
+                                      : MENU_FLAGS.MF_GRAYED));
+
         private void BuildMenu()
         {
             AddMenuSeparator();
             foreach (var (_, id, label) in codecs) AddMenuItem(id, label);
-            CurrentCodec = Codec.MotionJpeg;
+            CurrentCodec = DefaultCodec;
+            UpdateMenuCodecs();
 
             AddMenuSeparator();
             AddMenuItem(MyMenuItemId.PickColor, $"Pick Color{Ch.Hellip}");
             AddMenuItem(MyMenuItemId.About, $"About VidDraw{Ch.Hellip}");
+        }
+
+        private void UpdateMenuCodecs()
+        {
+            if (CanEncodeH264) {
+                SetEnabled(MyMenuItemId.H264, true);
+            } else {
+                if (CurrentCodec is Codec.H264) CurrentCodec = DefaultCodec;
+                SetEnabled(MyMenuItemId.H264, false);
+            }
         }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
@@ -232,6 +259,7 @@ namespace VidDraw {
         {
             if (recorder.IsRunning) return;
 
+            UpdateMenuCodecs();
             BackColor = Color.Red;
             var output = Files.CreateWithoutClash(CurrentPreferredSavePath);
             var path = output.Name;

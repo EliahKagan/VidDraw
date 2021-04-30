@@ -1,4 +1,4 @@
-﻿namespace VidDraw {
+namespace VidDraw {
     internal enum Codec : uint {
         Raw,
         Uncompressed,
