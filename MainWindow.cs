@@ -21,12 +21,12 @@ namespace VidDraw {
             _rectangle = new(Point.Empty, _canvas.Size);
             _bitmap = new(width: _rectangle.Width, height: _rectangle.Height);
             _graphics = Graphics.FromImage(_bitmap);
-            _graphics.FillRectangle(Brushes.White, _rectangle);
-            _pen = new(_colorPicker.Color);
             _canvas.Image = _bitmap;
+            _pen = new(_colorPicker.Color);
             _recorder = new(_bitmap, this);
 
             _recorder.Recorded += recorder_Recorded;
+            ClearCanvas();
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -40,6 +40,10 @@ namespace VidDraw {
             switch ((Native.WM)m.Msg) {
             case Native.WM.SYSCOMMAND:
                 switch ((MyMenuItemId)m.WParam) {
+                case MyMenuItemId.ClearCanvas:
+                    ClearCanvas();
+                    return;
+
                 case MyMenuItemId.PickColor:
                     PickColor();
                     return;
@@ -77,6 +81,7 @@ namespace VidDraw {
             MotionJpeg,
             H264,
 
+            ClearCanvas,
             PickColor,
             About,
         }
@@ -229,6 +234,7 @@ namespace VidDraw {
             UpdateMenuCodecs();
 
             AddMenuSeparator();
+            AddMenuItem(MyMenuItemId.ClearCanvas, "Clear Canvas");
             AddMenuItem(MyMenuItemId.PickColor, $"Pick Color{Ch.Hellip}");
             AddMenuItem(MyMenuItemId.About, $"About VidDraw{Ch.Hellip}");
         }
@@ -241,6 +247,12 @@ namespace VidDraw {
                 if (CurrentCodec is Codec.H264) CurrentCodec = DefaultCodec;
                 SetEnabled(MyMenuItemId.H264, false);
             }
+        }
+
+        private void ClearCanvas()
+        {
+            _graphics.FillRectangle(Brushes.White, _rectangle);
+            _canvas.Invalidate();
         }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
