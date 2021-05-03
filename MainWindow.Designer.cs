@@ -8,7 +8,7 @@ namespace VidDraw {
         {
             if (disposing) {
                 components?.Dispose();
-                colorPicker.Dispose(); // TODO: Check if this really is useful.
+                _colorPicker.Dispose(); // TODO: Check if this really is useful.
                 _recorder.Dispose();
             }
 
@@ -23,35 +23,35 @@ namespace VidDraw {
         /// </summary>
         private void InitializeComponent()
         {
-            this.canvas = new System.Windows.Forms.PictureBox();
-            this.colorPicker = new VidDraw.ColorPicker();
-            ((System.ComponentModel.ISupportInitialize)(this.canvas)).BeginInit();
+            this._canvas = new System.Windows.Forms.PictureBox();
+            this._colorPicker = new VidDraw.ColorPicker();
+            ((System.ComponentModel.ISupportInitialize)(this._canvas)).BeginInit();
             this.SuspendLayout();
             // 
-            // canvas
+            // _canvas
             // 
-            this.canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.canvas.Location = new System.Drawing.Point(13, 13);
-            this.canvas.Name = "canvas";
-            this.canvas.Size = new System.Drawing.Size(800, 600);
-            this.canvas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.canvas.TabIndex = 0;
-            this.canvas.TabStop = false;
-            this.canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseClick);
-            this.canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseDown);
-            this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
-            this.canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
+            this._canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this._canvas.Location = new System.Drawing.Point(13, 13);
+            this._canvas.Name = "_canvas";
+            this._canvas.Size = new System.Drawing.Size(800, 600);
+            this._canvas.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this._canvas.TabIndex = 0;
+            this._canvas.TabStop = false;
+            this._canvas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseClick);
+            this._canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseDown);
+            this._canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
+            this._canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
             // 
             // MainWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(826, 626);
-            this.Controls.Add(this.canvas);
+            this.Controls.Add(this._canvas);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "VidDraw - Draw to record video";
-            ((System.ComponentModel.ISupportInitialize)(this.canvas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._canvas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -64,7 +64,7 @@ namespace VidDraw {
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        private System.Windows.Forms.PictureBox canvas;
-        private ColorPicker colorPicker;
+        private System.Windows.Forms.PictureBox _canvas;
+        private ColorPicker _colorPicker;
     }
 }

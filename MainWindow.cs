@@ -18,12 +18,12 @@ namespace VidDraw {
         {
             InitializeComponent();
 
-            _rectangle = new(Point.Empty, canvas.Size);
+            _rectangle = new(Point.Empty, _canvas.Size);
             _bitmap = new(width: _rectangle.Width, height: _rectangle.Height);
             _graphics = Graphics.FromImage(_bitmap);
             _graphics.FillRectangle(Brushes.White, _rectangle);
-            _pen = new(colorPicker.Color);
-            canvas.Image = _bitmap;
+            _pen = new(_colorPicker.Color);
+            _canvas.Image = _bitmap;
             _recorder = new(_bitmap, this);
 
             _recorder.Recorded += recorder_Recorded;
@@ -248,7 +248,7 @@ namespace VidDraw {
             if (_rectangle.Contains(e.Location)
                         && e.Button is MouseButtons.Left) {
                 _bitmap.SetPixel(e.Location.X, e.Location.Y, Color.Black);
-                canvas.Invalidate(new Rectangle(e.Location, new Size(1, 1)));
+                _canvas.Invalidate(new Rectangle(e.Location, new Size(1, 1)));
             }
         }
 
@@ -265,7 +265,7 @@ namespace VidDraw {
                 var corner = new Point(x: x1, y: y1);
                 var size = new Size(width: x2 - x1 + 1, height: y2 - y1 + 1);
 
-                canvas.Invalidate(new Rectangle(corner, size));
+                _canvas.Invalidate(new Rectangle(corner, size));
             }
 
             _oldLocation = e.Location;
@@ -292,8 +292,8 @@ namespace VidDraw {
 
         private void PickColor()
         {
-            if (colorPicker.ShowDialog(owner: this) is DialogResult.OK)
-                _pen.Color = colorPicker.Color;
+            if (_colorPicker.ShowDialog(owner: this) is DialogResult.OK)
+                _pen.Color = _colorPicker.Color;
         }
 
         // TODO: Make a custom About dialog listing dependencies and their
