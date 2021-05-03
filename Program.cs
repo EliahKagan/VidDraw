@@ -2,16 +2,11 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace VidDraw {
     internal static class Program {
-        private const string Uuid = "e3f36cbf-64b5-4cd8-b334-f24bf69a65c9";
-
         static Program()
         {
             var path = Me.TryGetPath();
@@ -26,10 +21,6 @@ namespace VidDraw {
 
         private static string MyPath { get; }
 
-        private static string MyPathHash
-            => string.Concat(SHA256.HashData(Encoding.UTF8.GetBytes(MyPath))
-                                   .Select(octet => octet.ToString("x2")));
-
         private static bool InstanceIsUnique
             => !Process.GetProcesses().Any(p => p.SessionId == Me.SessionId
                                              && p.HasKnownPath(MyPath)
@@ -38,10 +29,11 @@ namespace VidDraw {
         [STAThread]
         private static void Main()
         {
-            using var mutex = CreateMutex();
+            using var mutex = Sync.CreateMutex(MyPath);
 
             // If any VidDraw process may be in the middle of shutting down,
-            // wait for it before proceeding.
+            // wait for it before proceeding, so that if it uninstalls toasts,
+            // it does so before any of this instance's toasts are dispatched.
             mutex.Acquire();
             mutex.ReleaseMutex();
 
@@ -60,9 +52,6 @@ namespace VidDraw {
                 }
             }
         }
-
-        private static Mutex CreateMutex()
-            => new(initiallyOwned: false, $"{Uuid}-{MyPathHash}");
 
         // FIXME: Should the path after "/select," be quoted? If so, how?
         private static void ToastNotificationManagerCompat_OnActivated(
