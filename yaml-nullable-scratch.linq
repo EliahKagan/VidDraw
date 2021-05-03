@@ -27,8 +27,12 @@ internal enum Codec : uint {
     H264,
 }
 
+internal sealed record Box<T>(T Value) where T : struct {
+    public Box() : this(default(T)) { }
+}
+
 /// <summary>Partial or complete YAML-backed configuration data.</summary>
-internal record Config(Codec? Codec, Color? Color) {
+internal sealed record Config(Codec? Codec, Color? Color) {
     public Config() : this(null, null) { }
 
     internal static Config TryLoad()
@@ -42,6 +46,16 @@ internal record Config(Codec? Codec, Color? Color) {
         //using var @lock = new Lock(Mutex);
         TryRead().PatchedBy(this).TryWrite();
     }
+
+    private sealed record BoxConfig(Box<Codec>? Codec, Box<Color>? Color) {
+        public BoxConfig() : this(null, null) { }
+
+        internal Config Debox() => new(Codec?.Value, Color?.Value);
+    }
+
+    private BoxConfig Enbox()
+        => new(Codec: (Codec is Codec codec ? new Box<Codec>(codec) : null),
+               Color: (Color is Color color ? new Box<Color>(color) : null));
 
     private const string ProgramName = "VidDraw-scratch";
 
@@ -99,14 +113,15 @@ internal record Config(Codec? Codec, Color? Color) {
         => new DeserializerBuilder()
             //.IgnoreUnmatchedProperties() // Commented to reveal bug 360 (see above).
             .Build()
-            .Deserialize<Config>(TrySlurpConfig())
+            .Deserialize<BoxConfig>(TrySlurpConfig())
+            ?.Debox()
         ?? new();
 
     private void TryWrite()
     {
         if (TryCreateConfigPath() is string path) {
             File.WriteAllText(path: path,
-                              contents: new Serializer().Serialize(this),
+                              contents: new Serializer().Serialize(Enbox()),
                               encoding: Encoding.UTF8);
         }
     }

@@ -8,7 +8,7 @@ using YamlDotNet.Serialization;
 
 namespace VidDraw {
     /// <summary>Partial or complete YAML-backed configuration data.</summary>
-    internal record Config(Codec? Codec, Color? Color) {
+    internal sealed record Config(Codec? Codec, Color? Color) {
         public Config() : this(null, null) { }
 
         internal static Config TryLoad()
