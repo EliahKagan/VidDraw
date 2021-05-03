@@ -1,9 +1,9 @@
 <Query Kind="Statements">
-  <NuGetReference Version="11.1.1">YamlDotNet</NuGetReference>
+  <NuGetReference Version="1.6.6">SharpYaml</NuGetReference>
 </Query>
 
 using System.Drawing;
-using YamlDotNet.Serialization;
+using SharpYaml.Serialization;
 
 //new Config { Color = Color.Red }.TrySave();
 //Config.TryLoad().Dump();
@@ -110,9 +110,7 @@ internal sealed record Config(Codec? Codec, Color? Color) {
     // instead of constructing them every time in TryRead and TryWrite.
 
     private static Config TryRead()
-        => new DeserializerBuilder()
-            //.IgnoreUnmatchedProperties() // Commented to reveal bug 360 (see above).
-            .Build()
+        => new Serializer()
             .Deserialize<BoxConfig>(TrySlurpConfig())
             ?.Debox()
         ?? new();
