@@ -36,9 +36,11 @@ namespace VidDraw {
 
         internal bool IsRunning => _job is not null;
 
+        internal event EventHandler<RecordedEventArgs>? Recorded;
+
         internal void Start(Stream outputStream,
                             Codec codec,
-                            Action? onFinish = null)
+                            string? name = null)
         {
             if (IsRunning) {
                 throw new InvalidOperationException(
@@ -49,8 +51,8 @@ namespace VidDraw {
 
             _job = new(AviWriter: aviWriter,
                        VideoStream: CreateVideoStream(aviWriter, codec),
-                       Flip: codec is Codec.Raw,
-                       OnFinish: onFinish);
+                       Codec: codec,
+                       Name: name ?? (outputStream as FileStream)?.Name);
 
             CaptureFrame(); // Ensure we always get an initial frame.
             _timer.Enabled = true;
@@ -64,13 +66,13 @@ namespace VidDraw {
             _timer.Enabled = false;
             _job = null;
             job.AviWriter.Close();
-            job.OnFinish?.Invoke();
+            Recorded?.Invoke(this, new(job.Name, job.Codec));
         }
 
         private sealed record Job(AviWriter AviWriter,
                                   IAviVideoStream VideoStream,
-                                  bool Flip,
-                                  Action? OnFinish);
+                                  Codec Codec,
+                                  string? Name);
 
         private const int IntervalInMilliseconds = 30;
 
@@ -120,7 +122,7 @@ namespace VidDraw {
             if (_job is null) return;
 
             using (var lb = new LockedBits(_bitmap, _rectangle)) {
-                if (_job.Flip) {
+                if (_job.Codec is Codec.Raw) {
                     lb.UpsideDownCopyTo(_buffer);
                 } else {
                     lb.CopyTo(_buffer);

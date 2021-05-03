@@ -25,6 +25,8 @@ namespace VidDraw {
             _pen = new(colorPicker.Color);
             canvas.Image = _bitmap;
             _recorder = new(_bitmap, this);
+
+            _recorder.Recorded += recorder_Recorded;
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -46,7 +48,7 @@ namespace VidDraw {
                     ShowAboutBox();
                     return;
 
-                case var id when TryAsCodec(id) is Codec codec:
+                case var id when TryGetCodec(id) is Codec codec:
                     CurrentCodec = codec;
                     //SaveCodecPreference(codec);
                     return;
@@ -121,8 +123,11 @@ namespace VidDraw {
             return builder.ToImmutable();
         }
 
-        private static Codec? TryAsCodec(MyMenuItemId id)
+        private static Codec? TryGetCodec(MyMenuItemId id)
             => Codecs.FirstOrDefault(c => c.Id == id)?.Codec;
+
+        private static string GetLabel(Codec codec)
+            => Codecs.Single(c => c.Codec == codec).Label;
 
         private static string GetDisplayPath(string path)
             => path.GetDirectoryOrThrow()
@@ -130,12 +135,22 @@ namespace VidDraw {
                 ? Path.GetFileName(path)
                 : path;
 
-        private static void NotifySaved(string path)
-            => new ToastContentBuilder()
-                .AddArgument(path)
+        private static void recorder_Recorded(object? sender,
+                                              RecordedEventArgs e)
+        {
+            if (e.Name is null) {
+                throw new ArgumentException(
+                    paramName: nameof(e),
+                    message: $"Expected non-null {nameof(e.Name)} property");
+            }
+
+            new ToastContentBuilder()
+                .AddArgument(e.Name)
                 .AddText("Video capture saved")
-                .AddText(GetDisplayPath(path))
+                .AddText(GetDisplayPath(e.Name))
+                .AddAttributionText($"Encoding: {GetLabel(e.Codec)}")
                 .Show();
+        }
 
         private Codec CurrentCodec
         {
@@ -262,9 +277,8 @@ namespace VidDraw {
 
             UpdateMenuCodecs();
             BackColor = Color.Red;
-            var output = Files.CreateWithoutClash(CurrentPreferredSavePath);
-            var path = output.Name;
-            _recorder.Start(output, CurrentCodec, () => NotifySaved(path));
+            _recorder.Start(Files.CreateWithoutClash(CurrentPreferredSavePath),
+                            CurrentCodec);
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
