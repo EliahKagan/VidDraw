@@ -1,23 +1,23 @@
 <Query Kind="Statements">
-  <NuGetReference Version="11.1.1">YamlDotNet</NuGetReference>
+  <NuGetReference Version="1.6.6">SharpYaml</NuGetReference>
 </Query>
 
 using System.Drawing;
-using YamlDotNet.Serialization;
+using SharpYaml.Serialization;
 
-//new Config { Color = Color.Red }.TrySave();
+new Config { Color = Color.Red }.TrySave();
 //Config.TryLoad().Dump();
 //new Config { Codec = Codec.H264 }.TrySave();
-
+//Config.TryLoad().Dump();
 
 // After running this:
-new Config {
-    Color = Color.Red,
-    Codec = Codec.H264,
-}.TrySave();
+//new Config {
+//    Color = Color.Red,
+//    Codec = Codec.H264,
+//}.TrySave();
 
 // This fails due to https://github.com/aaubry/YamlDotNet/issues/360:
-Config.TryLoad().Dump();
+//Config.TryLoad().Dump();
 
 /// <summary>Video stream encoding selections.</summary>
 internal enum Codec : uint {
@@ -40,7 +40,7 @@ internal record Config(Codec? Codec, Color? Color) {
     internal void TrySave()
     {
         //using var @lock = new Lock(Mutex);
-        TryRead().PatchedBy(this).TryWrite();
+        TryRead().Dump("previous").PatchedBy(this).TryWrite();
     }
 
     private const string ProgramName = "VidDraw-scratch";
@@ -96,11 +96,14 @@ internal record Config(Codec? Codec, Color? Color) {
     // instead of constructing them every time in TryRead and TryWrite.
 
     private static Config TryRead()
-        => new DeserializerBuilder()
-            //.IgnoreUnmatchedProperties() // Commented to reveal bug 360 (see above).
-            .Build()
-            .Deserialize<Config>(TrySlurpConfig())
-        ?? new();
+        => new Serializer().Deserialize<Config>(TrySlurpConfig()) ?? new();
+
+    //private static Config TryRead()
+    //    => new DeserializerBuilder()
+    //        //.IgnoreUnmatchedProperties() // Commented to reveal bug 360 (see above).
+    //        .Build()
+    //        .Deserialize<Config>(TrySlurpConfig())
+    //    ?? new();
 
     private void TryWrite()
     {
