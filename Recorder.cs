@@ -15,26 +15,26 @@ namespace VidDraw {
         internal Recorder(Bitmap bitmap,
                           ISynchronizeInvoke synchronizingObject)
         {
-            this.bitmap = bitmap;
-            rectangle = new(Point.Empty, bitmap.Size);
-            buffer = new byte[rectangle.Width * rectangle.Height * 4];
+            _bitmap = bitmap;
+            _rectangle = new(Point.Empty, bitmap.Size);
+            _buffer = new byte[_rectangle.Width * _rectangle.Height * 4];
 
-            timer = new(interval: IntervalInMilliseconds) {
+            _timer = new(interval: IntervalInMilliseconds) {
                 AutoReset = true,
                 Enabled = false,
                 SynchronizingObject = synchronizingObject,
             };
 
-            timer.Elapsed += (_, _) => CaptureFrame();
+            _timer.Elapsed += (_, _) => CaptureFrame();
         }
 
         public void Dispose()
         {
             if (IsRunning) Finish();
-            timer.Dispose();
+            _timer.Dispose();
         }
 
-        internal bool IsRunning => aviWriter is not null;
+        internal bool IsRunning => _job is not null;
 
         internal void Start(Stream outputStream,
                             Codec codec,
@@ -45,70 +45,68 @@ namespace VidDraw {
                         "Can't start: already recording");
             }
 
-            aviWriter = CreateAviWriter(outputStream);
-            videoStream = CreateVideoStream(codec);
-            flip = codec is Codec.Raw;
-            this.onFinish = onFinish;
+            var aviWriter = CreateAviWriter(outputStream);
+
+            _job = new(AviWriter: aviWriter,
+                       VideoStream: CreateVideoStream(aviWriter, codec),
+                       Flip: codec is Codec.Raw,
+                       OnFinish: onFinish);
 
             CaptureFrame(); // Ensure we always get an initial frame.
-            timer.Enabled = true;
+            _timer.Enabled = true;
         }
 
         internal void Finish()
         {
-            if (!IsRunning) {
-                throw new InvalidOperationException(
-                        "Can't finish: not recording");
-            }
+            var job = _job ?? throw new InvalidOperationException(
+                                "Can't finish: not recording");
 
-            timer.Enabled = false;
-
-            videoStream = null;
-
-            Debug.Assert(aviWriter is not null);
-            aviWriter.Close();
-            aviWriter = null;
-
-            if (this.onFinish is Action onFinish) {
-                this.onFinish = null;
-                onFinish();
-            }
+            _timer.Enabled = false;
+            _job = null;
+            job.AviWriter.Close();
+            job.OnFinish?.Invoke();
         }
+
+        private sealed record Job(AviWriter AviWriter,
+                                  IAviVideoStream VideoStream,
+                                  bool Flip,
+                                  Action? OnFinish);
 
         private const int IntervalInMilliseconds = 30;
 
-        private AviWriter CreateAviWriter(Stream outputStream)
+        private static AviWriter CreateAviWriter(Stream outputStream)
             => new(outputStream, leaveOpen: false) {
                 FramesPerSecond = 1000m / IntervalInMilliseconds,
                 EmitIndex1 = true,
             };
 
         // TODO: Let the user set/adjust the quality of Motion JPEG and H.264.
-        private IAviVideoStream CreateVideoStream(Codec codec)
+        private IAviVideoStream CreateVideoStream(AviWriter aviWriter,
+                                                  Codec codec)
         {
             Debug.Assert(aviWriter is not null);
 
             return codec switch {
                 Codec.Raw
                     => aviWriter.AddVideoStream(
-                                    width: rectangle.Width,
-                                    height: rectangle.Height),
+                                    width: _rectangle.Width,
+                                    height: _rectangle.Height),
 
                 Codec.Uncompressed
                     => aviWriter.AddUncompressedVideoStream(
-                                    width: rectangle.Width,
-                                    height: rectangle.Height),
+                                    width: _rectangle.Width,
+                                    height: _rectangle.Height),
 
                 Codec.MotionJpeg
                     => aviWriter.AddMotionJpegVideoStream(
-                                    width: rectangle.Width,
-                                    height: rectangle.Height,
+                                    width: _rectangle.Width,
+                                    height: _rectangle.Height,
                                     quality: 100),
 
                 Codec.H264
                     => aviWriter.AddMpeg4VideoStream(
-                                    width: rectangle.Width,
-                                    height: rectangle.Height,
+                                    width: _rectangle.Width,
+                                    height: _rectangle.Height,
                                     fps: 1000.0 / IntervalInMilliseconds,
                                     codec: KnownFourCCs.Codecs.X264),
 
@@ -119,33 +117,27 @@ namespace VidDraw {
 
         private void CaptureFrame()
         {
-            if (videoStream is null) return;
+            if (_job is null) return;
 
-            using (var lb = new LockedBits(bitmap, rectangle)) {
-                if (flip) {
-                    lb.UpsideDownCopyTo(buffer);
+            using (var lb = new LockedBits(_bitmap, _rectangle)) {
+                if (_job.Flip) {
+                    lb.UpsideDownCopyTo(_buffer);
                 } else {
-                    lb.CopyTo(buffer);
+                    lb.CopyTo(_buffer);
                 }
             }
 
-            videoStream.WriteFrame(true, buffer, 0, buffer.Length);
+            _job.VideoStream.WriteFrame(true, _buffer, 0, _buffer.Length);
         }
 
-        private readonly Bitmap bitmap;
+        private readonly Bitmap _bitmap;
 
-        private readonly Rectangle rectangle;
+        private readonly Rectangle _rectangle;
 
-        private readonly byte[] buffer;
+        private readonly byte[] _buffer;
 
-        private readonly Timer timer;
+        private readonly Timer _timer;
 
-        private AviWriter? aviWriter = null;
-
-        private IAviVideoStream? videoStream = null;
-
-        private bool flip = false;
-
-        private Action? onFinish = null;
+        private Job? _job;
     }
 }

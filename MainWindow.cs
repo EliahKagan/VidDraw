@@ -18,13 +18,13 @@ namespace VidDraw {
         {
             InitializeComponent();
 
-            rectangle = new(Point.Empty, canvas.Size);
-            bitmap = new(width: rectangle.Width, height: rectangle.Height);
-            graphics = Graphics.FromImage(bitmap);
-            graphics.FillRectangle(Brushes.White, rectangle);
-            pen = new(colorPicker.Color);
-            canvas.Image = bitmap;
-            recorder = new(bitmap, this);
+            _rectangle = new(Point.Empty, canvas.Size);
+            _bitmap = new(width: _rectangle.Width, height: _rectangle.Height);
+            _graphics = Graphics.FromImage(_bitmap);
+            _graphics.FillRectangle(Brushes.White, _rectangle);
+            _pen = new(colorPicker.Color);
+            canvas.Image = _bitmap;
+            _recorder = new(_bitmap, this);
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -48,6 +48,7 @@ namespace VidDraw {
 
                 case var id when TryAsCodec(id) is Codec codec:
                     CurrentCodec = codec;
+                    //SaveCodecPreference(codec);
                     return;
 
                 default:
@@ -121,7 +122,7 @@ namespace VidDraw {
         }
 
         private static Codec? TryAsCodec(MyMenuItemId id)
-            => codecs.FirstOrDefault(c => c.Id == id)?.Codec;
+            => Codecs.FirstOrDefault(c => c.Id == id)?.Codec;
 
         private static string GetDisplayPath(string path)
             => path.GetDirectoryOrThrow()
@@ -138,10 +139,10 @@ namespace VidDraw {
 
         private Codec CurrentCodec
         {
-            get => codecs.Single(c => HasCheck(c.Id)).Codec;
+            get => Codecs.Single(c => HasCheck(c.Id)).Codec;
 
             set {
-                foreach (var (codec, id, _) in codecs)
+                foreach (var (codec, id, _) in Codecs)
                     SetCheck(id, codec == value);
 
                 Debug.Assert(CurrentCodec == value);
@@ -208,7 +209,7 @@ namespace VidDraw {
         private void BuildMenu()
         {
             AddMenuSeparator();
-            foreach (var (_, id, label) in codecs) AddMenuItem(id, label);
+            foreach (var (_, id, label) in Codecs) AddMenuItem(id, label);
             CurrentCodec = DefaultCodec;
             UpdateMenuCodecs();
 
@@ -229,9 +230,9 @@ namespace VidDraw {
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
-            if (rectangle.Contains(e.Location)
+            if (_rectangle.Contains(e.Location)
                         && e.Button is MouseButtons.Left) {
-                bitmap.SetPixel(e.Location.X, e.Location.Y, Color.Black);
+                _bitmap.SetPixel(e.Location.X, e.Location.Y, Color.Black);
                 canvas.Invalidate(new Rectangle(e.Location, new Size(1, 1)));
             }
         }
@@ -239,12 +240,12 @@ namespace VidDraw {
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button.HasFlag(MouseButtons.Left)) {
-                graphics.DrawLine(pen, oldLocation, e.Location);
+                _graphics.DrawLine(_pen, _oldLocation, e.Location);
 
-                var x1 = Math.Min(oldLocation.X, e.Location.X);
-                var y1 = Math.Min(oldLocation.Y, e.Location.Y);
-                var x2 = Math.Max(oldLocation.X, e.Location.X);
-                var y2 = Math.Max(oldLocation.Y, e.Location.Y);
+                var x1 = Math.Min(_oldLocation.X, e.Location.X);
+                var y1 = Math.Min(_oldLocation.Y, e.Location.Y);
+                var x2 = Math.Max(_oldLocation.X, e.Location.X);
+                var y2 = Math.Max(_oldLocation.Y, e.Location.Y);
 
                 var corner = new Point(x: x1, y: y1);
                 var size = new Size(width: x2 - x1 + 1, height: y2 - y1 + 1);
@@ -252,33 +253,33 @@ namespace VidDraw {
                 canvas.Invalidate(new Rectangle(corner, size));
             }
 
-            oldLocation = e.Location;
+            _oldLocation = e.Location;
         }
 
         private void canvas_MouseDown(object sender, MouseEventArgs e)
         {
-            if (recorder.IsRunning) return;
+            if (_recorder.IsRunning) return;
 
             UpdateMenuCodecs();
             BackColor = Color.Red;
             var output = Files.CreateWithoutClash(CurrentPreferredSavePath);
             var path = output.Name;
-            recorder.Start(output, CurrentCodec, () => NotifySaved(path));
+            _recorder.Start(output, CurrentCodec, () => NotifySaved(path));
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
         {
-            if (!(MouseButtons is MouseButtons.None && recorder.IsRunning))
+            if (!(MouseButtons is MouseButtons.None && _recorder.IsRunning))
                 return;
 
-            recorder.Finish();
+            _recorder.Finish();
             BackColor = DefaultBackColor;
         }
 
         private void PickColor()
         {
             if (colorPicker.ShowDialog(owner: this) is DialogResult.OK)
-                pen.Color = colorPicker.Color;
+                _pen.Color = colorPicker.Color;
         }
 
         // TODO: Make a custom About dialog listing dependencies and their
@@ -288,19 +289,19 @@ namespace VidDraw {
                                text: "VidDraw (alpha), by Eliah Kagan",
                                caption: "About VidDraw");
 
-        private static readonly IReadOnlyList<CodecChoice> codecs =
+        private static IReadOnlyList<CodecChoice> Codecs { get; } =
             BuildCodecChoices();
 
-        private readonly Rectangle rectangle;
+        private readonly Rectangle _rectangle;
 
-        private readonly Bitmap bitmap;
+        private readonly Bitmap _bitmap;
 
-        private readonly Graphics graphics;
+        private readonly Graphics _graphics;
 
-        private readonly Pen pen;
+        private readonly Pen _pen;
 
-        private Point oldLocation = Point.Empty;
+        private Point _oldLocation = Point.Empty;
 
-        private readonly Recorder recorder;
+        private readonly Recorder _recorder;
     }
 }

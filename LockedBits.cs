@@ -10,14 +10,14 @@ namespace VidDraw {
     internal readonly ref struct LockedBits {
         internal LockedBits(Bitmap bitmap, Rectangle rectangle)
         {
-            this.bitmap = bitmap;
+            _bitmap = bitmap;
 
-            metadata = bitmap.LockBits(rectangle,
-                                       ImageLockMode.ReadOnly,
-                                       PixelFormat.Format32bppArgb);
+            _metadata = bitmap.LockBits(rectangle,
+                                        ImageLockMode.ReadOnly,
+                                        PixelFormat.Format32bppArgb);
         }
 
-        internal void Dispose() => bitmap.UnlockBits(metadata);
+        internal void Dispose() => _bitmap.UnlockBits(_metadata);
 
         internal void CopyTo(Span<byte> buffer)
             => FullData.CopyToSameSize(buffer);
@@ -40,18 +40,19 @@ namespace VidDraw {
         }
 
         private unsafe ReadOnlySpan<byte> FullData
-            => new ReadOnlySpan<byte>(metadata.Scan0.ToPointer(), SizeInBytes);
+            => new ReadOnlySpan<byte>(_metadata.Scan0.ToPointer(),
+                                      SizeInBytes);
 
-        private int Width => metadata.Width;
+        private int Width => _metadata.Width;
 
-        private int Height => metadata.Height;
+        private int Height => _metadata.Height;
 
         private int BytesPerRow => Width * 4;
 
         private int SizeInBytes => BytesPerRow * Height;
 
-        private readonly Bitmap bitmap;
+        private readonly Bitmap _bitmap;
 
-        private readonly BitmapData metadata;
+        private readonly BitmapData _metadata;
     }
 }

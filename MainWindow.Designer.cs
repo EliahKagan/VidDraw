@@ -9,7 +9,7 @@ namespace VidDraw {
             if (disposing) {
                 components?.Dispose();
                 colorPicker.Dispose(); // TODO: Check if this really is useful.
-                recorder.Dispose();
+                _recorder.Dispose();
             }
 
             base.Dispose(disposing);

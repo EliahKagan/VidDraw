@@ -4,3 +4,6 @@ obj/
 
 # Visual Studio local files
 .vs/
+
+# Unsynced scratchwork (note: most scratchwork should be committed on a branch)
+nosync-*.linq
