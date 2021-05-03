@@ -288,7 +288,10 @@ namespace VidDraw {
             if (_recorder.IsRunning) return;
 
             UpdateMenuCodecs();
+
+            Text = $"VidDraw - Recording{Ch.Hellip}";
             BackColor = Color.Red;
+
             _recorder.Start(Files.CreateWithoutClash(CurrentPreferredSavePath),
                             CurrentCodec);
         }
@@ -299,7 +302,9 @@ namespace VidDraw {
                 return;
 
             _recorder.Finish();
+
             BackColor = DefaultBackColor;
+            Text = "VidDraw - Draw to record video";
         }
 
         private void PickColor()
