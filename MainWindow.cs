@@ -32,7 +32,13 @@ namespace VidDraw {
         protected override void OnHandleCreated(EventArgs e)
         {
             base.OnHandleCreated(e);
-            BuildMenu();
+
+            var config = Config.TryLoad();
+
+            BuildMenu(config.Codec ?? DefaultCodec);
+
+            if (config.Color is Color color)
+                _pen.Color = _colorPicker.Color = color;
         }
 
         protected override void WndProc(ref Message m)
@@ -226,11 +232,11 @@ namespace VidDraw {
                     uEnable: (enabled ? MENU_FLAGS.MF_ENABLED
                                       : MENU_FLAGS.MF_GRAYED));
 
-        private void BuildMenu()
+        private void BuildMenu(Codec initialCodec)
         {
             AddMenuSeparator();
             foreach (var (_, id, label) in Codecs) AddMenuItem(id, label);
-            CurrentCodec = DefaultCodec;
+            CurrentCodec = initialCodec;
             UpdateMenuCodecs();
 
             AddMenuSeparator();
@@ -244,16 +250,17 @@ namespace VidDraw {
             if (CanEncodeH264) {
                 SetEnabled(MyMenuItemId.H264, true);
             } else {
-                if (CurrentCodec is Codec.H264) CurrentCodec = DefaultCodec;
+                if (CurrentCodec is Codec.H264)
+                    CurrentCodec = GetH264FallbackCodec();
+
                 SetEnabled(MyMenuItemId.H264, false);
             }
         }
 
-        private void ClearCanvas()
-        {
-            _graphics.FillRectangle(Brushes.White, _rectangle);
-            _canvas.Invalidate();
-        }
+        private Codec GetH264FallbackCodec() => Config.TryLoad().Codec switch {
+            null or Codec.H264 => DefaultCodec,
+            Codec codec => codec,
+        };
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
@@ -307,10 +314,26 @@ namespace VidDraw {
             Text = "VidDraw - Draw to record video";
         }
 
+        private void SelectCodec(Codec codec)
+        {
+            CurrentCodec = codec;
+            new Config() { Codec = codec }.TrySave();
+        }
+
+        // TODO: Also save custom color presets (but only when changed).
         private void PickColor()
         {
-            if (_colorPicker.ShowDialog(owner: this) is DialogResult.OK)
-                _pen.Color = _colorPicker.Color;
+            if (_colorPicker.ShowDialog(owner: this) is DialogResult.OK) {
+                var color = _colorPicker.Color;
+                _pen.Color = color;
+                new Config { Color = color }.TrySave();
+            }
+        }
+
+        private void ClearCanvas()
+        {
+            _graphics.FillRectangle(Brushes.White, _rectangle);
+            _canvas.Invalidate();
         }
 
         // TODO: Make a custom About dialog listing dependencies and their
