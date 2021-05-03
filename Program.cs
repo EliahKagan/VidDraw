@@ -27,9 +27,8 @@ namespace VidDraw {
         private static string MyPath { get; }
 
         private static string MyPathHash
-            => string.Concat(new SHA1Managed()
-                                .ComputeHash(Encoding.UTF8.GetBytes(MyPath))
-                                .Select(octet => octet.ToString("x2")));
+            => string.Concat(SHA256.HashData(Encoding.UTF8.GetBytes(MyPath))
+                                   .Select(octet => octet.ToString("x2")));
 
         private static bool InstanceIsUnique
             => !Process.GetProcesses().Any(p => p.SessionId == Me.SessionId
@@ -40,6 +39,9 @@ namespace VidDraw {
         private static void Main()
         {
             using var mutex = CreateMutex();
+
+            // If any VidDraw process may be in the middle of shutting down,
+            // wait for it before proceeding.
             mutex.Acquire();
             mutex.ReleaseMutex();
 
@@ -62,6 +64,7 @@ namespace VidDraw {
         private static Mutex CreateMutex()
             => new(initiallyOwned: false, $"{Uuid}-{MyPathHash}");
 
+        // FIXME: Should the path after "/select," be quoted? If so, how?
         private static void ToastNotificationManagerCompat_OnActivated(
                 ToastNotificationActivatedEventArgsCompat e)
             => Process.Start(fileName: Path.Combine(WinDir, "explorer.exe"),
