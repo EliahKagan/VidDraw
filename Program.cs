@@ -34,8 +34,7 @@ namespace VidDraw {
             // If any VidDraw process may be in the middle of shutting down,
             // wait for it before proceeding, so that if it uninstalls toasts,
             // it does so before any of this instance's toasts are dispatched.
-            mutex.Acquire();
-            mutex.ReleaseMutex();
+            using (var @lock = new Lock(mutex)) { }
 
             ToastNotificationManagerCompat.OnActivated +=
                 ToastNotificationManagerCompat_OnActivated;
@@ -43,13 +42,10 @@ namespace VidDraw {
             try {
                 Run();
             } finally {
-                mutex.Acquire();
-                try {
-                    if (InstanceIsUnique)
-                        ToastNotificationManagerCompat.Uninstall();
-                } finally {
-                    mutex.ReleaseMutex();
-                }
+                using var @lock = new Lock(mutex);
+
+                if (InstanceIsUnique)
+                    ToastNotificationManagerCompat.Uninstall();
             }
         }
 

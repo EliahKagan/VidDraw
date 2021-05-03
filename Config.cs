@@ -6,17 +6,18 @@ using System.Threading;
 
 namespace VidDraw {
     internal record Config(Codec? Codec, Color? Color) {
-        public Config() : this(null, null, null) { }
+        public Config() : this(null, null) { }
 
         internal static Config TryLoad()
         {
-
+            using var @lock = new Lock(Mutex);
+            return TryRead();
         }
 
         internal void TrySave()
         {
-            var toSave = TryLoad().PatchedBy(this);
-
+            using var @lock = new Lock(Mutex);
+            TryRead().PatchedBy(this).TryWrite();
         }
 
         private const string ProgramName = "VidDraw";
@@ -56,5 +57,15 @@ namespace VidDraw {
         private Config PatchedBy(Config delta)
             => new(delta.Codec ?? Codec,
                    delta.Color ?? Color);
+
+        private static Config TryRead()
+        {
+
+        }
+
+        private void TryWrite()
+        {
+
+        }
     }
 }

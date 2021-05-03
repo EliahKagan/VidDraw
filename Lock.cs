@@ -1,8 +1,12 @@
 using System.Threading;
 
 namespace VidDraw {
-    /// <summary>Extensions for mutexes.</summary>
-    internal static class MutexExtensions {
+    /// <summary>RAII-style lock guard for (interprocess) mutexes.</summary>
+    /// <remarks>
+    /// Acquiring the mutex due to another thread/process abandoning it is not
+    /// conisdered an error.
+    /// </remarks>
+    internal readonly ref struct Lock {
         /// <summary>Acquires the mutex, waiting if necessary.</summary>
         /// <remarks>
         /// Like <see cref="WaitHandle.WaitOne()"/> but also returns (rather
@@ -11,13 +15,19 @@ namespace VidDraw {
         /// held it.
         /// </remarks>
         /// <param name="mutex">The mutex to acquire.</param>
-        internal static void Acquire(this Mutex mutex)
+        internal Lock(Mutex mutex)
         {
             try {
                 mutex.WaitOne();
             } catch (AbandonedMutexException) {
                 // Also consider this success (as the thread holds the mutex).
             }
+
+            _mutex = mutex;
         }
+
+        internal void Dispose() => _mutex.ReleaseMutex();
+
+        private readonly Mutex _mutex;
     }
 }
