@@ -134,15 +134,19 @@ namespace VidDraw {
         }
 
         private static Codec? TryGetCodec(MyMenuItemId id)
-            => Codecs.FirstOrDefault(c => c.Id == id)?.Codec;
+            => CodecChoices.FirstOrDefault(choice => choice.Id == id)?.Codec;
 
         private static string GetLabel(Codec codec)
-            => Codecs.Single(c => c.Codec == codec).Label;
+            => CodecChoices.Single(choice => choice.Codec == codec).Label;
 
-        private static Codec? Sanitize(Codec? codec) => codec switch {
-            Codec co when Codecs.Any(c => c.Codec == co) => co,
-            _ => null,
-        };
+        private static bool IsKnownCodec(Codec codec)
+            => CodecChoices.Any(choice => choice.Codec == codec);
+
+        private static Codec? Sanitize(Codec? untrustedCodec)
+            => untrustedCodec switch {
+                Codec codec when IsKnownCodec(codec) => codec,
+                _ => null,
+            };
 
         private static string GetDisplayPath(string path)
             => path.GetDirectoryOrThrow()
@@ -169,11 +173,11 @@ namespace VidDraw {
 
         private Codec CurrentCodec
         {
-            get => Codecs.Single(c => HasCheck(c.Id)).Codec;
+            get => CodecChoices.Single(choice => HasCheck(choice.Id)).Codec;
 
             set {
-                foreach (var (codec, id, _) in Codecs)
-                    SetCheck(id, codec == value);
+                foreach (var choice in CodecChoices)
+                    SetCheck(choice.Id, choice.Codec == value);
 
                 Debug.Assert(CurrentCodec == value);
             }
@@ -239,14 +243,21 @@ namespace VidDraw {
         private void BuildMenu(Codec initialCodec)
         {
             AddMenuSeparator();
-            foreach (var (_, id, label) in Codecs) AddMenuItem(id, label);
-            CurrentCodec = initialCodec;
-            UpdateMenuCodecs();
+            AddMenuCodecItems(initialCodec);
 
             AddMenuSeparator();
             AddMenuItem(MyMenuItemId.ClearCanvas, "Clear Canvas");
             AddMenuItem(MyMenuItemId.PickColor, $"Pick Color{Ch.Hellip}");
             AddMenuItem(MyMenuItemId.About, $"About VidDraw{Ch.Hellip}");
+        }
+
+        private void AddMenuCodecItems(Codec initialCodec)
+        {
+            foreach (var choice in CodecChoices)
+                AddMenuItem(choice.Id, choice.Label);
+
+            CurrentCodec = initialCodec;
+            UpdateMenuCodecs();
         }
 
         private void UpdateMenuCodecs()
@@ -264,7 +275,7 @@ namespace VidDraw {
         private Codec GetH264FallbackCodec()
             => Sanitize(Config.TryLoad().Codec) switch {
                 null or Codec.H264 => DefaultCodec,
-                Codec co => co,
+                Codec codec => codec,
             };
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
@@ -348,7 +359,7 @@ namespace VidDraw {
                                text: "VidDraw (alpha), by Eliah Kagan",
                                caption: "About VidDraw");
 
-        private static IReadOnlyList<CodecChoice> Codecs { get; } =
+        private static IReadOnlyList<CodecChoice> CodecChoices { get; } =
             BuildCodecChoices();
 
         private readonly Rectangle _rectangle;
