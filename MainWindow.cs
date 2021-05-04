@@ -35,7 +35,7 @@ namespace VidDraw {
 
             var config = Config.TryLoad();
 
-            BuildMenu(config.Codec ?? DefaultCodec);
+            BuildMenu(Sanitize(config.Codec) ?? DefaultCodec);
 
             if (config.Color is Color color)
                 _pen.Color = _colorPicker.Color = color;
@@ -59,8 +59,7 @@ namespace VidDraw {
                     return;
 
                 case var id when TryGetCodec(id) is Codec codec:
-                    CurrentCodec = codec;
-                    //SaveCodecPreference(codec);
+                    SelectCodec(codec);
                     return;
 
                 default:
@@ -139,6 +138,11 @@ namespace VidDraw {
 
         private static string GetLabel(Codec codec)
             => Codecs.Single(c => c.Codec == codec).Label;
+
+        private static Codec? Sanitize(Codec? codec) => codec switch {
+            Codec co when Codecs.Any(c => c.Codec == co) => co,
+            _ => null,
+        };
 
         private static string GetDisplayPath(string path)
             => path.GetDirectoryOrThrow()
@@ -257,10 +261,11 @@ namespace VidDraw {
             }
         }
 
-        private Codec GetH264FallbackCodec() => Config.TryLoad().Codec switch {
-            null or Codec.H264 => DefaultCodec,
-            Codec codec => codec,
-        };
+        private Codec GetH264FallbackCodec()
+            => Sanitize(Config.TryLoad().Codec) switch {
+                null or Codec.H264 => DefaultCodec,
+                Codec co => co,
+            };
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
