@@ -5,10 +5,15 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace VidDraw {
     /// <summary>Partial or complete JSON-backed configuration data.</summary>
-    internal sealed record Config(Codec? Codec, Color? Color) {
+    internal sealed record Config(
+            [property: JsonConverter(typeof(StringEnumConverter))]
+            Codec? Codec,
+
+            Color? Color) {
         internal static Config TryLoad()
         {
             using var @lock = new Lock(Mutex);
