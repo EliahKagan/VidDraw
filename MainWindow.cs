@@ -282,7 +282,7 @@ namespace VidDraw {
         {
             if (_rectangle.Contains(e.Location)
                         && e.Button is MouseButtons.Left) {
-                _bitmap.SetPixel(e.Location.X, e.Location.Y, Color.Black);
+                _bitmap.SetPixel(e.Location.X, e.Location.Y, _pen.Color);
                 _canvas.Invalidate(new Rectangle(e.Location, new Size(1, 1)));
             }
         }
