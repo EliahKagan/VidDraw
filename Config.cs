@@ -7,7 +7,7 @@ using System.Threading;
 using Newtonsoft.Json;
 
 namespace VidDraw {
-    /// <summary>Partial or complete YAML-backed configuration data.</summary>
+    /// <summary>Partial or complete JSON-backed configuration data.</summary>
     internal sealed record Config(Codec? Codec, Color? Color) {
         internal static Config TryLoad()
         {
