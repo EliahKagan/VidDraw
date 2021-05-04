@@ -50,6 +50,15 @@ namespace VidDraw {
         }
 
         // FIXME: Should the path after "/select," be quoted? If so, how?
+        // People often put a single pair of double quotes around it, but I
+        // think that's not robust, and I'm unsure if it's even better than
+        // nothing. Paths (though, admittedly, not usually a path to a per-user
+        // Videos directory) can themselves contain quotes. If I'm going to
+        // quote, I think I should use a library function that does it
+        // robustly. Or it may be better to use SHOpenFolderAndSelectItems.
+        // See:
+        //  - https://stackoverflow.com/q/13680415
+        //  - https://docs.microsoft.com/en-us/windows/win32/api/shlobj_core/nf-shlobj_core-shopenfolderandselectitems
         private static void ToastNotificationManagerCompat_OnActivated(
                 ToastNotificationActivatedEventArgsCompat e)
             => Process.Start(fileName: Path.Combine(WinDir, "explorer.exe"),
