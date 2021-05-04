@@ -3,19 +3,19 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
-using System.Text.Json;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace VidDraw {
     /// <summary>Partial or complete YAML-backed configuration data.</summary>
     internal sealed record Config(Codec? Codec, Color? Color) {
-        public Config() : this(null, null) { }
-
         internal static Config TryLoad()
         {
             using var @lock = new Lock(Mutex);
             return TryRead();
         }
+
+        internal Config() : this(null, null) { }
 
         internal void TrySave()
         {
@@ -26,14 +26,6 @@ namespace VidDraw {
         private const string ProgramName = "VidDraw";
 
         private const string ConfigFilename = ProgramName + ".json";
-
-        private static JsonSerializerOptions ReadOptions { get; } = new() {
-            AllowTrailingCommas = true,
-        };
-
-        private static JsonSerializerOptions WriteOptions { get; } = new() {
-            WriteIndented = true,
-        };
 
         private static string AppDataDir
             => Environment.GetFolderPath(
@@ -76,27 +68,27 @@ namespace VidDraw {
         private static bool IsNonFatal(SystemException ex)
             => ex is IOException or UnauthorizedAccessException;
 
-        private Config PatchedBy(Config delta)
-            => new(delta.Codec ?? Codec,
-                   delta.Color ?? Color);
-
         private static Config TryRead()
         {
             var json = TrySlurpConfig();
 
             try {
-                return JsonSerializer.Deserialize<Config>(json, ReadOptions);
+                return JsonConvert.DeserializeObject<Config>(json) ?? new();
             } catch (JsonException ex) {
                 Debug.Print($"Bad JSON: {ex.Message}");
                 return new();
             }
         }
 
+        private Config PatchedBy(Config delta)
+            => new(delta.Codec ?? Codec,
+                   delta.Color ?? Color);
+
         private void TryWrite()
         {
             if (TryCreateConfigPath() is not string path) return;
 
-            var json = JsonSerializer.Serialize(this, WriteOptions);
+            var json = JsonConvert.SerializeObject(this, Formatting.Indented);
 
             File.WriteAllText(path: path,
                               contents: json,
