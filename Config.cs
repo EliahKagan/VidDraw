@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
-using YamlDotNet.Serialization;
 
 namespace VidDraw {
     /// <summary>Partial or complete YAML-backed configuration data.</summary>
@@ -25,7 +25,15 @@ namespace VidDraw {
 
         private const string ProgramName = "VidDraw";
 
-        private const string ConfigFilename = ProgramName + ".yml";
+        private const string ConfigFilename = ProgramName + ".json";
+
+        private static JsonSerializerOptions ReadOptions { get; } = new() {
+            AllowTrailingCommas = true,
+        };
+
+        private static JsonSerializerOptions WriteOptions { get; } = new() {
+            WriteIndented = true,
+        };
 
         private static string AppDataDir
             => Environment.GetFolderPath(
@@ -72,23 +80,27 @@ namespace VidDraw {
             => new(delta.Codec ?? Codec,
                    delta.Color ?? Color);
 
-        // FIXME: Cache Serializer and Deserializer instances thread-locally
-        // instead of constructing them every time in TryRead and TryWrite.
-
         private static Config TryRead()
-            => new DeserializerBuilder()
-                .IgnoreUnmatchedProperties()
-                .Build()
-                .Deserialize<Config>(TrySlurpConfig())
-            ?? new();
+        {
+            var json = TrySlurpConfig();
+
+            try {
+                return JsonSerializer.Deserialize<Config>(json, ReadOptions);
+            } catch (JsonException ex) {
+                Debug.Print($"Bad JSON: {ex.Message}");
+                return new();
+            }
+        }
 
         private void TryWrite()
         {
-            if (TryCreateConfigPath() is string path) {
-                File.WriteAllText(path: path,
-                                  contents: new Serializer().Serialize(this),
-                                  encoding: Encoding.UTF8);
-            }
+            if (TryCreateConfigPath() is not string path) return;
+
+            var json = JsonSerializer.Serialize(this, WriteOptions);
+
+            File.WriteAllText(path: path,
+                              contents: json,
+                              encoding: Encoding.UTF8);
         }
     }
 }
