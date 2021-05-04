@@ -68,7 +68,7 @@ namespace VidDraw {
                 break;
 
             case Native.WM.INITMENU:
-                UpdateMenuCodecs();
+                UpdateMenu();
                 return;
 
             default:
@@ -260,6 +260,12 @@ namespace VidDraw {
             UpdateMenuCodecs();
         }
 
+        private void UpdateMenu()
+        {
+            UpdateMenuCodecs();
+            SetEnabled(MyMenuItemId.ClearCanvas, _drawn);
+        }
+
         private void UpdateMenuCodecs()
         {
             if (CanEncodeH264) {
@@ -284,6 +290,7 @@ namespace VidDraw {
                         && e.Button is MouseButtons.Left) {
                 _bitmap.SetPixel(e.Location.X, e.Location.Y, _pen.Color);
                 _canvas.Invalidate(new Rectangle(e.Location, new Size(1, 1)));
+                _drawn = true;
             }
         }
 
@@ -301,6 +308,7 @@ namespace VidDraw {
                 var size = new Size(width: x2 - x1 + 1, height: y2 - y1 + 1);
 
                 _canvas.Invalidate(new Rectangle(corner, size));
+                _drawn = true;
             }
 
             _oldLocation = e.Location;
@@ -350,6 +358,7 @@ namespace VidDraw {
         {
             _graphics.FillRectangle(Brushes.White, _rectangle);
             _canvas.Invalidate();
+            _drawn = false;
         }
 
         // TODO: Make a custom About dialog listing dependencies and their
@@ -371,6 +380,8 @@ namespace VidDraw {
         private readonly Pen _pen;
 
         private Point _oldLocation = Point.Empty;
+
+        private bool _drawn = false;
 
         private readonly Recorder _recorder;
     }
