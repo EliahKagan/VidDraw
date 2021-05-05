@@ -14,9 +14,6 @@ namespace VidDraw {
             MyPath = path;
         }
 
-        private static string WinDir
-            => Environment.GetFolderPath(Environment.SpecialFolder.Windows);
-
         private static Process Me { get; } = Process.GetCurrentProcess();
 
         private static string MyPath { get; }
@@ -61,8 +58,9 @@ namespace VidDraw {
         //  - https://docs.microsoft.com/en-us/windows/win32/api/shlobj_core/nf-shlobj_core-shopenfolderandselectitems
         private static void ToastNotificationManagerCompat_OnActivated(
                 ToastNotificationActivatedEventArgsCompat e)
-            => Process.Start(fileName: Path.Combine(WinDir, "explorer.exe"),
-                             arguments: $"/select,{e.Argument}");
+            => Process.Start(
+                fileName: Path.Combine(Dirs.Windows, "explorer.exe"),
+                arguments: $"/select,{e.Argument}");
 
         private static void Run()
         {

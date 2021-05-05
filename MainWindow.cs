@@ -60,6 +60,10 @@ namespace VidDraw {
                     OpenVideosFolder();
                     return;
 
+                case MyMenuItemId.DownloadOrConfigureX264vfw:
+                    DownloadOrConfigureX264();
+                    return;
+
                 case MyMenuItemId.About:
                     ShowAboutBox();
                     return;
@@ -95,7 +99,7 @@ namespace VidDraw {
             ClearCanvas,
             PickColor,
             OpenVideosFolder,
-            DownloadOrConfigureX264Vfw,
+            DownloadOrConfigureX264vfw,
 
             About,
         }
@@ -105,6 +109,9 @@ namespace VidDraw {
                                           string Label);
 
         private const Codec DefaultCodec = Codec.MotionJpeg;
+
+        private const string X264DownloadUrl =
+            "https://sourceforge.net/projects/x264vfw/files/latest/download";
 
         private static string MyVideos
             => Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
@@ -162,6 +169,27 @@ namespace VidDraw {
                    .Equals(MyVideos, StringComparison.Ordinal)
                 ? Path.GetFileName(path)
                 : path;
+
+        private static void DownloadOrConfigureX264vfwError()
+            => throw new InvalidOperationException(
+                "Bug: Don't know whether to download or configure x264vfw.");
+
+        private static void DownloadX264vfw()
+            => Shell.Execute(X264DownloadUrl);
+
+        private static void ConfigureX264vfw()
+        {
+            var dir = Dirs.System;
+            var dll = $"x264vfw{(Environment.Is64BitProcess ? "64" : "")}.dll";
+
+            // FIXME: Should I handle errors from this?
+            Process.Start(new ProcessStartInfo {
+                FileName = Path.Combine(dir, "rundll32.exe"),
+                Arguments = $"{dll},Configure",
+                UseShellExecute = false,
+                WorkingDirectory = dir,
+            });
+        }
 
         private static void recorder_Recorded(object? sender,
                                               RecordedEventArgs e)
@@ -258,6 +286,7 @@ namespace VidDraw {
             AddMenuItem(MyMenuItemId.ClearCanvas, "Clear Canvas");
             AddMenuItem(MyMenuItemId.PickColor, $"Pick Color{Ch.Hellip}");
             AddMenuItem(MyMenuItemId.OpenVideosFolder, "Open Videos Folder");
+            AddMenuItem(MyMenuItemId.DownloadOrConfigureX264vfw, "(error)");
 
             AddMenuSeparator();
             AddMenuItem(MyMenuItemId.About, $"About VidDraw{Ch.Hellip}");
@@ -282,11 +311,15 @@ namespace VidDraw {
         {
             if (CanEncodeH264) {
                 SetEnabled(MyMenuItemId.H264, true);
+                // FIXME: rename the menu item "Download x264vfw"
+                _downloadOrConfigureX264vfw = ConfigureX264vfw;
             } else {
                 if (CurrentCodec is Codec.H264)
                     CurrentCodec = GetH264FallbackCodec();
 
                 SetEnabled(MyMenuItemId.H264, false);
+                // FIXME: rename the menu item "Configure x264vfw ({ARCH})"
+                _downloadOrConfigureX264vfw = DownloadX264vfw;
             }
         }
 
@@ -391,10 +424,13 @@ namespace VidDraw {
                         $"MyVideos path not a directory: {path}");
             }
 
-            Process.Start(new ProcessStartInfo {
-                FileName = path,
-                UseShellExecute = true,
-            });
+            Shell.Execute(path);
+        }
+
+        private void DownloadOrConfigureX264()
+        {
+            _downloadOrConfigureX264vfw();
+            _downloadOrConfigureX264vfw = DownloadOrConfigureX264vfwError;
         }
 
         // TODO: Make a custom About dialog listing dependencies and their
@@ -420,5 +456,8 @@ namespace VidDraw {
         private bool _drawn = false;
 
         private readonly Recorder _recorder;
+
+        private Action _downloadOrConfigureX264vfw =
+            DownloadOrConfigureX264vfwError;
     }
 }

@@ -34,12 +34,8 @@ namespace VidDraw {
 
         private const string ConfigFilename = ProgramName + ".json";
 
-        private static string AppDataDir
-            => Environment.GetFolderPath(
-                Environment.SpecialFolder.ApplicationData);
-
         private static string ConfigDir
-            => Path.Combine(AppDataDir, ProgramName);
+            => Path.Combine(Dirs.AppData, ProgramName);
 
         private static Mutex Mutex { get; } =
             Sync.CreateMutex($"APPDATA::{ConfigFilename}");
