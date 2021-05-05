@@ -361,7 +361,9 @@ namespace VidDraw {
         }
 
         private void TryApplyCustomColors(int[]? colors)
-            => colors?.CopyToFit(_colorPicker.CustomColors);
+        {
+            if (colors is not null) _colorPicker.CustomColors = colors;
+        }
 
         private void ClearCanvas()
         {
