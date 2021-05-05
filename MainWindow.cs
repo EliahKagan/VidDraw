@@ -56,6 +56,10 @@ namespace VidDraw {
                     PickColor();
                     return;
 
+                case MyMenuItemId.OpenVideosFolder:
+                    OpenVideosFolder();
+                    return;
+
                 case MyMenuItemId.About:
                     ShowAboutBox();
                     return;
@@ -90,6 +94,9 @@ namespace VidDraw {
 
             ClearCanvas,
             PickColor,
+            OpenVideosFolder,
+            DownloadOrConfigureX264Vfw,
+
             About,
         }
 
@@ -250,6 +257,9 @@ namespace VidDraw {
             AddMenuSeparator();
             AddMenuItem(MyMenuItemId.ClearCanvas, "Clear Canvas");
             AddMenuItem(MyMenuItemId.PickColor, $"Pick Color{Ch.Hellip}");
+            AddMenuItem(MyMenuItemId.OpenVideosFolder, "Open Videos Folder");
+
+            AddMenuSeparator();
             AddMenuItem(MyMenuItemId.About, $"About VidDraw{Ch.Hellip}");
         }
 
@@ -370,6 +380,21 @@ namespace VidDraw {
             _graphics.FillRectangle(Brushes.White, _rectangle);
             _canvas.Invalidate();
             _drawn = false;
+        }
+
+        private void OpenVideosFolder()
+        {
+            var path = MyVideos;
+
+            if (!Directory.Exists(path)) {
+                throw new InvalidOperationException(
+                        $"MyVideos path not a directory: {path}");
+            }
+
+            Process.Start(new ProcessStartInfo {
+                FileName = path,
+                UseShellExecute = true,
+            });
         }
 
         // TODO: Make a custom About dialog listing dependencies and their
