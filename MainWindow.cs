@@ -39,6 +39,8 @@ namespace VidDraw {
 
             if (config.Color is Color color)
                 _pen.Color = _colorPicker.Color = color;
+
+            TryApplyCustomColors(config.CustomColors);
         }
 
         protected override void WndProc(ref Message m)
@@ -344,15 +346,22 @@ namespace VidDraw {
             new Config() { Codec = codec }.TrySave();
         }
 
-        // TODO: Also save custom color presets (but only when changed).
         private void PickColor()
         {
+            TryApplyCustomColors(Config.TryLoad().CustomColors);
+
             if (_colorPicker.ShowDialog(owner: this) is DialogResult.OK) {
-                var color = _colorPicker.Color;
-                _pen.Color = color;
-                new Config { Color = color }.TrySave();
+                _pen.Color = _colorPicker.Color;
+
+                new Config {
+                    Color = _colorPicker.Color,
+                    CustomColors = _colorPicker.CustomColors,
+                }.TrySave();
             }
         }
+
+        private void TryApplyCustomColors(int[]? colors)
+            => colors?.CopyToFit(_colorPicker.CustomColors);
 
         private void ClearCanvas()
         {

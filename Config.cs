@@ -13,14 +13,16 @@ namespace VidDraw {
             [property: JsonConverter(typeof(StringEnumConverter))]
             Codec? Codec,
 
-            Color? Color) {
+            Color? Color,
+
+            int[]? CustomColors) {
         internal static Config TryLoad()
         {
             using var @lock = new Lock(Mutex);
             return TryRead();
         }
 
-        internal Config() : this(null, null) { }
+        internal Config() : this(null, null, null) { }
 
         internal void TrySave()
         {
@@ -87,7 +89,8 @@ namespace VidDraw {
 
         private Config PatchedBy(Config delta)
             => new(delta.Codec ?? Codec,
-                   delta.Color ?? Color);
+                   delta.Color ?? Color,
+                   delta.CustomColors ?? CustomColors);
 
         private void TryWrite()
         {
