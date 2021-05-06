@@ -50,7 +50,7 @@ namespace VidDraw {
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainWindow";
-            this.Text = "VidDraw - Draw to record video";
+            this.Text = "VidDraw (error)";
             ((System.ComponentModel.ISupportInitialize)(this._canvas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

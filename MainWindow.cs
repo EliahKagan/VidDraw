@@ -25,6 +25,7 @@ namespace VidDraw {
             _pen = new(_colorPicker.Color);
             _recorder = new(_bitmap, this);
 
+            SetInitialTitle();
             _recorder.Recorded += recorder_Recorded;
             ClearCanvas();
         }
@@ -204,6 +205,14 @@ namespace VidDraw {
                 .Show();
         }
 
+        private void SetTitle(string message)
+            => Text = $"VidDraw ({Program.XStyleArch}) - {message}";
+
+        private void SetInitialTitle() => SetTitle("Draw to record video");
+
+        private HMENU MenuHandle
+            => PInvoke.GetSystemMenu(hWnd: new(Handle), bRevert: false);
+
         private Codec CurrentCodec
         {
             get => CodecChoices.Single(choice => HasCheck(choice.Id)).Codec;
@@ -215,9 +224,6 @@ namespace VidDraw {
                 Debug.Assert(CurrentCodec == value);
             }
         }
-
-        private HMENU MenuHandle
-            => PInvoke.GetSystemMenu(hWnd: new(Handle), bRevert: false);
 
         private void AddMenuSeparator()
             => PInvoke.AppendMenu(hMenu: MenuHandle,
@@ -324,9 +330,8 @@ namespace VidDraw {
         {
             if (CanEncodeH264) {
                 SetEnabled(MyMenuItemId.H264, true);
-                var arch = (Environment.Is64BitProcess ? "x64" : "x86");
                 SetText(MyMenuItemId.DownloadOrConfigureX264vfw,
-                        $"Configure x264vfw ({arch})");
+                        $"Configure x264vfw ({Program.XStyleArch})");
                 _downloadOrConfigureX264vfw = ConfigureX264vfw;
             } else {
                 if (CurrentCodec is Codec.H264)
@@ -381,7 +386,7 @@ namespace VidDraw {
 
             UpdateMenuCodecs();
 
-            Text = $"VidDraw - Recording{Ch.Hellip}";
+            SetTitle($"Recording{Ch.Hellip}");
             BackColor = Color.Red;
 
             _recorder.Start(Files.CreateWithoutClash(CurrentPreferredSavePath),
@@ -396,7 +401,7 @@ namespace VidDraw {
             _recorder.Finish();
 
             BackColor = DefaultBackColor;
-            Text = "VidDraw - Draw to record video";
+            SetInitialTitle();
         }
 
         private void SelectCodec(Codec codec)

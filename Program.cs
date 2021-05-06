@@ -7,6 +7,9 @@ using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace VidDraw {
     internal static class Program {
+        internal static string XStyleArch
+            => Environment.Is64BitProcess ? "x64" : "x86";
+
         [STAThread]
         private static void Main()
         {
@@ -14,7 +17,7 @@ namespace VidDraw {
 
             Mutex checker;
             using (var @lock = new Hold(locker))
-                checker = Sync.CreateMutex("checker");
+                checker = Sync.CreateMutex($"checker-{XStyleArch}");
 
             ToastNotificationManagerCompat.OnActivated +=
                 ToastNotificationManagerCompat_OnActivated;
