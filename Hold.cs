@@ -6,7 +6,7 @@ namespace VidDraw {
     /// Acquiring the mutex due to another thread/process abandoning it is not
     /// conisdered an error.
     /// </remarks>
-    internal readonly ref struct Lock {
+    internal readonly ref struct Hold {
         /// <summary>Acquires the mutex, waiting if necessary.</summary>
         /// <remarks>
         /// Like <see cref="WaitHandle.WaitOne()"/> but also returns (rather
@@ -15,7 +15,7 @@ namespace VidDraw {
         /// held it.
         /// </remarks>
         /// <param name="mutex">The mutex to acquire.</param>
-        internal Lock(Mutex mutex)
+        internal Hold(Mutex mutex)
         {
             try {
                 mutex.WaitOne();

@@ -18,7 +18,7 @@ namespace VidDraw {
             int[]? CustomColors) {
         internal static Config TryLoad()
         {
-            using var @lock = new Lock(Mutex);
+            using var @lock = new Hold(Mutex);
             return TryRead();
         }
 
@@ -26,7 +26,7 @@ namespace VidDraw {
 
         internal void TrySave()
         {
-            using var @lock = new Lock(Mutex);
+            using var @lock = new Hold(Mutex);
             TryRead().PatchedBy(this).TryWrite();
         }
 
