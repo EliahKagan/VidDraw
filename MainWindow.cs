@@ -83,7 +83,7 @@ namespace VidDraw {
                 return;
 
             default:
-                break; // Other message types must alwayas be passed upward.
+                break; // Other message types must always be passed upward.
             }
 
             base.WndProc(ref m);
