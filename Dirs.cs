@@ -1,4 +1,4 @@
-﻿using static System.Environment;
+using static System.Environment;
 
 namespace VidDraw {
     /// <summary>Some systemwide and per-user directories.</summary>
