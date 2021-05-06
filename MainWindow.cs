@@ -24,6 +24,7 @@ namespace VidDraw {
             _canvas.Image = _bitmap;
             _pen = new(_colorPicker.Color);
             _recorder = new(_bitmap, this);
+            _menuActions = BuildMenuActions();
 
             SetInitialTitle();
             _recorder.Recorded += recorder_Recorded;
@@ -48,35 +49,12 @@ namespace VidDraw {
         {
             switch ((Native.WM)m.Msg) {
             case Native.WM.SYSCOMMAND:
-                switch ((MyMenuItemId)m.WParam) {
-                case MyMenuItemId.ClearCanvas:
-                    ClearCanvas();
+                if (_menuActions.TryGetValue((MyMenuItemId)m.WParam,
+                                             out var action)) {
+                    action();
                     return;
-
-                case MyMenuItemId.PickColor:
-                    PickColor();
-                    return;
-
-                case MyMenuItemId.OpenVideosFolder:
-                    OpenVideosFolder();
-                    return;
-
-                case MyMenuItemId.DownloadOrConfigureX264vfw:
-                    _downloadOrConfigureX264vfw();
-                    return;
-
-                case MyMenuItemId.About:
-                    ShowAboutBox();
-                    return;
-
-                case var id when TryGetCodec(id) is Codec codec:
-                    SelectCodec(codec);
-                    return;
-
-                default:
-                    break; // We'll pass other IDs (e.g., for "Close") upward.
                 }
-                break;
+                break; // We'll pass other IDs (e.g., for "Close") upward.
 
             case Native.WM.INITMENU:
                 UpdateMenu();
@@ -124,7 +102,7 @@ namespace VidDraw {
 
         private static bool CanEncodeH264
             => Mpeg4VideoEncoderVcm.GetAvailableCodecs()
-                .Select(c => c.Codec)
+                .Select(info => info.Codec)
                 .Contains(KnownFourCCs.Codecs.X264);
 
         private static IReadOnlyList<CodecChoice> BuildCodecChoices()
@@ -149,9 +127,6 @@ namespace VidDraw {
 
             return builder.ToImmutable();
         }
-
-        private static Codec? TryGetCodec(MyMenuItemId id)
-            => CodecChoices.FirstOrDefault(choice => choice.Id == id)?.Codec;
 
         private static string GetLabel(Codec codec)
             => CodecChoices.Single(choice => choice.Codec == codec).Label;
@@ -203,6 +178,24 @@ namespace VidDraw {
                 .AddText(GetDisplayPath(e.Name))
                 .AddAttributionText($"Encoding: {GetLabel(e.Codec)}")
                 .Show();
+        }
+
+        private IReadOnlyDictionary<MyMenuItemId, Action> BuildMenuActions()
+        {
+            var builder =
+                ImmutableDictionary.CreateBuilder<MyMenuItemId, Action>();
+
+            builder.Add(MyMenuItemId.ClearCanvas, ClearCanvas);
+            builder.Add(MyMenuItemId.PickColor, PickColor);
+            builder.Add(MyMenuItemId.OpenVideosFolder, OpenVideosFolder);
+            builder.Add(MyMenuItemId.DownloadOrConfigureX264vfw,
+                        () => _downloadOrConfigureX264vfw());
+            builder.Add(MyMenuItemId.About, ShowAboutBox);
+
+            foreach (var choice in CodecChoices)
+                builder.Add(choice.Id, () => SelectCodec(choice.Codec));
+
+            return builder.ToImmutable();
         }
 
         private void SetTitle(string message)
@@ -475,5 +468,8 @@ namespace VidDraw {
         private Action _downloadOrConfigureX264vfw =
             () => throw new InvalidOperationException(
                 "Bug: Don't know whether to download or configure x264vfw.");
+
+        private readonly IReadOnlyDictionary<MyMenuItemId, Action>
+        _menuActions;
     }
 }
