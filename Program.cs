@@ -10,6 +10,8 @@ namespace VidDraw {
         internal static string XStyleArch
             => Environment.Is64BitProcess ? "x64" : "x86";
 
+        private static string CheckerName => $"checker-{XStyleArch}";
+
         [STAThread]
         private static void Main()
         {
@@ -17,7 +19,7 @@ namespace VidDraw {
 
             Mutex checker;
             using (var @lock = new Hold(locker))
-                checker = Sync.CreateMutex($"checker-{XStyleArch}");
+                checker = Sync.CreateMutex(CheckerName);
 
             ToastNotificationManagerCompat.OnActivated +=
                 ToastNotificationManagerCompat_OnActivated;
@@ -27,7 +29,7 @@ namespace VidDraw {
             } finally {
                 using var hold = new Hold(locker);
                 checker.Dispose();
-                checker = Sync.CreateMutex("checker", out var createdNew);
+                checker = Sync.CreateMutex(CheckerName, out var createdNew);
                 if (createdNew) ToastNotificationManagerCompat.Uninstall();
                 checker.Dispose(); // Not strictly needed, as the OS cleans up.
             }
