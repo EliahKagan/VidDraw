@@ -61,7 +61,7 @@ namespace VidDraw {
                     return;
 
                 case MyMenuItemId.DownloadOrConfigureX264vfw:
-                    DownloadOrConfigureX264();
+                    _downloadOrConfigureX264vfw();
                     return;
 
                 case MyMenuItemId.About:
@@ -110,7 +110,7 @@ namespace VidDraw {
 
         private const Codec DefaultCodec = Codec.MotionJpeg;
 
-        private const string X264DownloadUrl =
+        private const string X264vfwDownloadUrl =
             "https://sourceforge.net/projects/x264vfw/files/latest/download";
 
         private static string MyVideos
@@ -170,12 +170,8 @@ namespace VidDraw {
                 ? Path.GetFileName(path)
                 : path;
 
-        private static void DownloadOrConfigureX264vfwError()
-            => throw new InvalidOperationException(
-                "Bug: Don't know whether to download or configure x264vfw.");
-
         private static void DownloadX264vfw()
-            => Shell.Execute(X264DownloadUrl);
+            => Shell.Execute(X264vfwDownloadUrl);
 
         private static void ConfigureX264vfw()
         {
@@ -277,6 +273,22 @@ namespace VidDraw {
                     uEnable: (enabled ? MENU_FLAGS.MF_ENABLED
                                       : MENU_FLAGS.MF_GRAYED));
 
+        private unsafe void SetText(MyMenuItemId id, string text)
+        {
+            fixed (char* p = text) {
+                var mii = new MENUITEMINFOW {
+                    cbSize = (uint)sizeof(MENUITEMINFOW),
+                    fMask = MENUITEMINFOA_fMask.MIIM_STRING,
+                    dwTypeData = new(p),
+                };
+
+                PInvoke.SetMenuItemInfo(hmenu: MenuHandle,
+                                        item: (uint)id,
+                                        fByPositon: false, // Misspelled in API.
+                                        &mii);
+            }
+        }
+
         private void BuildMenu(Codec initialCodec)
         {
             AddMenuSeparator();
@@ -290,6 +302,8 @@ namespace VidDraw {
 
             AddMenuSeparator();
             AddMenuItem(MyMenuItemId.About, $"About VidDraw{Ch.Hellip}");
+
+            UpdateMenuCodecs();
         }
 
         private void AddMenuCodecItems(Codec initialCodec)
@@ -298,7 +312,6 @@ namespace VidDraw {
                 AddMenuItem(choice.Id, choice.Label);
 
             CurrentCodec = initialCodec;
-            UpdateMenuCodecs();
         }
 
         private void UpdateMenu()
@@ -311,14 +324,17 @@ namespace VidDraw {
         {
             if (CanEncodeH264) {
                 SetEnabled(MyMenuItemId.H264, true);
-                // FIXME: rename the menu item "Download x264vfw"
+                var arch = (Environment.Is64BitProcess ? "x64" : "x86");
+                SetText(MyMenuItemId.DownloadOrConfigureX264vfw,
+                        $"Configure x264vfw ({arch})");
                 _downloadOrConfigureX264vfw = ConfigureX264vfw;
             } else {
                 if (CurrentCodec is Codec.H264)
                     CurrentCodec = GetH264FallbackCodec();
 
                 SetEnabled(MyMenuItemId.H264, false);
-                // FIXME: rename the menu item "Configure x264vfw ({ARCH})"
+                SetText(MyMenuItemId.DownloadOrConfigureX264vfw,
+                        "Download x264vfw");
                 _downloadOrConfigureX264vfw = DownloadX264vfw;
             }
         }
@@ -427,12 +443,6 @@ namespace VidDraw {
             Shell.Execute(path);
         }
 
-        private void DownloadOrConfigureX264()
-        {
-            _downloadOrConfigureX264vfw();
-            _downloadOrConfigureX264vfw = DownloadOrConfigureX264vfwError;
-        }
-
         // TODO: Make a custom About dialog listing dependencies and their
         //       copyright notices / licenses.
         private void ShowAboutBox()
@@ -458,6 +468,7 @@ namespace VidDraw {
         private readonly Recorder _recorder;
 
         private Action _downloadOrConfigureX264vfw =
-            DownloadOrConfigureX264vfwError;
+            () => throw new InvalidOperationException(
+                "Bug: Don't know whether to download or configure x264vfw.");
     }
 }
