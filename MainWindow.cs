@@ -172,12 +172,17 @@ namespace VidDraw {
                     message: $"Expected non-null {nameof(e.Name)} property");
             }
 
-            new ToastContentBuilder()
-                .AddArgument(e.Name)
-                .AddText("Video capture saved")
-                .AddText(GetDisplayPath(e.Name))
-                .AddAttributionText($"Encoding: {GetLabel(e.Codec)}")
-                .ShowOr(() => Shell.Select(e.Name));
+            if (Platform.CanToast) {
+                new ToastContentBuilder()
+                    .AddArgument(e.Name)
+                    .AddText("Video capture saved")
+                    .AddText(GetDisplayPath(e.Name))
+                    .AddAttributionText($"Encoding: {GetLabel(e.Codec)}")
+                    .Show();
+            } else {
+                // We can't notify, so we just open the folder window now.
+                Shell.Select(e.Name);
+            }
         }
 
         private IReadOnlyDictionary<MyMenuItemId, Action> BuildMenuActions()
@@ -199,7 +204,7 @@ namespace VidDraw {
         }
 
         private void SetTitle(string message)
-            => Text = $"VidDraw ({Program.XStyleArch}) - {message}";
+            => Text = $"VidDraw ({Platform.XStyleArch}) - {message}";
 
         private void SetInitialTitle() => SetTitle("Draw to record video");
 
@@ -324,7 +329,7 @@ namespace VidDraw {
             if (CanEncodeH264) {
                 SetEnabled(MyMenuItemId.H264, true);
                 SetText(MyMenuItemId.DownloadOrConfigureX264vfw,
-                        $"Configure x264vfw ({Program.XStyleArch})");
+                        $"Configure x264vfw ({Platform.XStyleArch})");
                 _downloadOrConfigureX264vfw = ConfigureX264vfw;
             } else {
                 if (CurrentCodec is Codec.H264)
