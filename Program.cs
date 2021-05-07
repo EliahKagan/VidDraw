@@ -22,7 +22,7 @@ namespace VidDraw {
                 checker = Sync.CreateMutex(CheckerName);
 
             ToastNotificationManagerCompat.OnActivated +=
-                ToastNotificationManagerCompat_OnActivated;
+                e => Shell.Select(e.Argument);
 
             try {
                 Run();
@@ -34,15 +34,6 @@ namespace VidDraw {
                 checker.Dispose(); // Not strictly needed, as the OS cleans up.
             }
         }
-
-        // TODO: Consider using SHOpenFolderAndSelectItems instead. See:
-        //  - https://stackoverflow.com/q/13680415
-        //  - https://docs.microsoft.com/en-us/windows/win32/api/shlobj_core/nf-shlobj_core-shopenfolderandselectitems
-        private static void ToastNotificationManagerCompat_OnActivated(
-                ToastNotificationActivatedEventArgsCompat e)
-            => Process.Start(
-                fileName: Path.Combine(Dirs.Windows, "explorer.exe"),
-                arguments: $"/select,\"{e.Argument}\"");
 
         private static void Run()
         {

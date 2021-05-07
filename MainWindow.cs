@@ -177,7 +177,7 @@ namespace VidDraw {
                 .AddText("Video capture saved")
                 .AddText(GetDisplayPath(e.Name))
                 .AddAttributionText($"Encoding: {GetLabel(e.Codec)}")
-                .Show();
+                .ShowOr(() => Shell.Select(e.Name));
         }
 
         private IReadOnlyDictionary<MyMenuItemId, Action> BuildMenuActions()
