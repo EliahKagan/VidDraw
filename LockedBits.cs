@@ -40,8 +40,7 @@ namespace VidDraw {
         }
 
         private unsafe ReadOnlySpan<byte> FullData
-            => new ReadOnlySpan<byte>(_metadata.Scan0.ToPointer(),
-                                      SizeInBytes);
+            => new(_metadata.Scan0.ToPointer(), SizeInBytes);
 
         private int Width => _metadata.Width;
 

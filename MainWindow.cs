@@ -140,11 +140,11 @@ namespace VidDraw {
                 _ => null,
             };
 
-        private static string GetDisplayPath(string path)
-            => path.GetDirectoryOrThrow()
-                   .Equals(MyVideos, StringComparison.Ordinal)
-                ? Path.GetFileName(path)
-                : path;
+        private static Codec GetH264FallbackCodec()
+            => Sanitize(Config.TryLoad().Codec) switch {
+                null or Codec.H264 => DefaultCodec,
+                Codec codec => codec,
+            };
 
         private static void DownloadX264vfw()
             => Shell.Execute(X264vfwDownloadUrl);
@@ -162,6 +162,12 @@ namespace VidDraw {
                 WorkingDirectory = dir,
             });
         }
+
+        private static string GetDisplayPath(string path)
+            => path.GetDirectoryOrThrow()
+                   .Equals(MyVideos, StringComparison.Ordinal)
+                ? Path.GetFileName(path)
+                : path;
 
         private static void recorder_Recorded(object? sender,
                                               RecordedEventArgs e)
@@ -341,12 +347,6 @@ namespace VidDraw {
                 _downloadOrConfigureX264vfw = DownloadX264vfw;
             }
         }
-
-        private Codec GetH264FallbackCodec()
-            => Sanitize(Config.TryLoad().Codec) switch {
-                null or Codec.H264 => DefaultCodec,
-                Codec codec => codec,
-            };
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
         {
