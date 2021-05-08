@@ -13,7 +13,11 @@ namespace VidDraw {
         internal static ToastCoordinator? TryCreate(OnActivated onActivated)
             => Platform.CanToast ? new(onActivated) : null;
 
-        public void Dispose() => Dispose(true);
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
         private static string CheckerName => $"checker-{Platform.XStyleArch}";
 
