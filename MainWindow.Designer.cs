@@ -1,3 +1,16 @@
+// Copyright (c) 2021 Eliah Kagan
+//
+// Permission to use, copy, modify, and/or distribute this software for any
+// purpose with or without fee is hereby granted.
+//
+// THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+// WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+// MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+// SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+// WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+// OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+// CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
 namespace VidDraw {
     partial class MainWindow {
         /// <summary>
@@ -27,9 +40,9 @@ namespace VidDraw {
             this._colorPicker = new VidDraw.ColorPicker();
             ((System.ComponentModel.ISupportInitialize)(this._canvas)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // _canvas
-            // 
+            //
             this._canvas.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this._canvas.Location = new System.Drawing.Point(13, 13);
             this._canvas.Name = "_canvas";
@@ -41,9 +54,9 @@ namespace VidDraw {
             this._canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseDown);
             this._canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
             this._canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
-            // 
+            //
             // MainWindow
-            // 
+            //
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(826, 626);
             this.Controls.Add(this._canvas);
