@@ -17,7 +17,7 @@ namespace VidDraw {
     /// <summary>RAII-style lock guard for (interprocess) mutexes.</summary>
     /// <remarks>
     /// Acquiring the mutex due to another thread/process abandoning it is not
-    /// conisdered an error.
+    /// considered an error.
     /// </remarks>
     internal readonly ref struct Hold {
         /// <summary>Acquires the mutex, waiting if necessary.</summary>

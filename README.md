@@ -1,4 +1,4 @@
-﻿<!--
+<!--
   Copyright (c) 2021 Eliah Kagan
 
   Permission to use, copy, modify, and/or distribute this software for any
@@ -25,7 +25,7 @@ The main purpose of VidDraw is to demonstrate usage of
 [SharpAvi]([SharpAvi](https://github.com/baSSiLL/SharpAvi)), which wraps
 [VfW](https://docs.microsoft.com/en-us/windows/win32/api/vfw/), and [toast
 notifications](https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp).
-(It started out as a prototype for the videorecording feature of a larger
+(It started out as a prototype for the video recording feature of a larger
 program I&rsquo;ve been working on.) But it is also kind of a fun toy.
 
 This is VidDraw alpha 1. It still has [some usability bugs](#Known-Bugs).
@@ -59,15 +59,15 @@ cd VidDraw
 dotnet run
 ```
 
-The first time you run [`dotnet
-run`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run), VidDraw
-will be built. Dependencies not included in this repository will be [downloaded
-automatically](https://www.nuget.org/). If you want to build it without running
-it, use
+The first time you run
+[`dotnet run`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run),
+VidDraw will be built. Dependencies not included in this repository will be
+[downloaded automatically](https://www.nuget.org/). If you want to build it
+without running it, use
 [`dotnet build`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build)
 instead of `dotnet run`. (This creates a &ldquo;debug&rdquo; build. If you want
-a &ldquo;release&rdquo; build instead, use `dotnet run -c Release` or
-`dotnet build -c Release`.)
+a &ldquo;release&rdquo; build instead, use `dotnet run -c Release` or `dotnet
+build -c Release`.)
 
 That&rsquo;s all you need. If you want to read about codec stuff&hellip; read
 on! Otherwise, you may want to skip to [Usage Tips](#Usage-Tips), or just try
@@ -125,7 +125,7 @@ users)&rdquo;&mdash;put:
 wrong?](https://forums.guru3d.com/threads/x264vfw-compression-wtf-am-i-doing-wrong.373036/)
 on the [Guru3D.com](https://www.guru3d.com/) forums.*
 
-#### Postprocess the video with FFmpeg
+#### Post-process the video with FFmpeg
 
 Given a video from VidDraw that VLC cannot open, [FFmpeg](https://ffmpeg.org/)
 will repair it:
@@ -229,11 +229,97 @@ browser window. In that case, nothing special happens when recording finishes.
 You can always open the destination folder by clicking &ldquo;Open Videos
 Folder&rdquo; [in VidDraw&rsquo;s menu](#The-Menu).
 
-### The Menu
+## The Menu
+
+VidDraw augments its *system menu*&mdash;the application menu that you can open
+by left- or right-clicking on the left side of the title bar, right-clicking
+anywhere on the title bar, or pressing <kbd>Alt</kbd>+<kbd>Spacebar</kbd>, and
+that contains standard items like &ldquo;Move&rdquo; and
+&ldquo;Close&rdquo;&mdash;with encoding choices and some other operations
+specific to VidDraw.
+
+### Encoding (&ldquo;Codec&rdquo;) Choices
+
+There are currently four video encodings available. The selected encoding has a
+check mark to the left of it in the menu. Exactly one is selected at any given
+time.
+
+Please note that this doesn&rsquo;t affect the file format, i.e., container
+filetype, which is always AVI. Rather, it affects the encoding of the video
+stream.
+
+#### Raw (frame copy)
+
+This is the worst possible encoding and I don&rsquo;t recommend using it. Each
+bitmap is captured from the canvas as-is, including the alpha channel data (the
+&ldquo;A&rdquo; in &ldquo;ARGB&rdquo;). The canvas, and the recorded video
+stream, use different conventions for the order in which each line (row of
+pixels) is stored, so this order is reversed; otherwise, it is a raw
+&ldquo;frame copy.&rdquo;
+
+The only reason I put this in VidDraw was to demonstrate how to write video
+frames in SharpAvi without an
+[encoder](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders). But
+you should use an encoder. If you want uncompressed video, I recommend using
+[Uncompressed](#Uncompressed) instead, which leaves out the unused alpha
+channel.
+
+#### Uncompressed
+
+If you want uncompressed video (where each frame is a bitmap), you should use this. It uses SharpAvi&rsquo;s `UncompressedVideoEncoder`. As [the SharpAvi wiki](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder) says:
+
+> The simplest [encoder] is
+[UncompressedVideoEncoder](https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/UncompressedVideoEncoder.cs).
+It does no real encoding, just flips image vertically and converts BGR32 data
+to BGR24 data to reduce the size.
+
+Video files created this way are quite large, if you&rsquo;re recording for
+more a few seconds. If you&rsquo;re keeping videos you create this way, you may
+want to encode them with a compressed codec afterwards. If your hard disk is
+slow, you may experience lag while encoding this way. It&rsquo;s still better
+than [Raw (frame copy)](#Raw), though.
+
+#### Motion JPEG
+
+[Motion JPEG](https://en.wikipedia.org/wiki/Motion_JPEG) is VidDraw&rsquo;s
+default encoding. Each frame is converted to and stored as a JPEG image. This
+uses SharpAvi&rsquo;s `MotionJpegVideoEncoderWpf`. From [the SharpAvi
+wiki](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder):
+
+> Next is
+[MotionJpegVideoEncoderWpf](https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/MotionJpegVideoEncoderWpf.cs)
+which does Motion JPEG encoding. It uses
+`System.Windows.Media.Imaging.JpegBitmapEncoder` under the hood. Besides
+dimensions, you provide the desired quality level to its constructor, ranging
+from 1 (low quality, small size) to 100 (high quality, large size).
+
+VidDraw uses a quality of 100, since the pen in VidDraw makes 1-pixel-thick
+curves, and lower qualities of Motion JPEG (like the oft-used 70) tend not to
+render such curves crisply.
+
+The file size is unhappily large, but nowhere near as bad as the uncompressed encodings.
+
+#### H.264 (MPEG-4 AVC)
 
 
 
 ## Known Bugs
+
+### Sometimes there is an initial lag on the first recording.
+
+This seems to happen mainly while debugging&mdash;even a debug build that is
+being run (via `dotnet run` or by directly running the compiled executable) is
+most often free of it. But it seems to happen occasionally even outside of
+debugging.
+
+This is annoying because, when it happens, it usually results in a straight
+line segment appearing on the canvas (and in the video) that the user
+didn&rsquo;t intend to draw.
+
+VidDraw could do some operations asynchronously that it does on the UI thread.
+Most or all file I/O could, and should, be asynchronous. Implementing this will
+require thought about what to do in some race conditions that cannot currently
+happen. I don&rsquo;t know if that would be sufficient to fix this bug.
 
 ### Video files are not always playable on all players.
 
