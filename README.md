@@ -28,7 +28,7 @@ notifications](https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-a
 (It started out as a prototype for the video recording feature of a larger
 program I&rsquo;ve been working on.) But it is also kind of a fun toy.
 
-This is VidDraw alpha 1. It still has [some usability bugs](#Known-Bugs).
+This is VidDraw alpha 1. It still has [some usability bugs](#known-bugs).
 
 ## License
 
@@ -39,7 +39,7 @@ License,&rdquo; also known as the [Free Public License
 1.0.0](https://opensource.org/licenses/0BSD)), which is a [&ldquo;public domain
 equivalent&rdquo;](https://en.wikipedia.org/wiki/Public-domain-equivalent_license)
 license. VidDraw&rsquo;s dependencies are also free, but they are offered under
-other licenses. See [Dependencies](#Dependencies) below for details.
+other licenses. See [Dependencies](#dependencies) below for details.
 
 Since some of VidDraw&rsquo;s dependencies are included directly in this
 repository, some of the files in this repository were not written by me and are
@@ -70,7 +70,7 @@ a &ldquo;release&rdquo; build instead, use `dotnet run -c Release` or `dotnet
 build -c Release`.)
 
 That&rsquo;s all you need. If you want to read about codec stuff&hellip; read
-on! Otherwise, you may want to skip to [Usage Tips](#Usage-Tips), or just try
+on! Otherwise, you may want to skip to [Usage Tips](#usage-tips) or [The Menu](#the-menu), or just try
 out the program.
 
 ### Optional: Install and configure x264vfw to get H.264 support
@@ -102,7 +102,7 @@ VidDraw&rsquo;s default and itself much smaller than encodings without any
 compression. But I&rsquo;ve found that these files&mdash;files recorded in real
 time in the way VidDraw records them, *not* H.264 video in general&mdash;are
 not playable on all players. [This may be due to a bug in VidDraw, but
-I&rsquo;m not sure.](#Video-files-are-not-always-playable-on-all-players) The
+I&rsquo;m not sure.](#video-files-are-not-always-playable-on-all-players) The
 excellent and very popular VLC does not play them. Windows Media Player and the
 Movies & TV app (and also [MPC-HC](https://mpc-hc.org/)) do play them.
 
@@ -182,8 +182,8 @@ primary mouse button.) Or you can continue drawing, and the next time you
 release all mouse buttons, recording will stop. Quitting VidDraw also ensures
 that recording stops and the file is fully saved.
 
-The pen color can be changed using the color picker [available in the
-menu](#The-Menu).
+The pen color can be changed using [the color picker](#pick-color), available
+in [the menu](#the-menu).
 
 The canvas in VidDraw is always 800&times;600.
 
@@ -227,16 +227,21 @@ them off), then VidDraw does *not* try to circumvent this by showing a file
 browser window. In that case, nothing special happens when recording finishes.
 
 You can always open the destination folder by clicking &ldquo;Open Videos
-Folder&rdquo; [in VidDraw&rsquo;s menu](#The-Menu).
+Folder&rdquo; [in VidDraw&rsquo;s menu](#the-menu).
 
 ## The Menu
 
 VidDraw augments its *system menu*&mdash;the application menu that you can open
 by left- or right-clicking on the left side of the title bar, right-clicking
-anywhere on the title bar, or pressing <kbd>Alt</kbd>+<kbd>Spacebar</kbd>, and
+anywhere on the title bar, or pressing <kbd>Alt</kbd>+<kbd>Space</kbd>, and
 that contains standard items like &ldquo;Move&rdquo; and
-&ldquo;Close&rdquo;&mdash;with encoding choices and some other operations
-specific to VidDraw.
+&ldquo;Close&rdquo;&mdash;with [encoding choices](#encoding-codec-choices) and
+some [other operations](#other-stuff-in-the-menu) specific to VidDraw.
+
+Some menu items change settings. These changes are saved in a `VidDraw`
+subdirectory of your per-user application data (`%APPDATA%`) directory, which
+is usually the `%USERPROFILE%\AppData\Roaming` (where `%USERPROFILE%` is your
+home directory).
 
 ### Encoding (&ldquo;Codec&rdquo;) Choices
 
@@ -247,6 +252,8 @@ time.
 Please note that this doesn&rsquo;t affect the file format, i.e., container
 filetype, which is always AVI. Rather, it affects the encoding of the video
 stream.
+
+Your codec choice is remembered across runs of the program.
 
 #### Raw (frame copy)
 
@@ -261,12 +268,15 @@ The only reason I put this in VidDraw was to demonstrate how to write video
 frames in SharpAvi without an
 [encoder](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders). But
 you should use an encoder. If you want uncompressed video, I recommend using
-[Uncompressed](#Uncompressed) instead, which leaves out the unused alpha
+[Uncompressed](#uncompressed) instead, which leaves out the unused alpha
 channel.
 
 #### Uncompressed
 
-If you want uncompressed video (where each frame is a bitmap), you should use this. It uses SharpAvi&rsquo;s `UncompressedVideoEncoder`. As [the SharpAvi wiki](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder) says:
+If you want uncompressed video (where each frame is a bitmap), you should use
+this. It uses SharpAvi&rsquo;s `UncompressedVideoEncoder`. As the [SharpAvi
+wiki](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder)
+says:
 
 > The simplest [encoder] is
 [UncompressedVideoEncoder](https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/UncompressedVideoEncoder.cs).
@@ -277,13 +287,13 @@ Video files created this way are quite large, if you&rsquo;re recording for
 more a few seconds. If you&rsquo;re keeping videos you create this way, you may
 want to encode them with a compressed codec afterwards. If your hard disk is
 slow, you may experience lag while encoding this way. It&rsquo;s still better
-than [Raw (frame copy)](#Raw), though.
+than [Raw (frame copy)](#raw-frame-copy), though.
 
 #### Motion JPEG
 
 [Motion JPEG](https://en.wikipedia.org/wiki/Motion_JPEG) is VidDraw&rsquo;s
 default encoding. Each frame is converted to and stored as a JPEG image. This
-uses SharpAvi&rsquo;s `MotionJpegVideoEncoderWpf`. From [the SharpAvi
+uses SharpAvi&rsquo;s `MotionJpegVideoEncoderWpf`. From the [SharpAvi
 wiki](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder):
 
 > Next is
@@ -301,7 +311,101 @@ The file size is unhappily large, but nowhere near as bad as the uncompressed en
 
 #### H.264 (MPEG-4 AVC)
 
+If the [x264vfw](https://sourceforge.net/projects/x264vfw/) codec (of the same
+architecture as the VidDraw process) [is
+installed](#optional-install-and-configure-x264vfw-to-get-h-264-support), the
+menu item for [H.264](https://en.wikipedia.org/wiki/Advanced_Video_Coding) is
+unfaded. It isn&rsquo;t the default because VidDraw doesn&rsquo;t ship that
+codec and you may not already have it, and because there are [configuration
+choices for you to make](#a-problem-with-H-264-in-viddraw) and [playback issues
+to wrangle with](#video-files-are-not-always-playable-on-all-players).
 
+Still, I recommend encoding in H.264 if you can, because it produces higher
+quality than [Motion JPEG](#motion-jpeg) at a small fraction of the file size
+(*even* if you use
+[`--keyint 1`](#configure-x264vfw-to-make-every-frame-a-keyframe)).
+
+The [SharpAvi
+wiki](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder)
+says:
+
+> Finally,
+[Mpeg4VideoEncoderVcm](https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/Mpeg4VideoEncoderVcm.cs)
+does MPEG-4 encoding using *Video for Windows* (aka *VfW*) or *Video
+Compression Manager* (aka *VCM*) compatible codec installed on the system.
+>
+> Currently tested codecs include **Microsoft MPEG-4 V2** and **V3**,
+[Xvid](https://www.xvid.com/download/),
+[DivX](http://www.divx.com/en/software/divx) and
+[x264vfw](http://sourceforge.net/projects/x264vfw/files/). Unfortunately, some
+of them have only 32-bit versions, others produce errors in 64 bits. The only
+codec which looks to work reliably in 64 bits is **x264vfw64**. For **x264vfw**
+(both 32- and 64-bit), it is recommended to check option **Zero Latency** in
+its settings to prevent picture freezes.
+
+### Other Stuff in the Menu
+
+#### Clear Canvas
+
+If the canvas has not been drawn on since opening SharpAvi, or since the last
+time it was cleared, then the &ldquo;Clear Canvas&rdquo; option is unfaded.
+This clears the canvas, making all pixels white, as they started.
+
+#### Pick Color&hellip;
+
+The pen color is black by default. &ldquo;Pick Color&hellip;&rdquo; opens a
+color picker in which you can choose another color. The color picker is based
+on
+[`ColorDialog`](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.colordialog?view=net-5.0),
+which wraps the [standard Windows color dialog
+box](https://docs.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box)
+and, as such, allows you to define custom color presets. VidDraw saves your
+custom colors, so they are available if you quit VidDraw and run it again. Your
+custom VidDraw colors do not appear in any other programs&rsquo; color dialogs.
+
+(Unfortunately, defining custom colors but cancelling out of the color picker
+discards the new custom colors&mdash;you have to click &ldquo;OK.&rdquo; Since
+this is what users familiar with the Windows color dialog expect, I don&rsquo;t
+think I should try to change it for VidDraw&rsquo;s color picker.)
+
+#### Open Videos Folder
+
+Clicking &ldquo;Open Videos Folder&rdquo; opens the destination folder where
+VidDraw saves videos. This is your per-user `Videos` (or `My Videos`)
+directory.
+
+This is handy if you meant to click to activate a toast notification after
+recording, but dismissed it instead.
+
+In the strange case that you record a video and, while VidDraw is still
+running, change the location of your per-user `Videos` folder, this goes to the
+new place, not the only one. (The new location is the destination for any
+further videos VidDraw saves, even during the same run of the program.)
+
+#### Download x264vfw *or* Configure x264vfw (x64) *or* Configure x264vfw (x86)
+
+If x264vfw is not installed, or it is installed but not for the same
+architecture as the VidDraw process, then VidDraw cannot use it. In this case,
+the menu contains a &ldquo;Downoad x264vfw&rdquo; item that opens the x264vfw
+download page your default web browser.
+
+If x264vfw is installed for the architecture of the VidDraw process, then
+VidDraw can use it, and the menu contains either a &ldquo;Configure x264vfw
+(x64)&rdquo; or &ldquo;Configure x264vfw (x86)&rdquo; item, depending on the
+architecture of the VidDraw process (i.e., whether it&rsquo;s running as a
+64-bit process or a 32-bit process, respectively).
+
+Clicking &ldquo;Configure x264vfw&rdquo; opens x264vfw&rsquo;s own
+configuration dialog. This dialog is not part of VidDraw, and configuration
+changes you make in in affect x264vfw on your whole system; they are not
+specific to VidDraw. But they *are* specific to the 64-bit (x64) or 32-bit
+(x86) version of x264vfw. By default, all remotely recent versions of x264vfw
+install both the 64-bit and 32-bit codecs. They must be configured separately.
+
+#### About VidDraw&hellip;
+
+Clicking &ldquo;About VidDraw&hellip;&rdquo; displays this README in
+VidDraw&rsquo;s built-in help browser.
 
 ## Known Bugs
 
@@ -323,7 +427,7 @@ happen. I don&rsquo;t know if that would be sufficient to fix this bug.
 
 ### Video files are not always playable on all players.
 
-[As detailed above](#A-problem-with-H.264-in-VidDraw), when H.264 encoding is
+[As detailed above](#a-problem-with-H-264-in-viddraw), when H.264 encoding is
 selected and x264vfw has not been configured to make every frame a keyframe
 (which increases file size dramatically, albeit still less than the other
 encodings), VLC cannot play the file. This is even though VLC fully supports
@@ -363,7 +467,7 @@ it. So, if pausing is added, options to enable (and disable) automatic pausing
 in those situations should be added too.
 
 Fixing this may help with [Menu items are cumbersome to access while
-drawing](#Menu-items-are-cumbersome-to-access-while-drawing) as well.
+drawing](#menu-items-are-cumbersome-to-access-while-drawing) as well.
 
 ### The pen thickness should be adjustable in some way.
 
