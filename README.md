@@ -50,8 +50,8 @@ details.
 
 This alpha version of VidDraw doesn&rsquo;t have binary downloads. To run
 VidDraw, make sure you have the [.NET
-5](https://dotnet.microsoft.com/download/dotnet/5.0) SDK, then clone this
-repository and build VidDraw by running:
+5](https://dotnet.microsoft.com/download/dotnet/5.0) SDK. Then, to clone this
+repository and build and run VidDraw, run:
 
 ```powershell
 git clone https://github.com/EliahKagan/VidDraw.git
@@ -147,6 +147,90 @@ on [Video Production Stack Exchange](https://video.stackexchange.com/).*
 
 ## Usage Tips
 
+VidDraw&rsquo;s interface is clean and simple, yet remarkably confusing to use.
+Sorry. Maybe some of the following information will help.
+
+### Drawing and Recording
+
+**Draw** as you would in any raster graphics editor.
+
+When the mouse cursor is over the canvas and you press the primary mouse
+button, recording begins. Moving the mouse while the primary mouse button is
+pressed draws on the canvas. Recording continues until your release the button.
+
+Even pressing the primary mouse button for a very short time records a video. A
+single short click is sufficient, though the video may consist of only one
+frame.
+
+You will know VidDraw is recording because the border around the canvas turns
+bright red. As long as it is red, VidDraw is recording. When it turns back to
+light gray, recording has stopped and the video file is fully saved.
+
+**To lift the pen while continuing to record**, press and hold another mouse
+button. So long as at least one button is pressed, recording continues. This
+lets you make individual videos of drawing sketches that consist of multiple,
+separate curves.
+
+If you ever want to continue recording while no mouse buttons are pressed,
+place the mouse cursor on the canvas, press and hold any mouse button, draw the
+cursor out of the canvas, press any other mouse button, and release the button
+you first pressed. This effect, of keeping recording on even though
+you&rsquo;re not holding down any mouse button, persists until your next
+interaction with the canvas. So to stop recording, click the canvas. (If you
+don&rsquo;t want to draw anything, click it with some button other than the
+primary mouse button.) Or you can continue drawing, and the next time you
+release all mouse buttons, recording will stop. Quitting VidDraw also ensures
+that recording stops and the file is fully saved.
+
+The pen color can be changed using the color picker [available in the
+menu](#The-Menu).
+
+The canvas in VidDraw is always 800&times;600.
+
+### Save Location and Toast Notifications
+
+VidDraw saves files in your Videos folder. The location of this folder is
+configurable per-user in Windows, but by default it is the folder called
+`Videos` and located directly in your home folder.
+
+When a recording ends (while VidDraw is still running), VidDraw raises a [toast
+notification](https://en.wikipedia.org/wiki/Pop-up_notification) informing you
+of the filename as well as the encoding that was used for the video. Clicking
+this notification opens a file browser (i.e., Explorer) window for the
+destination folder, with the newly finished video selected.
+
+VidDraw names files by the date and time at which it *started* recording them.
+The filenames consist of `VidDraw capture` followed by the date and time, like
+`VidDraw capture 2021-05-09 21-49-12`. (The ugly hyphen-delimited time is
+because Windows filesystems like NTFS don&rsquo;t support colon characters in
+filenames.) These video files exist immediately once recording has started,
+though it may not be playable&mdash;and is not guaranteed to be openable by
+other applications&mdash;until recording is completed.
+
+Since clicking the notification opens the destination folder and selects the
+file, you can rename it easily to whatever name you actually want it to have.
+
+Quitting VidDraw clears any notifications that have not been clicked or
+dismissed. *Unless* you were running multiple instances of VidDraw&mdash;in
+that case, they all stick around until the last instance is closed. *Unless*
+some instances are running in 64-bit mode while others are running in 32-bit
+mode&mdash;in that case, quitting the last 64-bit instance clears any remaining
+notifications from 64-bit instances, while quitting the last 32-bit instance
+clears any remaining notifications from 32-bit instances.
+
+VidDraw is only able to raise toast notification on Windows 10, version
+10.0.17763 or later. If VidDraw can&rsquo;t raise toast notifications on your
+system, it falls back to opening the Explorer window immediately when recording
+finishes. But if VidDraw can&rsquo;t show you a notification because
+you&rsquo;ve configured notifications in Windows 10 not to show them (or turned
+them off), then VidDraw does *not* try to circumvent this by showing a file
+browser window. In that case, nothing special happens when recording finishes.
+
+You can always open the destination folder by clicking &ldquo;Open Videos
+Folder&rdquo; [in VidDraw&rsquo;s menu](#The-Menu).
+
+### The Menu
+
 
 
 ## Known Bugs
@@ -154,7 +238,7 @@ on [Video Production Stack Exchange](https://video.stackexchange.com/).*
 ### Video files are not always playable on all players.
 
 [As detailed above](#A-problem-with-H.264-in-VidDraw), when H.264 encoding is
-selected and x264vfw has not been configured to make every frame a key frame
+selected and x264vfw has not been configured to make every frame a keyframe
 (which increases file size dramatically, albeit still less than the other
 encodings), VLC cannot play the file. This is even though VLC fully supports
 H.264 (and manages to play even most broken H.264 files). It may be a problem
@@ -194,7 +278,6 @@ in those situations should be added too.
 
 Fixing this may help with [Menu items are cumbersome to access while
 drawing](#Menu-items-are-cumbersome-to-access-while-drawing) as well.
-
 
 ### The pen thickness should be adjustable in some way.
 
