@@ -28,7 +28,7 @@ notifications](https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-a
 (It started out as a prototype for the video recording feature of a larger
 program I&rsquo;ve been working on.) But it is also kind of a fun toy.
 
-This is VidDraw alpha 1. It still has [some usability bugs](#known-bugs).
+This is **VidDraw alpha 1**. It still has [some usability bugs](#known-bugs).
 
 ## License
 
@@ -87,12 +87,12 @@ while encoding video in real time. Note that the 32-bit and 64-bit x264vfw
 codecs are configured separately; changing the configuration for one
 doesn&rsquo;t affect the other.
 
-x264fw&rsquo;s installer creates &ldquo;Configure x264vfw&rsquo; and
+x264fw&rsquo;s installer creates &ldquo;Configure x264vfw&rdquo; and
 &ldquo;Configure x264vfw64&rdquo; shortcuts (or just one, if you told it to
 install the codec for just one architecture or you&rsquo;re on a 32-bit
-system). Besides those shortcuts, another to open the x264vfw configuration
+system). Besides those shortcuts, another way to open the x264vfw configuration
 dialog is from the menu in VidDraw: so long as x264vfw is installed for the
-same architecture as the VidDraw process, a &ldquo;Configure x264vfw
+same architecture as the running VidDraw process, a &ldquo;Configure x264vfw
 (x86)&rdquo; or &ldquo;Configure x264vfw (x64)&rdquo; menu item will appear.
 
 ### A problem with H.264 in VidDraw
@@ -386,7 +386,7 @@ further videos VidDraw saves, even during the same run of the program.)
 
 If x264vfw is not installed, or it is installed but not for the same
 architecture as the VidDraw process, then VidDraw cannot use it. In this case,
-the menu contains a &ldquo;Downoad x264vfw&rdquo; item that opens the x264vfw
+the menu contains a &ldquo;Download x264vfw&rdquo; item that opens the x264vfw
 download page your default web browser.
 
 If x264vfw is installed for the architecture of the VidDraw process, then
@@ -408,6 +408,28 @@ Clicking &ldquo;About VidDraw&hellip;&rdquo; displays this README in
 VidDraw&rsquo;s built-in help browser.
 
 ## Known Bugs
+
+### An indirect dependency has confusing licensing.
+
+VidDraw has [win32metadata](https://github.com/microsoft/win32metadata) as an
+indirect dependency, via [CsWin32](https://github.com/microsoft/CsWin32).
+win32metadata&rsquo;s [GitHub
+repository](https://github.com/microsoft/win32metadata) is [MIT
+licensed](https://github.com/microsoft/win32metadata/blob/master/LICENSE), but
+its [NuGet
+package](https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Metadata)
+shows the [Windows SDK license](https://aka.ms/WinSDKLicenseURL). This [is
+intentional](https://github.com/microsoft/win32metadata/issues/387).
+
+I&rsquo;m unclear on what, if any, actual restrictions this imposes on how the
+source code, or a compiled binary, of VidDraw, can be used. I intend that
+VidDraw be both permissively licensed and GPL-compatible. Adding the CsWin32
+package prompted for win32metadata license acceptance. Even if this
+doesn&rsquo;t conflict with those goals, I fear it may chill reuse and
+adaptation of VidDraw, unless clarified. So this should either be clarified, or
+the CsWin32 dependency removed (which would actually not be too hard). This
+should be done before the release of alpha 2 and preferably before the release
+of alpha 1.
 
 ### Sometimes there is an initial lag on the first recording.
 
@@ -498,36 +520,97 @@ writing SharpAvi. Some of these dependencies included in this repository while
 others are retrieved by NuGet.
 
 This list is in alphabetical order. Entries for libraries included in this
-repository contain &ldquo;*[included]*&rdquo; links to their subdirectories.
-Links to each dependency&rsquo;s licensing information are given on the second
-line.
+repository contain *&ldquo;[included]&rdquo;* links to their subdirectories.
+Links to each dependency&rsquo;s detailed licensing information are given on
+the second line.
 
-- [clipboard.js](https://clipboardjs.com/) 2.0.8 by Zeno Rocha *\[included\]*\
+- [clipboard.js](https://clipboardjs.com/) 2.0.8 by Zeno Rocha \[included\]\
   [MIT License](https://github.com/zenorocha/clipboard.js/blob/master/LICENSE)
   (local, inline)
+- [CsWin32](https://github.com/microsoft/CsWin32) 0.1.422-beta by Andrew Arnott
+  / Microsoft
+  \[[nuget](https://www.nuget.org/packages/Microsoft.Windows.CsWin32)\]\
+  [MIT License](https://github.com/microsoft/CsWin32/blob/main/LICENSE)
+  (inline)
 - [*Fork me on GitHub* CSS
   ribbon](https://simonwhitaker.github.io/github-fork-ribbon-css/) 0.2.3 by
-  Simon Whitaker *\[included\]*\
+  Simon Whitaker \[included\]\
   [MIT
   License](https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE)
   (local, inline)
-- [kbd](https://auth0.github.io/kbd/) by Auth0 *\[included\]*\
+- [Json.NET](https://www.newtonsoft.com/json) (Newtonsoft.Json) 13.0.1 by James
+  Newton-King \[[nuget](https://www.nuget.org/packages/Newtonsoft.Json)\]\
+  [MIT
+  License](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md)
+  (inline)
+- [kbd](https://auth0.github.io/kbd/) by Auth0 \[included\]\
   [MIT License](https://github.com/auth0/kbd/blob/gh-pages/LICENSE) (local,
   inline)
-- [Milligram](https://milligram.io/) 1.4.1 by CJ Patoilo *\[included\]*\
+- [Milligram](https://milligram.io/) 1.4.1 by CJ Patoilo \[included\]\
   [MIT License](https://github.com/milligram/milligram/blob/master/license)
   (local, inline)
 - [normalize.css](https://necolas.github.io/normalize.css/) 8.0.1 by Nicolas
-  Gallagher and Jonathan Neal *\[included\]*\
+  Gallagher and Jonathan Neal \[included\]\
   [MIT License](https://github.com/necolas/normalize.css/blob/8.0.1/LICENSE.md)
   (local, inline)
 - [Open Sans](https://fonts.google.com/specimen/Open+Sans) and [Open Sans
-  Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed) by Steve
-  Matteson *\[included\]*\
+  Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed) (fonts) by
+  Steve Matteson \[included\]\
   [Apache License, Version
-  2.0](https://www.apache.org/licenses/LICENSE-2.0.html) (local, inline)
+  2.0](https://www.apache.org/licenses/LICENSE-2.0.html) (local, local, inline)
 - [SharpAvi.Net5](https://github.com/EliahKagan/SharpAvi) 2.1.2-rc, my fork of
   [SharpAvi](https://github.com/baSSiLL/SharpAvi) 2.1.2 by Vasili Maslov
-  *\[[nuget](https://www.nuget.org/packages/SharpAvi.Net5)\]*\
+  \[[nuget](https://www.nuget.org/packages/SharpAvi.Net5)\]\
   [MIT License](https://github.com/EliahKagan/SharpAvi/blob/net5/LICENSE.md)
   (inline)
+- [Windows Community
+  Toolkit](https://docs.microsoft.com/en-us/windows/communitytoolkit/) &ndash;
+  [Notifications](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications)
+  7.0.1 by .NET Foundation and Contributors
+  \[[nuget](https://www.nuget.org/packages/Microsoft.Toolkit.Uwp.Notifications)\]\
+  [MIT
+  License](https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/main/license.md)
+  (inline)
+
+VidDraw is a C# program targeting [.NET](https://dotnet.microsoft.com/) 5 on
+Windows. It uses [Windows Forms](https://github.com/dotnet/winforms), and it
+makes calls to the [Windows API](https://en.wikipedia.org/wiki/Windows_API) via
+libraries such as SharpAvi and Windows Forms as well as directly. These and
+other components that I believe are considered part of the framework (.NET) or
+operating system (Windows) are not listed above.
+
+Indirect dependencies (dependencies of the above-listed dependencies that are
+either included in them or otherwise resolved through them) are also not
+listed.
+
+### VidDraw and x264vfw
+
+VidDraw does not depend on [x264vfw](https://sourceforge.net/projects/x264vfw/)
+but is capable of using it [if it is
+installed](#optional-install-and-configure-x264vfw-to-get-h-264-support).
+x264vfw is a [VfW](https://en.wikipedia.org/wiki/Video_for_Windows) codec for
+[H.264](https://en.wikipedia.org/wiki/Video_coding_format) by Anton Mitrofanov
+and other authors, derived from
+[x264](https://www.videolan.org/developers/x264.html). Since, when installed
+and selected in VidDraw, it greatly reduces file size while preserving quality,
+I&rsquo;m thankful to all the developers of x264vfw and x264 for the work
+they&rsquo;ve done. Per its
+[COPYING](https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/COPYING) file
+and license headers in most of [its source code
+files](https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/), x264vfw is
+licensed under [the GNU GPL v2 or
+later](https://spdx.org/licenses/GPL-2.0-or-later.html).
+
+VidDraw uses x264vfw via SharpAvi in a manner analogous to how any VfW codec
+may be used, doesn&rsquo;t itself include the codec, and interacts with it [at
+arm&rsquo;s
+length](https://www.gnu.org/licenses/gpl-faq.en.html#MereAggregation) (VfW
+codecs are shared libraries, but as I understand it, programs that use them
+don&rsquo;t link to them or directly call API functions that they define). So I
+believe the GPL does not require that VidDraw or any of the libraries VidDraw
+uses be offered under the GPL or have a GPL-compatible license.
+
+Please note that, for practical and ideological reasons unrelated to x264vfw, I
+still intend VidDraw to be GPL-compatible! If it is not, or even if it [appears
+not to be](#an-indirect-dependency-has-confusing-licensing), I consider this a
+serious bug.
