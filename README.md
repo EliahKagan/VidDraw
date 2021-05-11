@@ -147,8 +147,8 @@ on [Video Production Stack Exchange](https://video.stackexchange.com/).*
 
 ## Usage Tips
 
-VidDraw&rsquo;s interface is clean and simple, yet remarkably confusing to use.
-Sorry. Maybe some of the following information will help.
+VidDraw&rsquo;s interface is clean and simple&hellip; yet remarkably confusing
+to use. Sorry. Maybe some of the following information will help.
 
 ### Drawing and Recording
 
@@ -420,10 +420,11 @@ This is annoying because, when it happens, it usually results in a straight
 line segment appearing on the canvas (and in the video) that the user
 didn&rsquo;t intend to draw.
 
-VidDraw could do some operations asynchronously that it does on the UI thread.
-Most or all file I/O could, and should, be asynchronous. Implementing this will
-require thought about what to do in some race conditions that cannot currently
-happen. I don&rsquo;t know if that would be sufficient to fix this bug.
+VidDraw could do some operations asynchronously that it now does on the UI
+thread. Most or all file I/O could, and should, be asynchronous. Implementing
+this will require thought about what to do in some race conditions that cannot
+currently happen. I don&rsquo;t know if that would be sufficient to fix this
+bug.
 
 ### Video files are not always playable on all players.
 
@@ -488,3 +489,45 @@ least when styling is turned off or classic styling is used. This makes the
 border around the canvas (which turns red to indicate recording) look
 excessively thick. It&rsquo;s probably not worth it to detect and handle this
 situation, but perhaps there&rsquo;s some simple way.
+
+## Dependencies
+
+VidDraw uses the following libraries and fonts. Thanks go to the authors and
+contributors to all these projects&mdash;and especially to Vasili Maslov for
+writing SharpAvi. Some of these dependencies included in this repository while
+others are retrieved by NuGet.
+
+This list is in alphabetical order. Entries for libraries included in this
+repository contain &ldquo;*[included]*&rdquo; links to their subdirectories.
+Links to each dependency&rsquo;s licensing information are given on the second
+line.
+
+- [clipboard.js](https://clipboardjs.com/) 2.0.8 by Zeno Rocha *\[included\]*\
+  [MIT License](https://github.com/zenorocha/clipboard.js/blob/master/LICENSE)
+  (local, inline)
+- [*Fork me on GitHub* CSS
+  ribbon](https://simonwhitaker.github.io/github-fork-ribbon-css/) 0.2.3 by
+  Simon Whitaker *\[included\]*\
+  [MIT
+  License](https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE)
+  (local, inline)
+- [kbd](https://auth0.github.io/kbd/) by Auth0 *\[included\]*\
+  [MIT License](https://github.com/auth0/kbd/blob/gh-pages/LICENSE) (local,
+  inline)
+- [Milligram](https://milligram.io/) 1.4.1 by CJ Patoilo *\[included\]*\
+  [MIT License](https://github.com/milligram/milligram/blob/master/license)
+  (local, inline)
+- [normalize.css](https://necolas.github.io/normalize.css/) 8.0.1 by Nicolas
+  Gallagher and Jonathan Neal *\[included\]*\
+  [MIT License](https://github.com/necolas/normalize.css/blob/8.0.1/LICENSE.md)
+  (local, inline)
+- [Open Sans](https://fonts.google.com/specimen/Open+Sans) and [Open Sans
+  Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed) by Steve
+  Matteson *\[included\]*\
+  [Apache License, Version
+  2.0](https://www.apache.org/licenses/LICENSE-2.0.html) (local, inline)
+- [SharpAvi.Net5](https://github.com/EliahKagan/SharpAvi) 2.1.2-rc, my fork of
+  [SharpAvi](https://github.com/baSSiLL/SharpAvi) 2.1.2 by Vasili Maslov
+  *\[[nuget](https://www.nuget.org/packages/SharpAvi.Net5)\]*\
+  [MIT License](https://github.com/EliahKagan/SharpAvi/blob/net5/LICENSE.md)
+  (inline)
