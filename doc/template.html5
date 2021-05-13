@@ -34,6 +34,6 @@ $-- pandoc template for generating VidDraw help file from README.md
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    ${body}
+${body}
   </body>
 </html>
