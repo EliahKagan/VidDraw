@@ -72,6 +72,23 @@ code {
   font-weight: 300;
 }
 
+li {
+  border: 1px dotted transparent;
+  list-style-position: outside;
+  list-style-type: square;
+  margin-left: 3rem;
+  padding-left: .5rem;
+}
+
+li:hover {
+  border-color: #9b4dca;
+}
+
+li a {
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
 a:hover {
   background-color: #f9f9f9;
   border-bottom: 2px solid;
