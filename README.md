@@ -382,7 +382,7 @@ running, change the location of your per-user `Videos` folder, this goes to the
 new place, not the only one. (The new location is the destination for any
 further videos VidDraw saves, even during the same run of the program.)
 
-#### Download x264vfw *or* Configure x264vfw (x64) *or* Configure x264vfw (x86)
+#### Download x264vfw<br>*or* Configure x264vfw (x64)<br>*or* Configure x264vfw (x86)
 
 If x264vfw is not installed, or it is installed but not for the same
 architecture as the VidDraw process, then VidDraw cannot use it. In this case,
