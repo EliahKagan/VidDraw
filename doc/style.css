@@ -40,17 +40,18 @@ h1 {
   margin-bottom: 3rem;
 }
 
-h2, h3, h4, blockquote strong, blockquote b {
-  font-weight: 600;
-}
-
 h2 {
   border-bottom: 1px solid #444;
   font-size: 4rem;
-  letter-spacing: .015em;
+  font-weight: 400;
+  letter-spacing: .06em;
   margin-bottom: 2.5rem;
   margin-top: 5rem;
   padding-bottom: .5rem;
+}
+
+h3, h4, blockquote strong, blockquote b {
+  font-weight: 600;
 }
 
 h3 {
