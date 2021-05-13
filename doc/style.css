@@ -1,0 +1,79 @@
+/*
+  Copyright (c) 2021 Eliah Kagan
+
+  Permission to use, copy, modify, and/or distribute this software for any
+  purpose with or without fee is hereby granted.
+
+  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+  REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+  AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+  INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+  LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+  OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+  PERFORMANCE OF THIS SOFTWARE.
+*/
+
+body {
+  -ms-hyphenate-limit-chars: 6 2 2;
+  -ms-hyphenate-limit-last: always;
+  -ms-hyphens: auto;
+  color: #444;
+  font-family: 'Open Sans', 'Segoe UI', 'Ubuntu', 'Roboto', '-apple-system', 'Nimbus Sans L', 'system-ui', 'BlinkMacSystemFont', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-feature-settings: 'kern' 1;
+  font-kerning: normal;
+  font-size: 2.2rem;
+  font-weight: 400;
+  hyphens: auto;
+  line-height: 1.55;
+  max-width: 74rem;
+  margin: 0 auto;
+  padding: 0 10px;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  color: black;
+}
+
+h1 {
+  font-weight: 300;
+  margin-bottom: 3rem;
+}
+
+h2, h3, h4, blockquote strong, blockquote b {
+  font-weight: 600;
+}
+
+h2 {
+  border-bottom: 1px solid #444;
+  font-size: 4rem;
+  letter-spacing: .015em;
+  margin-bottom: 2.5rem;
+  margin-top: 5rem;
+  padding-bottom: .5rem;
+}
+
+h3 {
+  margin-top: 3.5rem;
+}
+
+blockquote {
+  font-size: 2rem;
+}
+
+blockquote, pre {
+  border-left-width: .4rem;
+}
+
+code {
+  background-color: #f0f0f0;
+  border-radius: .2rem;
+  font-family: 'Cascadia Mono', 'Consolas', 'Lucida Console', 'Courier New', 'Courier', monospace;
+  font-weight: 300;
+}
+
+a:hover {
+  background-color: #f9f9f9;
+  border-bottom: 2px solid;
+  color: #9b4dca;
+}

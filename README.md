@@ -73,7 +73,7 @@ That&rsquo;s all you need. If you want to read about codec stuff&hellip; read
 on! Otherwise, you may want to skip to [Usage Tips](#usage-tips) or [The Menu](#the-menu), or just try
 out the program.
 
-### Optional: Install and configure x264vfw to get H.264 support
+### Optional: Get x264vfw for H.264 support
 
 If you want VidDraw to be able to encode H.264 video, you&rsquo;ll need
 [x264vfw](https://sourceforge.net/projects/x264vfw/). You don&rsquo;t have to
@@ -313,12 +313,12 @@ The file size is unhappily large, but nowhere near as bad as the uncompressed en
 
 If the [x264vfw](https://sourceforge.net/projects/x264vfw/) codec (of the same
 architecture as the VidDraw process) [is
-installed](#optional-install-and-configure-x264vfw-to-get-h-264-support), the
-menu item for [H.264](https://en.wikipedia.org/wiki/Advanced_Video_Coding) is
-unfaded. It isn&rsquo;t the default because VidDraw doesn&rsquo;t ship that
-codec and you may not already have it, and because there are [configuration
-choices for you to make](#a-problem-with-H-264-in-viddraw) and [playback issues
-to wrangle with](#video-files-are-not-always-playable-on-all-players).
+installed](#optional-get-x264vfw-for-h-264-support), the menu item for
+[H.264](https://en.wikipedia.org/wiki/Advanced_Video_Coding) is unfaded. It
+isn&rsquo;t the default because VidDraw doesn&rsquo;t ship that codec and you
+may not already have it, and because there are [configuration choices for you
+to make](#a-problem-with-H-264-in-viddraw) and [playback issues to wrangle
+with](#video-files-are-not-always-playable-on-all-players).
 
 Still, I recommend encoding in H.264 if you can, because it produces higher
 quality than [Motion JPEG](#motion-jpeg) at a small fraction of the file size
@@ -387,7 +387,7 @@ further videos VidDraw saves, even during the same run of the program.)
 If x264vfw is not installed, or it is installed but not for the same
 architecture as the VidDraw process, then VidDraw cannot use it. In this case,
 the menu contains a &ldquo;Download x264vfw&rdquo; item that opens the x264vfw
-download page your default web browser.
+download page in your web browser.
 
 If x264vfw is installed for the architecture of the VidDraw process, then
 VidDraw can use it, and the menu contains either a &ldquo;Configure x264vfw
@@ -499,7 +499,7 @@ Being able to vary the pen&rsquo;s size would make drawing more fun.
 This could be done by holding down modifier keys (<kbd>Shift</kbd>,
 <kbd>Ctrl</kbd>, <kbd>Alt</kbd>) and/or by selecting something in the menu.
 
-### User experience on older Windows versions could be better.
+### User experience on older Windows could be better.
 
 Although it is not a goal for VidDraw to fully support any versions of Windows
 older than 10.0.17763, it might be good to come up with some other behavior
@@ -587,8 +587,8 @@ listed.
 
 VidDraw does not depend on [x264vfw](https://sourceforge.net/projects/x264vfw/)
 but is capable of using it [if it is
-installed](#optional-install-and-configure-x264vfw-to-get-h-264-support).
-x264vfw is a [VfW](https://en.wikipedia.org/wiki/Video_for_Windows) codec for
+installed](#optional-get-x264vfw-for-h-264-support). x264vfw is a
+[VfW](https://en.wikipedia.org/wiki/Video_for_Windows) codec for
 [H.264](https://en.wikipedia.org/wiki/Video_coding_format) by Anton Mitrofanov
 and other authors, derived from
 [x264](https://www.videolan.org/developers/x264.html). Since, when installed
@@ -612,5 +612,5 @@ uses be offered under the GPL or have a GPL-compatible license.
 
 Please note that, for practical and ideological reasons unrelated to x264vfw, I
 still intend VidDraw to be GPL-compatible! If it is not, or even if it [appears
-not to be](#an-indirect-dependency-has-confusing-licensing), I consider this a
-serious bug.
+not to be](#an-indirect-dependency-has-confusing-licensing), I&rsquo;d consider
+that a serious bug.

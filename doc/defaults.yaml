@@ -1,0 +1,6 @@
+# pandoc arguments/options for generating VidDraw help file from README.md
+
+input-file: ../README.md
+output-file: index.html
+strip-comments: true
+template: template.html5
