@@ -73,7 +73,9 @@ code {
 }
 
 li {
+  -ms-hyphens: none;
   border: 1px dotted transparent;
+  hyphens: none;
   list-style-position: outside;
   list-style-type: square;
   margin-left: 3rem;
@@ -82,11 +84,6 @@ li {
 
 li:hover {
   border-color: #9b4dca;
-}
-
-li a {
-  -ms-hyphens: none;
-  hyphens: none;
 }
 
 a:hover {
