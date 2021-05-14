@@ -409,7 +409,7 @@ running as a 64-bit process or a 32-bit process, respectively).
 
 Clicking &ldquo;Configure x264vfw&rdquo; opens x264vfw&rsquo;s own
 configuration dialog. This dialog is not part of Vid&shy;Draw, and
-configuration changes you make in in affect x264vfw on your whole system; they
+configuration changes you make in it affect x264vfw on your whole system; they
 are not specific to Vid&shy;Draw. But they *are* specific to the 64-bit (x64)
 or 32-bit (x86) version of x264vfw. By default, all remotely recent versions of
 x264vfw install both the 64-bit and 32-bit codecs. They must be configured
