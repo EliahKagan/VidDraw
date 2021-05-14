@@ -249,8 +249,8 @@ operations](#other-stuff-in-the-menu) specific to Vid&shy;Draw.
 
 Some menu items change settings. These changes are saved in a `VidDraw`
 subdirectory of your per-user application data (`%APPDATA%`) directory, which
-is usually the `%USERPROFILE%\AppData\Roaming` (where `%USERPROFILE%` is your
-home directory).
+is usually `%USERPROFILE%\AppData\Roaming` (where `%USERPROFILE%` is your home
+directory).
 
 ### Encoding (&ldquo;Codec&rdquo;) Choices
 
