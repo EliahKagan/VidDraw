@@ -31,7 +31,7 @@ $-- pandoc template for generating VidDraw help file from README.md
           href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
           integrity="sha512-xiunq9hpKsIcz42zt0o2vCo34xV0j6Ny8hgEylN3XBglZDtTZ2nwnqF/Z/TTCc18sGdvCjbFInNd++6q3J0N6g=="
           crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="doc-assets/style.css">
   </head>
   <body>
 ${body}

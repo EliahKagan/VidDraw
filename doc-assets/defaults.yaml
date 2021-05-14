@@ -5,7 +5,7 @@ input-file: ../README.md
 metadata:
   title: About VidDraw
 
-output-file: index.html
+output-file: ../README.html
 
 strip-comments: true
 
