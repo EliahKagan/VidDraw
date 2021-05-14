@@ -22,7 +22,7 @@ on it. Recording starts when you begin drawing and stops when you&rsquo;re no
 longer holding down any mouse buttons.
 
 The main purpose of VidDraw is to demonstrate usage of
-[SharpAvi]([SharpAvi](https://github.com/baSSiLL/SharpAvi)), which wraps
+[SharpAvi](https://github.com/baSSiLL/SharpAvi), which wraps
 [VfW](https://docs.microsoft.com/en-us/windows/win32/api/vfw/), and [toast
 notifications](https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp).
 (It started out as a prototype for the video recording feature of a larger
