@@ -13,6 +13,110 @@
   PERFORMANCE OF THIS SOFTWARE.
 */
 
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/Open_Sans/OpenSans-LightItalic.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/Open_Sans/OpenSans-Italic.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/Open_Sans/OpenSans-SemiBoldItalic.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/Open_Sans/OpenSans-BoldItalic.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 800;
+  font-display: swap;
+  src: url(fonts/Open_Sans/OpenSans-ExtraBoldItalic.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/Open_Sans/OpenSans-Light.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(fonts/Open_Sans/OpenSans-Regular.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/Open_Sans/OpenSans-SemiBold.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/Open_Sans/OpenSans-Bold.woff) format('woff2');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url(fonts/Open_Sans/OpenSans-ExtraBold.woff) format('woff2');
+}
+
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/Open_Sans_Condensed/OpenSansCondensed-LightItalic.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(fonts/Open_Sans_Condensed/OpenSansCondensed-Light.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(fonts/Open_Sans_Condensed/OpenSansCondensed-Bold.woff) format('woff');
+}
+
 body {
   -ms-hyphenate-limit-chars: 6 2 2;
   -ms-hyphenate-limit-last: always;
@@ -44,7 +148,7 @@ h2 {
   border-bottom: 1px solid #444;
   font-size: 4rem;
   font-weight: 400;
-  letter-spacing: .06em;
+  letter-spacing: .06em; /* TODO: Try small-caps (or even all-caps?) for h2. */
   margin-bottom: 2.5rem;
   margin-top: 5rem;
   padding-bottom: .5rem;
@@ -66,11 +170,31 @@ blockquote, pre {
   border-left-width: .4rem;
 }
 
+code, kbd {
+  font-family: 'Cascadia Mono', 'Consolas', 'Lucida Console', 'Courier New', 'Courier', monospace;
+}
+
 code {
   background-color: #f0f0f0;
   border-radius: .2rem;
-  font-family: 'Cascadia Mono', 'Consolas', 'Lucida Console', 'Courier New', 'Courier', monospace;
   font-weight: 300;
+}
+
+pre.text {
+  border-left-width: .2rem;
+  font-size: 77%;
+  max-height: 60rem;
+  overflow: auto;
+}
+
+pre.text>code {
+  font-weight: 400;
+  padding-left: 1.25rem;
+}
+
+kbd {
+  font-size: 80%;
+  vertical-align: 5%;
 }
 
 li {

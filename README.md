@@ -47,6 +47,12 @@ repository, some of the files in this repository were not written by me and are
 licensed under terms other than 0BSD. See [`LICENSE.md`](LICENSE.md) for full
 details.
 
+<!-- FIXME:
+  Describe the dependencies situation better, perhaps as described below.
+  Link to the other info on dependencies in this file, maybe.
+  Actually make the LICENSE.md file, definitely.
+-->
+
 ## Setup
 
 This alpha version of Vid&shy;Draw doesn&rsquo;t have binary downloads. To run
@@ -122,7 +128,7 @@ the problem in VLC. To do that, open the x264vfw configuration dialog
 and&mdash;in the textarea labeled &ldquo;Extra command line (for advanced
 users)&rdquo;&mdash;put:
 
-```text
+```sh
 --keyint 1
 ```
 
@@ -288,7 +294,7 @@ this. It uses Sharp&shy;Avi&rsquo;s `UncompressedVideoEncoder`. As the
 wiki](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder)
 says:
 
-> The simplest [encoder] is
+> The simplest \[encoder\] is
 [UncompressedVideoEncoder](https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/UncompressedVideoEncoder.cs).
 It does no real encoding, just flips image vertically and converts BGR32 data
 to BGR24 data to reduce the size.
@@ -538,53 +544,63 @@ repository contain *&ldquo;[included]&rdquo;* links to their subdirectories.
 Links to each dependency&rsquo;s detailed licensing information are given on
 the second line.
 
-- [clipboard.js](https://clipboardjs.com/) 2.0.8 by Zeno Rocha \[included\]\
-  [MIT License](https://github.com/zenorocha/clipboard.js/blob/master/LICENSE)
-  (local, inline)
 - [CsWin32](https://github.com/microsoft/CsWin32) 0.1.422-beta by Andrew Arnott
   / Microsoft
   \[[nuget](https://www.nuget.org/packages/Microsoft.Windows.CsWin32)\]\
-  [MIT License](https://github.com/microsoft/CsWin32/blob/main/LICENSE)
-  (inline)
+  [MIT license](https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE)
+  ([inline](#CsWin32))
 - [*Fork me on GitHub* CSS
   ribbon](https://simonwhitaker.github.io/github-fork-ribbon-css/) 0.2.3 by
   Simon Whitaker \[included\]\
   [MIT
-  License](https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE)
-  (local, inline)
+  license](https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE)
+  (local, [inline](#fork-me-on-github-css-ribbon))
 - [Json.NET](https://www.newtonsoft.com/json) (Newtonsoft.Json) 13.0.1 by James
   Newton-King \[[nuget](https://www.nuget.org/packages/Newtonsoft.Json)\]\
   [MIT
-  License](https://github.com/JamesNK/Newtonsoft.Json/blob/master/LICENSE.md)
-  (inline)
-- [kbd](https://auth0.github.io/kbd/) by Auth0 \[included\]\
-  [MIT License](https://github.com/auth0/kbd/blob/gh-pages/LICENSE) (local,
-  inline)
-- [Milligram](https://milligram.io/) 1.4.1 by CJ Patoilo \[included\]\
-  [MIT License](https://github.com/milligram/milligram/blob/master/license)
-  (local, inline)
+  license](https://github.com/JamesNK/Newtonsoft.Json/blob/13.0.1/LICENSE.md)
+  ([inline](#json-net))
+- [kbd](https://auth0.github.io/kbd/) 0.0.1 by Auth0
+  \[[included](doc-assets/bower_components/kbd/)\]\
+  [MIT license](https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md)
+  ([local](doc-assets/bower_components/kbd/LICENSE.md), [inline](#kbd))
+- [Milligram](https://milligram.io/) 1.4.1 by CJ Patoilo
+  \[[included](doc-assets/bower_components/milligram/)\]\
+  [MIT license](https://github.com/milligram/milligram/blob/v1.4.1/license)
+  ([local](doc-assets/bower_components/milligram/license),
+  [inline](#milligram))
 - [normalize.css](https://necolas.github.io/normalize.css/) 8.0.1 by Nicolas
-  Gallagher and Jonathan Neal \[included\]\
-  [MIT License](https://github.com/necolas/normalize.css/blob/8.0.1/LICENSE.md)
-  (local, inline)
-- [Open Sans](https://fonts.google.com/specimen/Open+Sans) and [Open Sans
-  Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed) (fonts) by
-  Steve Matteson \[included\]\
+  Gallagher and Jonathan Neal \[[included](doc-assets/bower_components/normalize.css/)\]\
+  [MIT license](https://github.com/necolas/normalize.css/blob/8.0.1/LICENSE.md)
+  ([local](doc-assets/bower_components/normalize.css/LICENSE.md),
+  [inline](#normalize-css))
+- [Open Sans](https://fonts.google.com/specimen/Open+Sans) 1.10 (font) by Steve
+  Matteson \[[included](doc-assets/fonts/Open_Sans/)\]\
   [Apache License, Version
-  2.0](https://www.apache.org/licenses/LICENSE-2.0.html) (local, local, inline)
+  2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+  ([local](doc-assets/fonts/Open_Sans/LICENSE.txt),
+  [inline](#open-sans-open-sans-condensed))
+- [Open Sans Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed)
+  1.10 (font) by Steve Matteson
+  \[[included](doc-assets/fonts/Open_Sans_Condensed/)\]\
+  [Apache License, Version
+  2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
+  ([local](doc-assets/fonts/Open_Sans_Condensed/LICENSE.txt),
+  [inline](#open-sans-open-sans-condensed))
 - [SharpAvi.Net5](https://github.com/EliahKagan/SharpAvi) 2.1.2-rc, my fork of
   [SharpAvi](https://github.com/baSSiLL/SharpAvi) 2.1.2 by Vasili Maslov
   \[[nuget](https://www.nuget.org/packages/SharpAvi.Net5)\]\
-  [MIT License](https://github.com/EliahKagan/SharpAvi/blob/net5/LICENSE.md)
-  (inline)
+  [MIT
+  license](https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md)
+  ([inline](#sharpavi))
 - [Windows Community
   Toolkit](https://docs.microsoft.com/en-us/windows/communitytoolkit/) &ndash;
   [Notifications](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications)
-  7.0.1 by .NET Foundation and Contributors
+  7.0.2 by .NET Foundation and Contributors
   \[[nuget](https://www.nuget.org/packages/Microsoft.Toolkit.Uwp.Notifications)\]\
   [MIT
-  License](https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/main/license.md)
-  (inline)
+  license](https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/v7.0.2/license.md)
+  ([inline](#windows-community-toolkit))
 
 Vid&shy;Draw is a C# program targeting [.NET](https://dotnet.microsoft.com/) 5
 on Windows. It uses [Windows Forms](https://github.com/dotnet/winforms), and it
@@ -628,3 +644,479 @@ Please note that, for practical and ideological reasons unrelated to x264vfw, I
 still intend Vid&shy;Draw to be GPL-compatible! If it is not, or even if it
 [appears not to be](#an-indirect-dependency-has-confusing-licensing), I&rsquo;d
 consider that a serious bug.
+
+<!-- TODO: The notices really should be in a separate file. -->
+
+## Notices
+
+<!-- FIXME:
+  Don't show licenses from .md files as monospaced blocks.
+  (Maybe don't show the others that way either, I'm not sure.)
+  Then make sure the text is bigger in the CSS, for *all* licenses, than now.
+-->
+
+Vid&shy;Draw, but not its dependencies, is licensed under
+[0BSD](LICENSE-OBSD.txt). Thus, everything in this repository *except* the
+contents of `doc-assets/bower_components` and of the subdirectories of
+`doc-assets/fonts` is offered under 0BSD:
+
+```text
+Copyright (c) 2021 Eliah Kagan
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+```
+
+Licenses and accompanying information for each of Vid&shy;Draw&rsquo;s
+[above-listed dependencies](#dependencies) are reproduced below in full (but
+only some, not all, dependencies are themselves included in this repository).
+
+Some licenses contain copyright statements, which differ across projects that
+are licensed the same way. These licenses are short anyway, so I&rsquo;ve kept
+the full text of each.
+
+### CsWin32
+
+Microsoft Corporation has released
+[CsWin32](https://github.com/microsoft/CsWin32) under the MIT license:
+
+```text
+The MIT License (MIT)
+
+Copyright (c) Microsoft Corporation
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### *Fork me on GitHub* CSS Ribbon
+
+Simon Whitaker has released [*Fork me on GitHub* CSS
+Ribbon](https://github.com/simonwhitaker/github-fork-ribbon-css/tree/0.2.3)
+under the MIT license:
+
+```text
+The MIT License (MIT)
+
+Copyright (c) 2013 Simon Whitaker
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### Json<span></span>.NET
+
+James Newton-King has released
+[Json.NET](https://github.com/JamesNK/Newtonsoft.Json/tree/13.0.1) under the
+MIT license:
+
+```text
+The MIT License (MIT)
+
+Copyright (c) 2007 James Newton-King
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
+### kbd
+
+Auth0 Inc. has released
+[kbd](https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md) under the MIT
+license:
+
+```text
+The MIT License (MIT)
+
+Copyright (c) 2014 Auth0 Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### Milligram
+
+CJ Patoilo has released Milligram under the MIT license:
+
+```text
+The MIT License (MIT)
+
+Copyright (c) CJ Patoilo <cjpatoilo@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### normalize.css
+
+Nicolas Gallagher and Jonathan Neal have released
+[normalize.css](https://github.com/necolas/normalize.css/tree/v2.1.3) under the
+MIT license:
+
+```text
+# The MIT License (MIT)
+
+Copyright © Nicolas Gallagher and Jonathan Neal
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### Open Sans<br>Open Sans Condensed
+
+Google Corporation has released [Open
+Sans](https://fonts.google.com/specimen/Open+Sans) and [Open Sans
+Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed), fonts
+designed by Steve Matteson of Ascender Corporation and &copy; 2011 Google
+Corporation, under the Apache License, Version 2.0.
+
+Please note that the `.woff` files in this repository are not the same files as
+downloaded from Google Fonts, which provided the fonts as `.ttf` files. I
+compressed them to produce the `.woff` files found here using
+[`sfnt2woff`](http://manpages.ubuntu.com/manpages/hirsute/en/man1/sfnt2woff.1.html).
+This is lossless; the exact, byte-for-byte original files can be produced using
+[`woff2sfnt`](http://manpages.ubuntu.com/manpages/hirsute/en/man1/woff2sfnt.1.html).
+
+```text
+                              Apache License
+                        Version 2.0, January 2004
+                     http://www.apache.org/licenses/
+
+TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+1. Definitions.
+
+   "License" shall mean the terms and conditions for use, reproduction,
+   and distribution as defined by Sections 1 through 9 of this document.
+
+   "Licensor" shall mean the copyright owner or entity authorized by
+   the copyright owner that is granting the License.
+
+   "Legal Entity" shall mean the union of the acting entity and all
+   other entities that control, are controlled by, or are under common
+   control with that entity. For the purposes of this definition,
+   "control" means (i) the power, direct or indirect, to cause the
+   direction or management of such entity, whether by contract or
+   otherwise, or (ii) ownership of fifty percent (50%) or more of the
+   outstanding shares, or (iii) beneficial ownership of such entity.
+
+   "You" (or "Your") shall mean an individual or Legal Entity
+   exercising permissions granted by this License.
+
+   "Source" form shall mean the preferred form for making modifications,
+   including but not limited to software source code, documentation
+   source, and configuration files.
+
+   "Object" form shall mean any form resulting from mechanical
+   transformation or translation of a Source form, including but
+   not limited to compiled object code, generated documentation,
+   and conversions to other media types.
+
+   "Work" shall mean the work of authorship, whether in Source or
+   Object form, made available under the License, as indicated by a
+   copyright notice that is included in or attached to the work
+   (an example is provided in the Appendix below).
+
+   "Derivative Works" shall mean any work, whether in Source or Object
+   form, that is based on (or derived from) the Work and for which the
+   editorial revisions, annotations, elaborations, or other modifications
+   represent, as a whole, an original work of authorship. For the purposes
+   of this License, Derivative Works shall not include works that remain
+   separable from, or merely link (or bind by name) to the interfaces of,
+   the Work and Derivative Works thereof.
+
+   "Contribution" shall mean any work of authorship, including
+   the original version of the Work and any modifications or additions
+   to that Work or Derivative Works thereof, that is intentionally
+   submitted to Licensor for inclusion in the Work by the copyright owner
+   or by an individual or Legal Entity authorized to submit on behalf of
+   the copyright owner. For the purposes of this definition, "submitted"
+   means any form of electronic, verbal, or written communication sent
+   to the Licensor or its representatives, including but not limited to
+   communication on electronic mailing lists, source code control systems,
+   and issue tracking systems that are managed by, or on behalf of, the
+   Licensor for the purpose of discussing and improving the Work, but
+   excluding communication that is conspicuously marked or otherwise
+   designated in writing by the copyright owner as "Not a Contribution."
+
+   "Contributor" shall mean Licensor and any individual or Legal Entity
+   on behalf of whom a Contribution has been received by Licensor and
+   subsequently incorporated within the Work.
+
+2. Grant of Copyright License. Subject to the terms and conditions of
+   this License, each Contributor hereby grants to You a perpetual,
+   worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+   copyright license to reproduce, prepare Derivative Works of,
+   publicly display, publicly perform, sublicense, and distribute the
+   Work and such Derivative Works in Source or Object form.
+
+3. Grant of Patent License. Subject to the terms and conditions of
+   this License, each Contributor hereby grants to You a perpetual,
+   worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+   (except as stated in this section) patent license to make, have made,
+   use, offer to sell, sell, import, and otherwise transfer the Work,
+   where such license applies only to those patent claims licensable
+   by such Contributor that are necessarily infringed by their
+   Contribution(s) alone or by combination of their Contribution(s)
+   with the Work to which such Contribution(s) was submitted. If You
+   institute patent litigation against any entity (including a
+   cross-claim or counterclaim in a lawsuit) alleging that the Work
+   or a Contribution incorporated within the Work constitutes direct
+   or contributory patent infringement, then any patent licenses
+   granted to You under this License for that Work shall terminate
+   as of the date such litigation is filed.
+
+4. Redistribution. You may reproduce and distribute copies of the
+   Work or Derivative Works thereof in any medium, with or without
+   modifications, and in Source or Object form, provided that You
+   meet the following conditions:
+
+   (a) You must give any other recipients of the Work or
+       Derivative Works a copy of this License; and
+
+   (b) You must cause any modified files to carry prominent notices
+       stating that You changed the files; and
+
+   (c) You must retain, in the Source form of any Derivative Works
+       that You distribute, all copyright, patent, trademark, and
+       attribution notices from the Source form of the Work,
+       excluding those notices that do not pertain to any part of
+       the Derivative Works; and
+
+   (d) If the Work includes a "NOTICE" text file as part of its
+       distribution, then any Derivative Works that You distribute must
+       include a readable copy of the attribution notices contained
+       within such NOTICE file, excluding those notices that do not
+       pertain to any part of the Derivative Works, in at least one
+       of the following places: within a NOTICE text file distributed
+       as part of the Derivative Works; within the Source form or
+       documentation, if provided along with the Derivative Works; or,
+       within a display generated by the Derivative Works, if and
+       wherever such third-party notices normally appear. The contents
+       of the NOTICE file are for informational purposes only and
+       do not modify the License. You may add Your own attribution
+       notices within Derivative Works that You distribute, alongside
+       or as an addendum to the NOTICE text from the Work, provided
+       that such additional attribution notices cannot be construed
+       as modifying the License.
+
+   You may add Your own copyright statement to Your modifications and
+   may provide additional or different license terms and conditions
+   for use, reproduction, or distribution of Your modifications, or
+   for any such Derivative Works as a whole, provided Your use,
+   reproduction, and distribution of the Work otherwise complies with
+   the conditions stated in this License.
+
+5. Submission of Contributions. Unless You explicitly state otherwise,
+   any Contribution intentionally submitted for inclusion in the Work
+   by You to the Licensor shall be under the terms and conditions of
+   this License, without any additional terms or conditions.
+   Notwithstanding the above, nothing herein shall supersede or modify
+   the terms of any separate license agreement you may have executed
+   with Licensor regarding such Contributions.
+
+6. Trademarks. This License does not grant permission to use the trade
+   names, trademarks, service marks, or product names of the Licensor,
+   except as required for reasonable and customary use in describing the
+   origin of the Work and reproducing the content of the NOTICE file.
+
+7. Disclaimer of Warranty. Unless required by applicable law or
+   agreed to in writing, Licensor provides the Work (and each
+   Contributor provides its Contributions) on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+   implied, including, without limitation, any warranties or conditions
+   of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+   PARTICULAR PURPOSE. You are solely responsible for determining the
+   appropriateness of using or redistributing the Work and assume any
+   risks associated with Your exercise of permissions under this License.
+
+8. Limitation of Liability. In no event and under no legal theory,
+   whether in tort (including negligence), contract, or otherwise,
+   unless required by applicable law (such as deliberate and grossly
+   negligent acts) or agreed to in writing, shall any Contributor be
+   liable to You for damages, including any direct, indirect, special,
+   incidental, or consequential damages of any character arising as a
+   result of this License or out of the use or inability to use the
+   Work (including but not limited to damages for loss of goodwill,
+   work stoppage, computer failure or malfunction, or any and all
+   other commercial damages or losses), even if such Contributor
+   has been advised of the possibility of such damages.
+
+9. Accepting Warranty or Additional Liability. While redistributing
+   the Work or Derivative Works thereof, You may choose to offer,
+   and charge a fee for, acceptance of support, warranty, indemnity,
+   or other liability obligations and/or rights consistent with this
+   License. However, in accepting such obligations, You may act only
+   on Your own behalf and on Your sole responsibility, not on behalf
+   of any other Contributor, and only if You agree to indemnify,
+   defend, and hold each Contributor harmless for any liability
+   incurred by, or claims asserted against, such Contributor by reason
+   of your accepting any such warranty or additional liability.
+
+END OF TERMS AND CONDITIONS
+
+APPENDIX: How to apply the Apache License to your work.
+
+   To apply the Apache License to your work, attach the following
+   boilerplate notice, with the fields enclosed by brackets "[]"
+   replaced with your own identifying information. (Don't include
+   the brackets!)  The text should be enclosed in the appropriate
+   comment syntax for the file format. We also recommend that a
+   file or class name and description of purpose be included on the
+   same "printed page" as the copyright notice for easier
+   identification within third-party archives.
+
+Copyright [yyyy] [name of copyright owner]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+### SharpAvi
+
+Vasili Maslov has released
+[SharpAvi](https://github.com/baSSiLL/SharpAvi/tree/v2.1.2) under the [MIT
+license](https://github.com/baSSiLL/SharpAvi/blob/v2.1.2/LICENSE.md). My fork
+of SharpAvi,
+[SharpAvi.Net5](https://github.com/EliahKagan/SharpAvi/tree/v2.1.2-net5-rc),
+retains its [license
+file](https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md)
+without modification:
+
+```text
+Copyright (c) 2013-2018 Vasili Maslov
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
+
+### Windows Community Toolkit
+
+The .NET Foundation and Contributors have released the [Windows Community
+Toolkit](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/v7.0.2)
+under the MIT license:
+
+```text
+# Windows Community Toolkit
+
+Copyright (c) .NET Foundation and Contributors
+
+All rights reserved.
+
+# MIT License (MIT)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```
