@@ -87,8 +87,15 @@ li:hover {
   border-color: #9b4dca;
 }
 
-a:hover {
+a:focus, a:hover {
   background-color: #f9f9f9;
-  border-bottom: 2px solid;
   color: #9b4dca;
+}
+
+a:focus {
+  border-bottom: 1px dotted;
+}
+
+a:focus:hover, a:hover {
+  border-bottom: 2px solid;
 }
