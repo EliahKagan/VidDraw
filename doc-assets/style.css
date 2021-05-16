@@ -117,20 +117,23 @@
   src: url(fonts/Open_Sans_Condensed/OpenSansCondensed-Bold.woff) format('woff');
 }
 
+body, pre.text>code {
+  font-family: 'Open Sans', 'Segoe UI', 'Ubuntu', 'Roboto', '-apple-system', 'Nimbus Sans L', 'system-ui', 'BlinkMacSystemFont', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 400;
+}
+
 body {
   -ms-hyphenate-limit-chars: 6 2 2;
   -ms-hyphenate-limit-last: always;
   -ms-hyphens: auto;
   color: #444;
-  font-family: 'Open Sans', 'Segoe UI', 'Ubuntu', 'Roboto', '-apple-system', 'Nimbus Sans L', 'system-ui', 'BlinkMacSystemFont', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-feature-settings: 'kern' 1;
   font-kerning: normal;
   font-size: 2.2rem;
-  font-weight: 400;
   hyphens: auto;
   line-height: 1.55;
-  max-width: 74rem;
   margin: 0 auto;
+  max-width: 74rem;
   padding: 0 10px;
   text-rendering: optimizeLegibility;
 }
@@ -142,6 +145,12 @@ h1, h2, h3, h4 {
 h1 {
   font-weight: 300;
   margin-bottom: 3rem;
+}
+
+blockquote h1 {
+  color: #333;
+  font-size: 2.2rem;
+  font-weight: 600;
 }
 
 h2 {
@@ -162,12 +171,13 @@ h3 {
   margin-top: 3.5rem;
 }
 
-blockquote {
-  font-size: 2rem;
+blockquote, pre.text>code {
+  font-size: 1.8rem;
 }
 
 blockquote, pre {
-  border-left-width: .4rem;
+  border-left-color: #9b4dca;
+  border-left-width: .2rem;
 }
 
 code, kbd {
@@ -180,16 +190,13 @@ code {
   font-weight: 300;
 }
 
-pre.text {
-  border-left-width: .2rem;
-  font-size: 77%;
-  max-height: 60rem;
-  overflow: auto;
+pre.text, pre.text>code {
+  background-color: transparent;
 }
 
-pre.text>code {
-  font-weight: 400;
-  padding-left: 1.25rem;
+pre.text {
+  max-height: 60rem;
+  overflow: auto;
 }
 
 kbd {
@@ -197,7 +204,7 @@ kbd {
   vertical-align: 5%;
 }
 
-li {
+ul>li {
   -ms-hyphens: none;
   border: 1px dotted transparent;
   hyphens: none;
@@ -207,7 +214,7 @@ li {
   padding-left: .5rem;
 }
 
-li:hover {
+ul>li:hover {
   border-color: #9b4dca;
 }
 
