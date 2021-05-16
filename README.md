@@ -34,7 +34,7 @@ bugs](#known-bugs).
 ## License
 
 Vid&shy;Draw is [free software](https://en.wikipedia.org/wiki/Free_software).
-The program [is itself licensed](LICENSE-0BSD.txt) under
+The program [is itself licensed](COPYING.0BSD) under
 [0BSD](https://spdx.org/licenses/0BSD.html) (&ldquo;Zero-Clause BSD
 License,&rdquo; also known as the [Free Public License
 1.0.0](https://opensource.org/licenses/0BSD)), which is a [&ldquo;public domain
@@ -44,14 +44,8 @@ under other licenses. See [Dependencies](#dependencies) below for details.
 
 Since some of Vid&shy;Draw&rsquo;s dependencies are included directly in this
 repository, some of the files in this repository were not written by me and are
-licensed under terms other than 0BSD. See [`LICENSE.md`](LICENSE.md) for full
-details.
-
-<!-- FIXME:
-  Describe the dependencies situation better, perhaps as described below.
-  Link to the other info on dependencies in this file, maybe.
-  Actually make the LICENSE.md file, definitely.
--->
+licensed under terms other than 0BSD. See [`LICENSE`](LICENSE) and
+[Notices](#notices).
 
 ## Setup
 
@@ -647,10 +641,10 @@ consider that a serious bug.
 
 ## Notices
 
-Vid&shy;Draw, but not its dependencies, is licensed under
-[0BSD](LICENSE-OBSD.txt). Thus, everything in this repository *except* the
-contents of `doc-assets/bower_components` and of the subdirectories of
-`doc-assets/fonts` is offered under 0BSD:
+Vid&shy;Draw, but not its dependencies, is licensed under [0BSD](COPYING.0BSD).
+Thus, everything in this repository *except* the contents of
+`doc-assets/bower_components` and of the subdirectories of `doc-assets/fonts`
+is offered under 0BSD:
 
 > Copyright (c) 2021 Eliah Kagan
 >

@@ -1,0 +1,31 @@
+VidDraw, but not its dependencies, is licensed under 0BSD (the "Zero-Clause BSD
+License"). That license is provided in COPYING.0BSD and reproduced here for
+convenience:
+
+  Copyright (c) 2021 Eliah Kagan
+
+  Permission to use, copy, modify, and/or distribute this software for any
+  purpose with or without fee is hereby granted.
+
+  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+  REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+  AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+  INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+  LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+  OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+  PERFORMANCE OF THIS SOFTWARE.
+
+Some of VidDraw's dependencies are included here. They are not written by Eliah
+Kagan, and they are licensed under terms other than 0BSD. They are located in
+these directories:
+
+  - doc-assets/bower_components
+  - doc-assets/fonts/Open_Sans
+  - doc-assets/fonts/Open_Sans_Condensed
+
+The various libraries INSIDE those directories are accompanied by their own
+licenses and copyright notices. The NOTICES section of the VidDraw README
+(which you can read in README.md or README.html) also includes that
+information.
+
+Everything OUTSIDE those directories is licensed under 0BSD as detailed above.
