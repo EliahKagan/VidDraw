@@ -177,7 +177,7 @@ blockquote, pre.text>code {
 
 blockquote, pre {
   border-left-color: #9b4dca;
-  border-left-width: .2rem;
+  border-left-width: 2px;
 }
 
 code, kbd {
@@ -186,7 +186,7 @@ code, kbd {
 
 code {
   background-color: #f0f0f0;
-  border-radius: .2rem;
+  border-radius: 2px;
   font-weight: 300;
 }
 
