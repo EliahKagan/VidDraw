@@ -14,7 +14,7 @@
 (function () {
     'use strict';
 
-    const anchors = new AnchorJS({placement: 'left'});
+    const anchors = new AnchorJS({placement: 'right'});
 
     anchors.options.titleText = 'Link to this section';
     anchors.add('h2');

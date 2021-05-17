@@ -238,7 +238,11 @@ a:focus:hover, a:hover {
 }
 
 a.anchorjs-link {
-  color: darkgrey;
+  color: gray;
+}
+
+h2>a.anchorjs-link {
+  color: darkgray; /* Actually lighter than 'gray'. I intend this. */
 }
 
 a.anchorjs-link:focus, a.anchorjs-link:hover, a.github-fork-ribbon:hover {
