@@ -159,6 +159,35 @@ with ffmpeg so VLC and other players would not
 crash](https://video.stackexchange.com/questions/18220/fix-bad-files-and-streams-with-ffmpeg-so-vlc-and-other-players-would-not-crash)
 on [Video Production Stack Exchange](https://video.stackexchange.com/).*
 
+### Optional: Regenerate the Documentation
+
+If you&rsquo;re just building and using Vid&shy;Draw, and not modifying
+it&mdash;or modifying it but not modifying its documentation&mdash;you can skip
+this section.
+
+Vid&shy;Draw comes with `README.html`, which its [built-in help
+viewer](#about-viddraw) displays. `README.html` is generated from `README.md`
+(and uses files in the `doc-assets` directory). Building Vid&shy;Draw as described
+above doesn&rsquo;t regenerate `README.html`. If you&rsquo;re hacking on
+Vid&shy;Draw and you make modifications to `README.md`,
+`doc-assets\template.html5`, or `doc-assets\defaults.yaml`, then you should
+rebuild `README.html`:
+
+```powershell
+cd doc-assets
+pandoc -d defaults
+```
+
+If you don&rsquo;t have `pandoc`, one way to get it, on a 64-bit Windows
+system, if you have [Scoop](https://scoop.sh/), is:
+
+```powershell
+scoop install pandoc
+```
+
+Modifications to other files than those three, including other files inside the
+`doc-assets` directory, do not require `README.html` to be regenerated.
+
 ## Usage Tips
 
 Vid&shy;Draw&rsquo;s interface is clean and simple&hellip; yet remarkably
