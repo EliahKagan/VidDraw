@@ -1,0 +1,22 @@
+{
+  "name": "doc-assets",
+  "authors": [
+    "Eliah Kagan <degeneracypressure@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "0BSD",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "kbd": "^0.0.1",
+    "milligram": "^1.4.1"
+  }
+}
