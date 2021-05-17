@@ -43,7 +43,7 @@ license. Vid&shy;Draw&rsquo;s dependencies are also free, but they are offered
 under other licenses. See [Dependencies](#dependencies) below for details.
 
 Since some of Vid&shy;Draw&rsquo;s dependencies are included directly in this
-repository, some of the files in this repository were not written by me and are
+repository, some of the files in this repository have other authors and are
 licensed under terms other than 0BSD. See [`LICENSE`](LICENSE) and
 [Notices](#notices).
 
@@ -167,9 +167,9 @@ this section.
 
 Vid&shy;Draw comes with `README.html`, which its [built-in help
 viewer](#about-viddraw) displays. `README.html` is generated from `README.md`
-(and uses files in the `doc-assets` directory). Building Vid&shy;Draw as described
-above doesn&rsquo;t regenerate `README.html`. If you&rsquo;re hacking on
-Vid&shy;Draw and you make modifications to `README.md`,
+(and uses files in the `doc-assets` directory). Building Vid&shy;Draw as
+described above doesn&rsquo;t regenerate `README.html`. If you&rsquo;re hacking
+on Vid&shy;Draw and you make modifications to `README.md`,
 `doc-assets\template.html5`, or `doc-assets\defaults.yaml`, then you should
 rebuild `README.html`:
 

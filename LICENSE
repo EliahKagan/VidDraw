@@ -15,9 +15,9 @@ convenience:
   OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
   PERFORMANCE OF THIS SOFTWARE.
 
-Some of VidDraw's dependencies are included here. They are not written by Eliah
-Kagan, and they are licensed under terms other than 0BSD. They are located in
-these directories:
+Some of VidDraw's dependencies are included here. They have other authors, and
+they are licensed under terms other than 0BSD. They are located in these
+directories:
 
   - doc-assets/bower_components
   - doc-assets/fonts/Open_Sans
