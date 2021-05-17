@@ -25,12 +25,22 @@ $-- pandoc template for generating VidDraw help file from README.md
     <link rel="stylesheet"
           href="doc-assets/bower_components/milligram/dist/milligram.min.css">
     <link rel="stylesheet" href="doc-assets/bower_components/kbd/kbd.css">
+    <link rel="stylesheet"
+          href="doc-assets/bower_components/github-fork-ribbon-css/gh-fork-ribbon.css">
     <link rel="stylesheet" href="doc-assets/style.css">
     <script src="doc-assets/bower_components/anchor-js/anchor.min.js" defer>
     </script>
     <script src="doc-assets/embellish.js" defer></script>
   </head>
   <body>
+    <header>
+      <a class="github-fork-ribbon"
+         href="https://github.com/EliahKagan/VidDraw"
+         data-ribbon="Fork me on GitHub"
+         title="Fork me on GitHub">Fork me on GitHub</a>
+    </header>
+    <main>
 ${body}
+    </main>
   </body>
 </html>

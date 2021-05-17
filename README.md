@@ -552,7 +552,8 @@ the second line.
   Simon Whitaker \[included\]\
   [MIT
   license](https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE)
-  (local, [inline](#fork-me-on-github-css-ribbon))
+  ([local](doc-assets/bower_components/github-fork-ribbon-css/LICENSE),
+  [inline](#fork-me-on-github-css-ribbon))
 - [Json.NET](https://www.newtonsoft.com/json) (Newtonsoft.Json) 13.0.1 by James
   Newton-King \[[nuget](https://www.nuget.org/packages/Newtonsoft.Json)\]\
   [MIT

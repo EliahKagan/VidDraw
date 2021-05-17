@@ -241,8 +241,24 @@ a.anchorjs-link {
   color: darkgrey;
 }
 
-a.anchorjs-link:focus, a.anchorjs-link:hover {
+a.anchorjs-link:focus, a.anchorjs-link:hover, a.github-fork-ribbon:hover {
   background-color: transparent;
   border-bottom: none;
+}
+
+a.anchorjs-link:focus, a.anchorjs-link:hover {
   color: #9b4dca;
+}
+
+a.github-fork-ribbon::before {
+  background-color: rgba(155, 77, 202, 0.8);
+}
+
+a.github-fork-ribbon:focus::before, a.github-fork-ribbon:hover::before {
+  background-color: rgba(155, 77, 202, 0.9);
+}
+
+a.github-fork-ribbon::after {
+  color: white;
+  font-family: 'Open Sans', 'Nimbus Sans L', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
