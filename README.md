@@ -914,7 +914,8 @@ Please note that the `.woff` files in this repository are not the same files as
 downloaded from Google Fonts, which provided the fonts as `.ttf` files. I
 compressed them to produce the `.woff` files found here using
 [`sfnt2woff`](http://manpages.ubuntu.com/manpages/hirsute/en/man1/sfnt2woff.1.html).
-This is lossless; the exact, byte-for-byte original files can be produced using
+This is lossless; the exact, byte-for-byte original `.ttf` files can be
+recovered by decompressing them with
 [`woff2sfnt`](http://manpages.ubuntu.com/manpages/hirsute/en/man1/woff2sfnt.1.html).
 
 ```text
