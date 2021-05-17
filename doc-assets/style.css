@@ -133,8 +133,8 @@ body {
   hyphens: auto;
   line-height: 1.55;
   margin: 0 auto;
-  max-width: 67rem;
-  padding: 0 1rem;
+  max-width: 66rem;
+  padding: 0 .5rem;
   text-rendering: optimizeLegibility;
 }
 
@@ -251,11 +251,11 @@ a.anchorjs-link:focus, a.anchorjs-link:hover {
 }
 
 a.github-fork-ribbon::before {
-  background-color: rgba(155, 77, 202, 0.8);
+  background-color: rgba(155, 77, 202, .725);
 }
 
 a.github-fork-ribbon:focus::before, a.github-fork-ribbon:hover::before {
-  background-color: rgba(155, 77, 202, 0.9);
+  background-color: rgba(155, 77, 202, .85);
 }
 
 a.github-fork-ribbon::after {
