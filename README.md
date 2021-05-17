@@ -52,23 +52,32 @@ licensed under terms other than 0BSD. See [`LICENSE`](LICENSE) and
 This alpha version of Vid&shy;Draw doesn&rsquo;t have binary downloads. To run
 Vid&shy;Draw, make sure you have the [.NET
 5](https://dotnet.microsoft.com/download/dotnet/5.0) SDK. Then, to clone this
-repository and build and run Vid&shy;Draw, run:
+repository and build Vid&shy;Draw, run:
 
 ```powershell
 git clone https://github.com/EliahKagan/VidDraw.git
 cd VidDraw
+dotnet build
+```
+
+Then, to run it:
+
+```powershell
 dotnet run
 ```
 
-The first time you run
-[`dotnet run`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run),
-Vid&shy;Draw will be built. Dependencies not included in this repository will
-be [downloaded automatically](https://www.nuget.org/). If you want to build it
-without running it, use [`dotnet
-build`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build)
-instead of `dotnet run`. (This creates a &ldquo;debug&rdquo; build. If you want
-a &ldquo;release&rdquo; build instead, use `dotnet run -c Release` or `dotnet
-build -c Release`.)
+Those commands build and run a &ldquo;debug&rdquo; build. If you want a
+&ldquo;release&rdquo; build instead, use `dotnet build -c Release` and
+`dotnet run -c Release`.
+
+Dependencies not included in this repository will be [downloaded
+automatically](https://www.nuget.org/). Running
+[`dotnet run`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run)
+without first running
+[`dotnet build`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build)
+also works, though if you do that the first time, it may appear to have frozen
+for a short while while dependencies are downloaded. (In contrast,
+`dotnet build` is more verbose.)
 
 That&rsquo;s all you need. If you want to read about codec stuff&hellip; read
 on! Otherwise, you may want to skip to [Usage Tips](#usage-tips) or [The
