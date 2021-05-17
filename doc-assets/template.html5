@@ -26,6 +26,9 @@ $-- pandoc template for generating VidDraw help file from README.md
           href="doc-assets/bower_components/milligram/dist/milligram.min.css">
     <link rel="stylesheet" href="doc-assets/bower_components/kbd/kbd.css">
     <link rel="stylesheet" href="doc-assets/style.css">
+    <script src="doc-assets/bower_components/anchor-js/anchor.min.js" defer>
+    </script>
+    <script src="doc-assets/embellish.js" defer></script>
   </head>
   <body>
 ${body}

@@ -133,8 +133,8 @@ body {
   hyphens: auto;
   line-height: 1.55;
   margin: 0 auto;
-  max-width: 67rem;
-  padding: 0 10px;
+  max-width: 73rem;
+  padding: 0 4rem;
   text-rendering: optimizeLegibility;
 }
 
@@ -235,4 +235,14 @@ a:focus {
 
 a:focus:hover, a:hover {
   border-bottom: 2px solid;
+}
+
+a.anchorjs-link {
+  color: darkgrey;
+}
+
+a.anchorjs-link:focus, a.anchorjs-link:hover {
+  background-color: transparent;
+  border-bottom: none;
+  color: #9b4dca;
 }
