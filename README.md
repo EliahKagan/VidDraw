@@ -324,11 +324,11 @@ The file size is unhappily large, but nowhere near as bad as the uncompressed en
 
 If the [x264vfw](https://sourceforge.net/projects/x264vfw/) codec (of the same
 architecture as the Vid&shy;Draw process) [is
-installed](#optional-get-x264vfw-for-h-264-support), the menu item for
+installed](#optional-get-x264vfw-for-h264-support), the menu item for
 [H.264](https://en.wikipedia.org/wiki/Advanced_Video_Coding) is unfaded. It
 isn&rsquo;t the default because Vid&shy;Draw doesn&rsquo;t ship that codec and
 you may not already have it, and because there are [configuration choices for
-you to make](#a-problem-with-H-264-in-viddraw) and [playback issues to wrangle
+you to make](#a-problem-with-h264-in-viddraw) and [playback issues to wrangle
 with](#video-files-are-not-always-playable-on-all-players).
 
 Still, I recommend encoding in H.264 if you can, because it produces higher
@@ -463,7 +463,7 @@ bug.
 
 ### Video files are not always playable on all players.
 
-[As detailed above](#a-problem-with-H-264-in-viddraw), when H.264 encoding is
+[As detailed above](#a-problem-with-h264-in-viddraw), when H.264 encoding is
 selected and x264vfw has not been configured to make every frame a keyframe
 (which increases file size dramatically, albeit still less than the other
 encodings), VLC cannot play the file. This is even though VLC fully supports
@@ -542,7 +542,7 @@ the second line.
   / Microsoft
   \[[nuget](https://www.nuget.org/packages/Microsoft.Windows.CsWin32)\]\
   [MIT license](https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE)
-  ([inline](#CsWin32))
+  ([inline](#cswin32))
 - [*Fork me on GitHub* CSS
   ribbon](https://simonwhitaker.github.io/github-fork-ribbon-css/) 0.2.3 by
   Simon Whitaker \[included\]\
@@ -553,7 +553,7 @@ the second line.
   Newton-King \[[nuget](https://www.nuget.org/packages/Newtonsoft.Json)\]\
   [MIT
   license](https://github.com/JamesNK/Newtonsoft.Json/blob/13.0.1/LICENSE.md)
-  ([inline](#json-net))
+  ([inline](#jsonnet))
 - [kbd](https://auth0.github.io/kbd/) 0.0.1 by Auth0
   \[[included](doc-assets/bower_components/kbd/)\]\
   [MIT license](https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md)
@@ -567,13 +567,13 @@ the second line.
   Gallagher and Jonathan Neal \[[included](doc-assets/bower_components/normalize.css/)\]\
   [MIT license](https://github.com/necolas/normalize.css/blob/8.0.1/LICENSE.md)
   ([local](doc-assets/bower_components/normalize.css/LICENSE.md),
-  [inline](#normalize-css))
+  [inline](#normalizecss))
 - [Open Sans](https://fonts.google.com/specimen/Open+Sans) 1.10 (font) by Steve
   Matteson \[[included](doc-assets/fonts/Open_Sans/)\]\
   [Apache License, Version
   2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
   ([local](doc-assets/fonts/Open_Sans/LICENSE.txt),
-  [inline](#open-sans-open-sans-condensed))
+  [inline](#open-sansopen-sans-condensed))
 - [Open Sans Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed)
   1.10 (font) by Steve Matteson
   \[[included](doc-assets/fonts/Open_Sans_Condensed/)\]\
@@ -611,7 +611,7 @@ listed.
 
 Vid&shy;Draw does not depend on
 [x264vfw](https://sourceforge.net/projects/x264vfw/) but is capable of using it
-[if it is installed](#optional-get-x264vfw-for-h-264-support). x264vfw is a
+[if it is installed](#optional-get-x264vfw-for-h264-support). x264vfw is a
 [VfW](https://en.wikipedia.org/wiki/Video_for_Windows) codec for
 [H.264](https://en.wikipedia.org/wiki/Video_coding_format) by Anton Mitrofanov
 and other authors, derived from
