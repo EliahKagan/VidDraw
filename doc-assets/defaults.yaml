@@ -20,6 +20,8 @@ metadata:
 
 output-file: ../README.html
 
+reader: gfm
+
 strip-comments: true
 
 template: template.html5

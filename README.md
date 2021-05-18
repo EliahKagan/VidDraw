@@ -153,7 +153,7 @@ file). Change `VidDraw capture 2021-05-08 16-38-04.avi` to the actual name of
 the file Vid&shy;Draw created. The second filename names FFmpeg&rsquo;s output
 file; put whatever you like for that.
 
-*See [Gyan](https://video.stackexchange.com/users/1871/gyan)&rsquo;s
+*See [Gyan](https://video.stackexchange.com/users/1871/gyan)<!-- -->&rsquo;s
 [answer](https://video.stackexchange.com/a/18226) to [Fix bad files and streams
 with ffmpeg so VLC and other players would not
 crash](https://video.stackexchange.com/questions/18220/fix-bad-files-and-streams-with-ffmpeg-so-vlc-and-other-players-would-not-crash)
@@ -793,7 +793,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-### Json<span></span>.NET
+### Json<!-- -->.NET
 
 James Newton-King has released
 [Json.NET](https://github.com/JamesNK/Newtonsoft.Json/tree/13.0.1) under the
