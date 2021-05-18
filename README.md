@@ -15,7 +15,7 @@
 
 # VidDraw - record video as you draw
 
-*Written in 2021 by Eliah Kagan &lt;degeneracypressure@gmail.com&gt;*.
+*Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;*.
 
 **Vid&shy;Draw** is a Windows program that records a video of a canvas as you
 draw on it. Recording starts when you begin drawing and stops when you&rsquo;re
@@ -170,8 +170,8 @@ viewer](#about-viddraw) displays. `README.html` is generated from `README.md`
 (and uses files in the `doc-assets` directory). Building Vid&shy;Draw as
 described above doesn&rsquo;t regenerate `README.html`. If you&rsquo;re hacking
 on Vid&shy;Draw and you make modifications to `README.md`,
-`doc-assets\template.html5`, or `doc-assets\defaults.yaml`, then you should
-rebuild `README.html`:
+`doc-assets\defaults.yaml`, `doc-assets\filter.lua`, or
+`doc-assets\template.html5`, then you should rebuild `README.html`:
 
 ```powershell
 cd doc-assets
@@ -432,7 +432,7 @@ running, change the location of your per-user `Videos` folder, this goes to the
 new place, not the only one. (The new location is the destination for any
 further videos Vid&shy;Draw saves, even during the same run of the program.)
 
-#### Download x264vfw<br>*or* Configure x264vfw (x64)<br>*or* Configure x264vfw (x86)
+#### Download x264vfw<br> *or* Configure x264vfw (x64)<br> *or* Configure x264vfw (x86)
 
 If x264vfw is not installed, or it is installed but not for the same
 architecture as the Vid&shy;Draw process, then Vid&shy;Draw cannot use it. In
@@ -616,7 +616,7 @@ the second line.
   [Apache License, Version
   2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
   ([local](doc-assets/fonts/Open_Sans/LICENSE.txt),
-  [inline](#open-sansopen-sans-condensed))
+  [inline](#open-sans-open-sans-condensed))
 - [Open Sans Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed)
   1.10 (font) by Steve Matteson
   \[[included](doc-assets/fonts/Open_Sans_Condensed/)\]\
@@ -902,7 +902,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-### Open Sans<br>Open Sans Condensed
+### Open Sans<br> Open Sans Condensed
 
 Google Corporation has released [Open
 Sans](https://fonts.google.com/specimen/Open+Sans) and [Open Sans

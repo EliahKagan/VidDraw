@@ -16,13 +16,18 @@
         "RAII",
         "Vasili",
         "Xvid",
+        "anchorjs",
         "appdata",
         "cascadia",
+        "degeneracypressure",
         "filesystems",
+        "gmail",
         "hmenu",
+        "jsonnet",
         "keyint",
         "msdata",
         "newtonsoft",
+        "normalizecss",
         "nuget",
         "nuint",
         "pandoc",
@@ -36,8 +41,10 @@
         "viddraw"
     ],
     "cSpell.ignoreWords": [
+        "cswin",
         "didn",
         "doesn",
-        "fByPositon"
+        "fByPositon",
+        "sfnt"
     ]
 }

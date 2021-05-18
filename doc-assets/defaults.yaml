@@ -13,6 +13,9 @@
 # OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 # PERFORMANCE OF THIS SOFTWARE.
 
+filters:
+  - filters.lua
+
 input-file: ../README.md
 
 metadata:
@@ -21,7 +24,5 @@ metadata:
 output-file: ../README.html
 
 reader: gfm
-
-strip-comments: true
 
 template: template.html5
