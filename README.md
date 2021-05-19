@@ -234,14 +234,18 @@ separate curves.
 
 If you ever want to continue recording while no mouse buttons are pressed,
 place the mouse cursor on the canvas, press and hold any mouse button, drag the
-cursor out of the canvas, press any other mouse button, and release the button
-you first pressed. This effect, of keeping recording on even though
+cursor out of the canvas, press any other mouse button, then release both
+buttons (in either order). This effect, of keeping recording on even though
 you&rsquo;re not holding down any mouse button, persists until your next
-interaction with the canvas. So to stop recording, click the canvas. (If you
+interaction with the canvas. So, to stop recording, click the canvas. (If you
 don&rsquo;t want to draw anything, click it with some button other than the
 primary mouse button.) Or you can continue drawing, and the next time you
-release all mouse buttons, recording will stop. Quitting Vid&shy;Draw also
-ensures that recording stops and the file is fully saved.
+release all mouse buttons, recording will stop.
+
+When recording has stopped and the border has turned back from red to gray, the
+file is fully saved and should be playable, whether or not Vid&shy;Draw is
+still running. Conversely, it is fine to quit while still recording.
+Vid&shy;Draw stops recording and cleanly saves the file on exit.
 
 The pen color can be changed using [the color picker](#pick-color), available
 in [the menu](#the-menu).
@@ -660,9 +664,9 @@ the second line.
 Vid&shy;Draw is a C# program targeting [.NET](https://dotnet.microsoft.com/) 5
 on Windows. It uses [Windows Forms](https://github.com/dotnet/winforms), and it
 makes calls to the [Windows API](https://en.wikipedia.org/wiki/Windows_API) via
-libraries such as Sharp&shy;Avi and Windows Forms as well as directly. These
-and other components that I believe are considered part of the framework (.NET)
-or operating system (Windows) are not listed above.
+libraries such as Sharp&shy;Avi and Windows Forms as well as directly.
+Components that I believe are considered part of the framework (.NET) or
+operating system (Windows) are not listed above.
 
 Indirect dependencies (dependencies of the above-listed dependencies that are
 either included in them or otherwise resolved through them) are also not
