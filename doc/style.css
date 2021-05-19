@@ -196,6 +196,12 @@ code {
   border-radius: 2px;
 }
 
+p>code, li>code {
+  -ms-hyphens: none; /* Because IE hyphenates "%APPDATA%" as "%AP-PDATA%". */
+  hyphens: none;
+  white-space: normal;
+}
+
 pre.text, pre.text>code {
   background-color: transparent;
 }
