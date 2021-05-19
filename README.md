@@ -170,11 +170,11 @@ above places a copy of that file in the build output directory, which the
 program&rsquo;s [built-in help viewer](#about-viddraw) displays.
 `doc\README.html` is itself generated from `README.md`, and building
 Vid&shy;Draw does not regenerate it. If you&rsquo;re hacking on Vid&shy;Draw
-and you make changes to `README.md` or files in `doc\pandoc`, then you should
-regenerate it:
+and you make changes to `README.md` or to files in the `pandoc` directory, then
+you should regenerate it:
 
 ```powershell
-cd doc\pandoc
+cd pandoc
 pandoc -d defaults
 ```
 
@@ -186,9 +186,8 @@ is:
 scoop install pandoc
 ```
 
-Modifications to files other than `README.md` and those in
-`doc\pandoc`&mdash;even to other files inside the `doc` directory&mdash;do not
-require `doc\README.html` to be regenerated.
+Modifications to files other than `README.md` and those in the `pandoc`
+directory do not require `doc\README.html` to be regenerated.
 
 ## Usage Tips
 

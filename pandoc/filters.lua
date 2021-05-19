@@ -31,7 +31,7 @@ local function format_block_comment(path)
   return trim_right(table.concat(out, '\n')) .. '\n'
 end
 
-local COMMENTED_0BSD = format_block_comment('../../COPYING.0BSD')
+local COMMENTED_0BSD = format_block_comment('../COPYING.0BSD')
 
 -- Remove block comments that are exactly the text of the accompanying license.
 -- This is to avoid repetition. The template file puts the license at the top.
