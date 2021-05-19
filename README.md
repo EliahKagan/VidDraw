@@ -174,16 +174,29 @@ directory, which the program&rsquo;s [built-in help viewer](#about-viddraw)
 displays. `doc\index.html` is itself generated from `README.md`, and building
 Vid&shy;Draw does not regenerate it. If you&rsquo;re hacking on Vid&shy;Draw
 and you make changes to `README.md` or to files in the `pandoc` directory, then
-you should regenerate it:
+you should regenerate it by running the `generate.cmd` script in the `pandoc`
+directory:
 
 ```powershell
-cd pandoc
-pandoc -d defaults
+pandoc\generate.cmd
 ```
 
-If you don&rsquo;t have [Pandoc](https://en.wikipedia.org/wiki/Pandoc), one way
-to get it, on a 64-bit Windows system, if you have [Scoop](https://scoop.sh/),
-is:
+(That assumes you are in the repository&rsquo;s top-level directory.)
+
+If you&rsquo;re on a Unix-like operating system or otherwise using a Unix-style
+shell, such as Bash, use the `generate` shell script instead:
+
+```sh
+pandoc/generate
+```
+
+Note that while generating Vid&shy;Draw&rsquo;s documentation is supported on
+Unix-like systems, neither building nor running the program is supported on any
+non-Windows operating systems.
+
+On 64-bit Windows systems, if you don't have
+[Pandoc](https://en.wikipedia.org/wiki/Pandoc), one way to install it is with
+[Scoop](https://scoop.sh/):
 
 ```powershell
 scoop install pandoc
