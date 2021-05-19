@@ -25,7 +25,7 @@ directories:
 
 The various libraries INSIDE those directories are accompanied by their own
 licenses and copyright notices. The NOTICES section of the VidDraw README
-(which you can read in README.md or doc/README.html) also includes that
+(which you can read in README.md or doc/index.html) also includes that
 information.
 
 Everything OUTSIDE those directories is licensed under 0BSD as detailed above.

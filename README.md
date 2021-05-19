@@ -165,10 +165,10 @@ If you&rsquo;re just building and using Vid&shy;Draw, and not modifying
 it&mdash;or modifying it but not modifying its documentation&mdash;you can skip
 this section.
 
-Vid&shy;Draw comes with `doc\README.html`. Building Vid&shy;Draw as described
-above places a copy of that file in the build output directory, which the
-program&rsquo;s [built-in help viewer](#about-viddraw) displays.
-`doc\README.html` is itself generated from `README.md`, and building
+Vid&shy;Draw comes with `doc\index.html`. Building Vid&shy;Draw as described
+above places a copy of that file (and some others) in the build output
+directory, which the program&rsquo;s [built-in help viewer](#about-viddraw)
+displays. `doc\index.html` is itself generated from `README.md`, and building
 Vid&shy;Draw does not regenerate it. If you&rsquo;re hacking on Vid&shy;Draw
 and you make changes to `README.md` or to files in the `pandoc` directory, then
 you should regenerate it:
@@ -187,7 +187,7 @@ scoop install pandoc
 ```
 
 Modifications to files other than `README.md` and those in the `pandoc`
-directory do not require `doc\README.html` to be regenerated.
+directory do not require `doc\index.html` to be regenerated.
 
 ## Usage Tips
 

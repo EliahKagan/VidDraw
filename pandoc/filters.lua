@@ -53,7 +53,7 @@ function Header(el)
   end
 end
 
--- Drop "doc/" prefixes in links (README.html, unlike README.md, goes in doc).
+-- Drop "doc/" prefixes in links (index.html, unlike README.md, goes in doc).
 function Link(el)
   el.target = el.target:gsub('^doc/', '')
   return el

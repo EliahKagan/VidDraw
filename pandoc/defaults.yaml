@@ -21,7 +21,7 @@ input-file: ../README.md
 metadata:
   title: About VidDraw
 
-output-file: ../doc/README.html
+output-file: ../doc/index.html
 
 reader: gfm
 
