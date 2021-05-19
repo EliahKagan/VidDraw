@@ -217,7 +217,7 @@ lets you make individual videos of drawing sketches that consist of multiple,
 separate curves.
 
 If you ever want to continue recording while no mouse buttons are pressed,
-place the mouse cursor on the canvas, press and hold any mouse button, draw the
+place the mouse cursor on the canvas, press and hold any mouse button, drag the
 cursor out of the canvas, press any other mouse button, and release the button
 you first pressed. This effect, of keeping recording on even though
 you&rsquo;re not holding down any mouse button, persists until your next
@@ -430,7 +430,7 @@ recording, but dismissed it instead.
 
 In the strange case that you record a video and, while Vid&shy;Draw is still
 running, change the location of your per-user `Videos` folder, this goes to the
-new place, not the only one. (The new location is the destination for any
+new place, not the old one. (The new location is the destination for any
 further videos Vid&shy;Draw saves, even during the same run of the program.)
 
 #### Download x264vfw<br> *or* Configure x264vfw (x64)<br> *or* Configure x264vfw (x86)
@@ -497,8 +497,9 @@ didn&rsquo;t intend to draw.
 Vid&shy;Draw could do some operations asynchronously that it now does on the UI
 thread. Most or all file I/O could, and should, be asynchronous. Implementing
 this will require thought about what to do in some race conditions that cannot
-currently happen. I don&rsquo;t know if that would be sufficient to fix this
-bug.
+currently happen.
+
+I don&rsquo;t know if that would be sufficient to fix this bug.
 
 ### Video files are not always playable on all players.
 
@@ -506,7 +507,7 @@ bug.
 selected and x264vfw has not been configured to make every frame a keyframe
 (which increases file size dramatically, albeit still less than the other
 encodings), VLC cannot play the file. This is even though VLC fully supports
-H.264 (and manages to play even most broken H.264 files). It may be a problem
+H.264 (and manages to play even most broken H.264 videos). It may be a problem
 with the way I&rsquo;ve configured x264vfw. But [FFmpeg](https://ffmpeg.org/)
 is able to repair the files, and it reports problems with them, so I think this
 is a bug.
@@ -569,7 +570,7 @@ situation, but perhaps there&rsquo;s some simple way.
 
 Vid&shy;Draw uses the following libraries and fonts. Thanks go to the authors
 and contributors to all these projects&mdash;and especially to Vasili Maslov
-for writing Sharp&shy;Avi. Some of these dependencies included in this
+for writing Sharp&shy;Avi. Some of these dependencies are included in this
 repository while others are retrieved by NuGet.
 
 This list is in alphabetical order. Entries for libraries included in this
