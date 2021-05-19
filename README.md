@@ -165,28 +165,30 @@ If you&rsquo;re just building and using Vid&shy;Draw, and not modifying
 it&mdash;or modifying it but not modifying its documentation&mdash;you can skip
 this section.
 
-Vid&shy;Draw comes with `README.html`, which its [built-in help
-viewer](#about-viddraw) displays. `README.html` is generated from `README.md`
-(and uses files in the `doc-assets` directory). Building Vid&shy;Draw as
-described above doesn&rsquo;t regenerate `README.html`. If you&rsquo;re hacking
-on Vid&shy;Draw and you make modifications to `README.md`,
-`doc-assets\defaults.yaml`, `doc-assets\filter.lua`, or
-`doc-assets\template.html5`, then you should rebuild `README.html`:
+Vid&shy;Draw comes with `doc\README.html`. Building Vid&shy;Draw as described
+above places a copy of that file in the build output directory, which the
+program&rsquo;s [built-in help viewer](#about-viddraw) displays.
+`doc\README.html` is itself generated from `README.md`, and building
+Vid&shy;Draw does not regenerate it. If you&rsquo;re hacking on Vid&shy;Draw
+and you make changes to `README.md` or files in `doc\pandoc`, then you should
+regenerate it:
 
 ```powershell
-cd doc-assets
+cd doc\pandoc
 pandoc -d defaults
 ```
 
-If you don&rsquo;t have `pandoc`, one way to get it, on a 64-bit Windows
-system, if you have [Scoop](https://scoop.sh/), is:
+If you don&rsquo;t have [Pandoc](https://en.wikipedia.org/wiki/Pandoc), one way
+to get it, on a 64-bit Windows system, if you have [Scoop](https://scoop.sh/),
+is:
 
 ```powershell
 scoop install pandoc
 ```
 
-Modifications to other files than those three, including other files inside the
-`doc-assets` directory, do not require `README.html` to be regenerated.
+Modifications to files other than `README.md` and those in
+`doc\pandoc`&mdash;even to other files inside the `doc` directory&mdash;do not
+require `doc\README.html` to be regenerated.
 
 ## Usage Tips
 
@@ -577,20 +579,21 @@ Links to each dependency&rsquo;s detailed licensing information are given on
 the second line.
 
 - [AnchorJS](https://www.bryanbraun.com/anchorjs/) 4.3.1 by Bryan Braun
-  \[[included](doc-assets/bower_components/anchor-js/)\]\
+  \[[included](doc/bower_components/anchor-js/)\]\
   [MIT license](https://github.com/bryanbraun/anchorjs/blob/4.3.1/LICENSE)
-  ([local](doc-assets/bower_components/anchor-js/LICENSE), [inline](#anchorjs))
+  ([local](doc/bower_components/anchor-js/LICENSE), [inline](#anchorjs))
 - [CsWin32](https://github.com/microsoft/CsWin32) 0.1.422-beta by Andrew Arnott
   / Microsoft
   \[[nuget](https://www.nuget.org/packages/Microsoft.Windows.CsWin32)\]\
-  [MIT license](https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE)
+  [MIT
+  license](https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE)
   ([inline](#cswin32))
 - [*Fork me on GitHub* CSS
   ribbon](https://simonwhitaker.github.io/github-fork-ribbon-css/) 0.2.3 by
   Simon Whitaker \[included\]\
   [MIT
   license](https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE)
-  ([local](doc-assets/bower_components/github-fork-ribbon-css/LICENSE),
+  ([local](doc/bower_components/github-fork-ribbon-css/LICENSE),
   [inline](#fork-me-on-github-css-ribbon))
 - [Json.NET](https://www.newtonsoft.com/json) (Newtonsoft.Json) 13.0.1 by James
   Newton-King \[[nuget](https://www.nuget.org/packages/Newtonsoft.Json)\]\
@@ -598,31 +601,30 @@ the second line.
   license](https://github.com/JamesNK/Newtonsoft.Json/blob/13.0.1/LICENSE.md)
   ([inline](#jsonnet))
 - [kbd](https://auth0.github.io/kbd/) 0.0.1 by Auth0
-  \[[included](doc-assets/bower_components/kbd/)\]\
+  \[[included](doc/bower_components/kbd/)\]\
   [MIT license](https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md)
-  ([local](doc-assets/bower_components/kbd/LICENSE.md), [inline](#kbd))
+  ([local](doc/bower_components/kbd/LICENSE.md), [inline](#kbd))
 - [Milligram](https://milligram.io/) 1.4.1 by CJ Patoilo
-  \[[included](doc-assets/bower_components/milligram/)\]\
+  \[[included](doc/bower_components/milligram/)\]\
   [MIT license](https://github.com/milligram/milligram/blob/v1.4.1/license)
-  ([local](doc-assets/bower_components/milligram/license),
-  [inline](#milligram))
+  ([local](doc/bower_components/milligram/license), [inline](#milligram))
 - [normalize.css](https://necolas.github.io/normalize.css/) 8.0.1 by Nicolas
-  Gallagher and Jonathan Neal \[[included](doc-assets/bower_components/normalize.css/)\]\
+  Gallagher and Jonathan Neal
+  \[[included](doc/bower_components/normalize.css/)\]\
   [MIT license](https://github.com/necolas/normalize.css/blob/8.0.1/LICENSE.md)
-  ([local](doc-assets/bower_components/normalize.css/LICENSE.md),
+  ([local](doc/bower_components/normalize.css/LICENSE.md),
   [inline](#normalizecss))
 - [Open Sans](https://fonts.google.com/specimen/Open+Sans) 1.10 (font) by Steve
-  Matteson \[[included](doc-assets/fonts/Open_Sans/)\]\
+  Matteson \[[included](doc/fonts/Open_Sans/)\]\
   [Apache License, Version
   2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
-  ([local](doc-assets/fonts/Open_Sans/LICENSE.txt),
+  ([local](doc/fonts/Open_Sans/LICENSE.txt),
   [inline](#open-sans-open-sans-condensed))
 - [Open Sans Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed)
-  1.10 (font) by Steve Matteson
-  \[[included](doc-assets/fonts/Open_Sans_Condensed/)\]\
+  1.10 (font) by Steve Matteson \[[included](doc/fonts/Open_Sans_Condensed/)\]\
   [Apache License, Version
   2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
-  ([local](doc-assets/fonts/Open_Sans_Condensed/LICENSE.txt),
+  ([local](doc/fonts/Open_Sans_Condensed/LICENSE.txt),
   [inline](#open-sans-open-sans-condensed))
 - [SharpAvi.Net5](https://github.com/EliahKagan/SharpAvi) 2.1.2-rc, my fork of
   [SharpAvi](https://github.com/baSSiLL/SharpAvi) 2.1.2 by Vasili Maslov
@@ -686,8 +688,8 @@ consider that a serious bug.
 
 Vid&shy;Draw, but not its dependencies, is licensed under [0BSD](COPYING.0BSD).
 Thus, everything in this repository *except* the contents of
-`doc-assets/bower_components` and of the subdirectories of `doc-assets/fonts`
-is offered under 0BSD:
+`doc/bower_components` and of the subdirectories of `doc/fonts` is offered
+under 0BSD:
 
 > Copyright (c) 2021 Eliah Kagan
 >

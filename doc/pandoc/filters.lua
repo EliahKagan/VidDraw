@@ -31,7 +31,7 @@ local function format_block_comment(path)
   return trim_right(table.concat(out, '\n')) .. '\n'
 end
 
-local COMMENTED_0BSD = format_block_comment('../COPYING.0BSD')
+local COMMENTED_0BSD = format_block_comment('../../COPYING.0BSD')
 
 -- Remove block comments that are exactly the text of the accompanying license.
 -- This is to avoid repetition. The template file puts the license at the top.
@@ -51,4 +51,10 @@ function Header(el)
     el.identifier = el.identifier:gsub('%-+', '-')
     return el
   end
+end
+
+-- Drop "doc/" prefixes in links (README.html, unlike README.md, goes in doc).
+function Link(el)
+  el.target = el.target:gsub('^doc/', '')
+  return el
 end

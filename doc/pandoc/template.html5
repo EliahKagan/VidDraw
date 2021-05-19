@@ -20,17 +20,13 @@ $-- pandoc template for generating VidDraw help file from README.md
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${title}</title>
-    <link rel="stylesheet"
-          href="doc-assets/bower_components/normalize.css/normalize.css">
-    <link rel="stylesheet"
-          href="doc-assets/bower_components/milligram/dist/milligram.min.css">
-    <link rel="stylesheet" href="doc-assets/bower_components/kbd/kbd.css">
-    <link rel="stylesheet"
-          href="doc-assets/bower_components/github-fork-ribbon-css/gh-fork-ribbon.css">
-    <link rel="stylesheet" href="doc-assets/style.css">
-    <script src="doc-assets/bower_components/anchor-js/anchor.min.js" defer>
-    </script>
-    <script src="doc-assets/embellish.js" defer></script>
+    <link rel="stylesheet" href="bower_components/normalize.css/normalize.css">
+    <link rel="stylesheet" href="bower_components/milligram/dist/milligram.min.css">
+    <link rel="stylesheet" href="bower_components/kbd/kbd.css">
+    <link rel="stylesheet" href="bower_components/github-fork-ribbon-css/gh-fork-ribbon.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="bower_components/anchor-js/anchor.min.js" defer></script>
+    <script src="embellish.js" defer></script>
   </head>
   <body>
     <header>

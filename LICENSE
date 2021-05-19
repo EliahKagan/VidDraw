@@ -19,13 +19,13 @@ Some of VidDraw's dependencies are included here. They have other authors, and
 they are licensed under terms other than 0BSD. They are located in these
 directories:
 
-  - doc-assets/bower_components
-  - doc-assets/fonts/Open_Sans
-  - doc-assets/fonts/Open_Sans_Condensed
+  - doc/bower_components
+  - doc/fonts/Open_Sans
+  - doc/fonts/Open_Sans_Condensed
 
 The various libraries INSIDE those directories are accompanied by their own
 licenses and copyright notices. The NOTICES section of the VidDraw README
-(which you can read in README.md or README.html) also includes that
+(which you can read in README.md or doc/README.html) also includes that
 information.
 
 Everything OUTSIDE those directories is licensed under 0BSD as detailed above.
