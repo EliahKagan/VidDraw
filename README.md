@@ -49,9 +49,9 @@ licensed under terms other than 0BSD. See [`LICENSE`](LICENSE) and
 
 ## Setup
 
-This alpha version of Vid&shy;Draw doesn&rsquo;t have binary downloads. To run
-Vid&shy;Draw, make sure you have the [.NET
-5](https://dotnet.microsoft.com/download/dotnet/5.0) SDK. Then, to clone this
+This alpha version of Vid&shy;Draw doesn&rsquo;t have binary downloads, so it
+must be built from source. You&rsquo;ll need the [.NET
+5](https://dotnet.microsoft.com/download/dotnet/5.0) SDK. To clone the
 repository and build Vid&shy;Draw, run:
 
 ```powershell
@@ -60,7 +60,7 @@ cd VidDraw
 dotnet build
 ```
 
-Then, to run it:
+Then, to run the program:
 
 ```powershell
 dotnet run
@@ -78,6 +78,9 @@ without first running
 also works, though if you do that the first time, it may appear to have frozen
 for a short while while dependencies are downloaded. (In contrast,
 `dotnet build` is more verbose.)
+
+If you prefer to open the solution file `VidDraw.sln` in Visual Studio 2019 and
+build Vid&shy;Draw from there, that is also supported.
 
 That&rsquo;s all you need. If you want to read about codec stuff&hellip; read
 on! Otherwise, you may want to skip to [Usage Tips](#usage-tips) or [The
