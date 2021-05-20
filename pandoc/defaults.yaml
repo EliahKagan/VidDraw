@@ -25,4 +25,6 @@ output-file: ../doc/index.html
 
 reader: gfm
 
+section-divs: true
+
 template: template.html5
