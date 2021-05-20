@@ -266,3 +266,14 @@ a.github-fork-ribbon::after {
   color: white;
   font-family: 'Open Sans', 'Nimbus Sans L', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
+
+/* See https://www.jozefbutko.com/stickynavbar/#CSS */
+a.active {
+  color: black;
+  text-decoration: underline;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}

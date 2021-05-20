@@ -14,6 +14,11 @@
 (function () {
     'use strict';
 
+    function makeNavbarSticky() {
+        $('section.level1, section.level2').addClass('scrollto');
+        $('section.level1#viddraw---record-video-as-you-draw>ul').stickyNavbar();
+    }
+
     function associateHeadingsWithSections() {
         $('section>h1, section>h2, section>h3, section>h4').each(function () {
             this.dataset.anchorId = this.parentElement.id;
@@ -21,7 +26,7 @@
     }
 
     function addAnchorLinks() {
-        const anchors = new AnchorJS({placement: 'right'});
+        const anchors = new AnchorJS({ placement: 'right' });
 
         anchors.options.titleText = 'Link to this section';
         anchors.add('section>h2');
@@ -33,6 +38,7 @@
         anchors.add('section>h4');
     }
 
+    makeNavbarSticky();
     associateHeadingsWithSections();
     addAnchorLinks();
 })();

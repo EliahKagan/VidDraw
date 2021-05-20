@@ -22,10 +22,13 @@ $-- pandoc template for generating VidDraw help file from README.md
     <title>${title}</title>
     <link rel="stylesheet" href="bower_components/normalize.css/normalize.css">
     <link rel="stylesheet" href="bower_components/milligram/dist/milligram.min.css">
+    <link rel="stylesheet" href="bower_components/stickyNavbar.js/animate.min.css">
     <link rel="stylesheet" href="bower_components/kbd/kbd.css">
     <link rel="stylesheet" href="bower_components/github-fork-ribbon-css/gh-fork-ribbon.css">
     <link rel="stylesheet" href="style.css">
     <script src="bower_components/jquery/dist/jquery.min.js" defer></script>
+    <script src="bower_components/stickyNavbar.js/jquery.easing.min.js" defer></script>
+    <script src="bower_components/stickyNavbar.js/jquery.stickyNavbar.min.js" defer></script>
     <script src="bower_components/anchor-js/anchor.min.js" defer></script>
     <script src="embellish.js" defer></script>
   </head>
