@@ -31,17 +31,6 @@ program I&rsquo;ve been working on. It is also kind of a fun toy.
 This is **Vid&shy;Draw alpha 1**. It still has [some usability
 bugs](#known-bugs).
 
-<!-- - [About](#viddraw---record-video-as-you-draw) -->
-- [License](#license)
-- [Setup](#setup)
-<!--
-- [Usage](#usage-tips)
-- [Menu](#the-menu)
-- [Bugs](#known-bugs)
-- [Built With](#dependencies)
-- [Notices](#notices)
--->
-
 ## License
 
 Vid&shy;Draw is [free software](https://en.wikipedia.org/wiki/Free_software).
