@@ -30,6 +30,18 @@ $-- pandoc template for generating VidDraw help file from README.md
     <script src="embellish.js" defer></script>
   </head>
   <body>
+    <nav>
+      <ol>
+        <li><a href="#viddraw---record-video-as-you-draw" title="About VidDraw">About</a></li>
+        <li><a href="#license" title="License">License</a></li>
+        <li><a href="#setup" title="Setup">Setup</a></li>
+        <li><a href="#usage-tips" title="Usage Tips">Usage</a></li>
+        <li><a href="#the-menu" title="The Menu">Menu</a></li>
+        <li><a href="#known-bugs" title="Known Bugs">Bugs</a></li>
+        <li><a href="#dependencies" title="Dependencies">Built With</a></li>
+        <li><a href="#notices" title="Notices">Notices</a></li>
+      </ol>
+    </nav>
     <header>
       <a class="github-fork-ribbon"
          href="https://github.com/EliahKagan/VidDraw"
