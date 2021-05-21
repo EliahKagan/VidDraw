@@ -31,16 +31,6 @@ $-- pandoc template for generating VidDraw help file from README.md
   </head>
   <body>
     <header>
-      <nav>
-        <a href="#" title="Back to top">&#127968;</a>
-        <a href="#license" title="License">Terms</a>
-        <a href="#setup" title="Setup">Get</a>
-        <a href="#usage-tips" title="Usage Tips">Use</a>
-        <a href="#the-menu" title="The Menu">Menu</a>
-        <a href="#known-bugs" title="Known Bugs">Bugs</a>
-        <a href="#dependencies" title="Dependencies">Thanks</a>
-        <a href="#notices" title="Notices">Notices</a>
-      </nav>
       <a class="github-fork-ribbon"
          href="https://github.com/EliahKagan/VidDraw"
          data-ribbon="Fork me on GitHub"
