@@ -15,7 +15,7 @@
     'use strict';
 
     function getPxPerRem() {
-        // Inspired by https://stackoverflow.com/a/42769683 on Stack Overflow
+        // Inspired by https://stackoverflow.com/a/42769683
         // (by https://stackoverflow.com/users/806286/etham).
         const style = window.getComputedStyle(document.documentElement);
         return parseFloat(style.fontSize);
@@ -39,6 +39,29 @@
         return Object.freeze(pairs);
     })();
 
+    function forEachNavlinkWithSection(action) {
+        navlinkSectionPairs.forEach(function (pair) {
+            // IE apparently doesn't support unpacking here.
+            action(pair[0], pair[1]); // [navlink, action]
+        });
+    }
+
+    function subscribeNavlinkClickActions() {
+        forEachNavlinkWithSection(function (navlink, section) {
+            // Assign to onclick instead of using addEventListener so we can
+            // just scroll (and not also follow the link) by returning false.
+            // This doesn't impede opening the link in a new tab/window.
+            navlink.onclick = function () {
+                section.scrollIntoView({
+                    alignToTop: true,
+                    behavior: 'smooth',
+                });
+
+                return false;
+            };
+        });
+    }
+
     function getCurrentMajorSection() {
         const offset = window.pageYOffset + windowOffsetBias;
 
@@ -56,11 +79,7 @@
     function updateActiveNavlink() {
         const currentSection = getCurrentMajorSection();
 
-        navlinkSectionPairs.forEach(function (pair) {
-            // IE apparently doesn't support unpacking here. So do it manually.
-            const navlink = pair[0];
-            const section = pair[1];
-
+        forEachNavlinkWithSection(function (navlink, section) {
             if (section === currentSection) {
                 navlink.classList.add('active');
             } else {
@@ -69,6 +88,11 @@
         });
     }
 
-    addEventListener('scroll', updateActiveNavlink);
-    updateActiveNavlink();
+    function enableActiveNavlinkUpdates() {
+        window.addEventListener('scroll', updateActiveNavlink);
+        updateActiveNavlink();
+    }
+
+    subscribeNavlinkClickActions();
+    enableActiveNavlinkUpdates();
 })();

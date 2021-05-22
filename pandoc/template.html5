@@ -25,8 +25,10 @@ $-- pandoc template for generating VidDraw help file from README.md
     <link rel="stylesheet" href="bower_components/kbd/kbd.css">
     <link rel="stylesheet" href="bower_components/github-fork-ribbon-css/gh-fork-ribbon.css">
     <link rel="stylesheet" href="style.css">
+    <script src="bower_components/smoothscroll/src/smoothscroll.js" defer></script>
     <script src="bower_components/jquery/dist/jquery.min.js" defer></script>
     <script src="bower_components/anchor-js/anchor.min.js" defer></script>
+    <script src="polyfills.js" defer></script>
     <script src="navlinks.js" defer></script>
     <script src="headings.js" defer></script>
   </head>

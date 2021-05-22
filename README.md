@@ -652,6 +652,12 @@ the second line.
   [MIT
   license](https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md)
   ([inline](#sharpavi))
+- [Smooth Scroll behavior polyfill](https://iamdustan.github.io/smoothscroll)
+  0.4.4 by Dustan Kasten and Jeremias Menichelli
+  \[[included](doc/bower_components/smoothscroll/)\]\
+  [MIT license](https://github.com/iamdustan/smoothscroll/blob/v0.4.4/LICENSE)
+  ([local](doc/bower_components/smoothscroll/LICENSE),
+  [inline](#smooth-scroll-behavior-polyfill))
 - [Windows Community
   Toolkit](https://docs.microsoft.com/en-us/windows/communitytoolkit/) &ndash;
   [Notifications](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications)
@@ -1162,6 +1168,36 @@ without modification:
 > The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 >
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+### Smooth Scroll behavior polyfill
+
+[Smooth Scroll behavior polyfill](https://github.com/iamdustan/smoothscroll/tree/v0.4.4), which is also sometimes called smoothscroll and smoothscroll-polyfill, has been released under the MIT license:
+
+>The MIT License (MIT)
+>
+> Copyright (c) 2013 Dustan Kasten
+>
+> Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+>
+> The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+>
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Regarding authorship, [the software&rsquo;s
+website](https://iamdustan.github.io/smoothscroll) mentions:
+
+> Polyfill written by Dustan Kasten and Jeremias Menichelli
 
 ### Windows Community Toolkit
 

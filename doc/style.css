@@ -189,7 +189,6 @@ nav>ol>li {
 nav>ol>li>a.active {
   border-bottom: 3px solid;
   text-shadow: 1px 0;
-  /* transition: .3s ease text-shadow; */
 }
 
 @media (max-width: 61rem) {
