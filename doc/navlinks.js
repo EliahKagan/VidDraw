@@ -42,9 +42,10 @@
     function getCurrentMajorSection() {
         const offset = window.pageYOffset + windowOffsetBias;
 
-        for (const section of allLevel2SectionsReversed) {
-            if (section.offsetTop < offset) {
-                return section;
+        // IE apparently doesn't support for..of here, so use indexing.
+        for (let i = 0; i < allLevel2SectionsReversed.length; ++i) {
+            if (allLevel2SectionsReversed[i].offsetTop < offset) {
+                return allLevel2SectionsReversed[i];
             }
         }
 
@@ -55,7 +56,10 @@
         const currentSection = getCurrentMajorSection();
 
         navlinkSectionPairs.forEach(function (pair) {
-            const [navlink, section] = pair;
+            // IE apparently doesn't support unpacking here, so do it manually.
+            const navlink = pair[0];
+            const section = pair[1];
+
             navlink.className = (section === currentSection ? 'active' : '');
         });
     }
