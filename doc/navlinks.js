@@ -42,7 +42,8 @@
     function getCurrentMajorSection() {
         const offset = window.pageYOffset + windowOffsetBias;
 
-        // IE apparently doesn't support for..of here, so use indexing.
+        // IE doesn't have Array.prototype.find and also apparently doesn't
+        // support for..of here. So use indexing.
         for (let i = 0; i < allLevel2SectionsReversed.length; ++i) {
             if (allLevel2SectionsReversed[i].offsetTop < offset) {
                 return allLevel2SectionsReversed[i];
@@ -56,11 +57,15 @@
         const currentSection = getCurrentMajorSection();
 
         navlinkSectionPairs.forEach(function (pair) {
-            // IE apparently doesn't support unpacking here, so do it manually.
+            // IE apparently doesn't support unpacking here. So do it manually.
             const navlink = pair[0];
             const section = pair[1];
 
-            navlink.className = (section === currentSection ? 'active' : '');
+            if (section === currentSection) {
+                navlink.classList.add('active');
+            } else {
+                navlink.classList.remove('active');
+            }
         });
     }
 
