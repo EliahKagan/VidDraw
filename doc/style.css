@@ -167,6 +167,7 @@ header>a.github-fork-ribbon::after {
 }
 
 nav {
+  /* TODO: Add Nimbus Sans Condensed and Liberation Sans Narrow. */
   font-family: 'Open Sans Condensed', 'Ubuntu Condensed', 'Roboto Condensed', 'Arial Narrow', sans-serif;
   font-size: 3rem;
   font-weight: 300;
@@ -183,6 +184,12 @@ nav>ol {
 
 nav>ol>li {
   border: 2px dotted transparent;
+}
+
+nav>ol>li>a.active {
+  border-bottom: 3px solid;
+  text-shadow: 1px 0;
+  /* transition: .3s ease text-shadow; */
 }
 
 @media (max-width: 61rem) {

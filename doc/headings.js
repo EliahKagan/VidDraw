@@ -14,13 +14,14 @@
 (function () {
     'use strict';
 
+    // FIXME: Only this still uses jQuery. Rewrite it and drop the dependency.
     function associateHeadingsWithSections() {
         $('section>h1, section>h2, section>h3, section>h4').each(function () {
             this.dataset.anchorId = this.parentElement.id;
         });
     }
 
-    function addAnchorLinks() {
+    function addAnchorLinksToHeadings() {
         const anchors = new AnchorJS({placement: 'right'});
 
         anchors.options.titleText = 'Link to this section';
@@ -34,5 +35,5 @@
     }
 
     associateHeadingsWithSections();
-    addAnchorLinks();
+    addAnchorLinksToHeadings();
 })();

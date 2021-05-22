@@ -27,6 +27,8 @@
         "jsonnet",
         "keyint",
         "msdata",
+        "navlink",
+        "navlinks",
         "newtonsoft",
         "normalizecss",
         "nuget",

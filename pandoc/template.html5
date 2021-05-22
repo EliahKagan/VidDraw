@@ -27,7 +27,8 @@ $-- pandoc template for generating VidDraw help file from README.md
     <link rel="stylesheet" href="style.css">
     <script src="bower_components/jquery/dist/jquery.min.js" defer></script>
     <script src="bower_components/anchor-js/anchor.min.js" defer></script>
-    <script src="embellish.js" defer></script>
+    <script src="navlinks.js" defer></script>
+    <script src="headings.js" defer></script>
   </head>
   <body>
     <nav>
