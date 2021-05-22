@@ -124,7 +124,7 @@
 }
 
 body, pre.text>code {
-  font-family: 'Open Sans', 'Segoe UI', 'Ubuntu', 'Roboto', '-apple-system', 'Nimbus Sans L', 'system-ui', 'BlinkMacSystemFont', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Open Sans', 'Segoe UI', 'Ubuntu', 'Roboto', '-apple-system', 'Nimbus Sans L', 'system-ui', 'BlinkMacSystemFont', 'Noto Sans', 'Helvetica Neue', 'Liberation Sans', 'Helvetica', 'Arial', sans-serif;
 }
 
 body {
@@ -163,12 +163,13 @@ header>a.github-fork-ribbon:hover::before {
 
 header>a.github-fork-ribbon::after {
   color: white;
-  font-family: 'Open Sans', 'Nimbus Sans L', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Open Sans', 'Nimbus Sans L', 'Helvetica Neue', 'Liberation Sans', 'Helvetica', 'Arial', sans-serif;
 }
 
 nav {
-  /* TODO: Add Nimbus Sans Condensed and Liberation Sans Narrow. */
-  font-family: 'Open Sans Condensed', 'Ubuntu Condensed', 'Roboto Condensed', 'Arial Narrow', sans-serif;
+  /* These fallback fonts don't match Open Sans very well and aren't narrow
+     enough, but they're better than non-narrow system defaults. */
+  font-family: 'Open Sans Condensed', 'Ubuntu Condensed', 'Roboto Condensed', 'Nimbus Sans Narrow', 'Liberation Sans Narrow', 'Arial Narrow', sans-serif;
   font-size: 3rem;
   font-weight: 300;
   left: 0rem;
