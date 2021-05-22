@@ -14,10 +14,15 @@
 (function () {
     'use strict';
 
-    // FIXME: Only this still uses jQuery. Rewrite it and drop the dependency.
+    function getSectionHeadings() {
+        return document.querySelectorAll(
+                'section>h1, section>h2, section>h3, section>h4');
+    }
+
     function associateHeadingsWithSections() {
-        $('section>h1, section>h2, section>h3, section>h4').each(function () {
-            this.dataset.anchorId = this.parentElement.id;
+        // IE doesn't have NodeList.prototype.forEach, so call the Array one.
+        Array.prototype.forEach.call(getSectionHeadings(), function (heading) {
+            heading.dataset.anchorId = heading.parentElement.id;
         });
     }
 
@@ -28,7 +33,7 @@
         anchors.add('section>h2');
 
         anchors.options.titleText = 'Link to this subsection';
-        anchors.add('section>h3')
+        anchors.add('section>h3');
 
         anchors.options.titleText = 'Link here';
         anchors.add('section>h4');
