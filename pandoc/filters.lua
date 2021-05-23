@@ -53,8 +53,24 @@ function Header(el)
   end
 end
 
--- Drop "doc/" prefixes in links (index.html, unlike README.md, goes in doc).
+-- Adjust links to account for different input and output directories.
 function Link(el)
-  el.target = el.target:gsub('^doc/', '')
+  assert(not (el.target:find('^/') or el.target:find('^file:')),
+         "Can't adjust absolute local href")
+
+  -- hrefs to an id, or that point to a full URL, need no adjustment.
+  if el.target:find('^#') or el.target:find('^%w+:') then
+    return
+  end
+
+  -- We're in doc, so if the href points there, remove that path prefix.
+  local count
+  el.target, count = el.target:gsub('^doc/', '')
+
+  -- But if the href doesn't point in doc, add a parent path prefix.
+  if count == 0 then
+    el.target = '../' .. el.target
+  end
+
   return el
 end
