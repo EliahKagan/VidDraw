@@ -27,7 +27,7 @@
     }
 
     function addAnchorLinksToHeadings() {
-        const anchors = new AnchorJS({placement: 'right'});
+        anchors.options.visible = 'touch';
 
         anchors.options.titleText = 'Link to this section';
         anchors.add('section>h2');
