@@ -76,8 +76,8 @@ automatically](https://www.nuget.org/). Running
 without first running
 [`dotnet build`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build)
 also works, though if you do that the first time, it may appear to have frozen
-for a short while while dependencies are downloaded. (In contrast,
-`dotnet build` is more verbose.)
+for a short while, as dependencies are downloaded. (In contrast, `dotnet build`
+is more verbose.)
 
 If you prefer to open the solution file `VidDraw.sln` in Visual Studio 2019 and
 build Vid&shy;Draw from there, that is also supported.
@@ -545,6 +545,38 @@ produce the problem in the Sharp&shy;Avi sample application with
 [Xvid](https://www.xvid.com/) (but, likewise, this might turn out to be due to
 how I have Xvid configured).
 
+### The help&rsquo;s sidenav is brittle.
+
+#### It can be &ldquo;partially present&rdquo; without user intent.
+
+Narrowing the viewport fades the navigational sidebar out; widening fades it
+in. Whether or not it is faded, and how faded, is determined solely by (scaled)
+viewport width. This works okay when the user resizes the window. But it is
+possible for the viewport to *start* with a &ldquo;transitional&rdquo; width at
+which the sidebar is present but faded. In that case, the user is likely to
+think either that the sidebar is meant to look this way (i.e., poorly designed)
+or that a bug causes it to appear this way (either always, or under limited but
+unclear circumstances).
+
+This isn&rsquo;t likely to happen in Vid&shy;Draw&rsquo;s own help viewer, but
+general-purpose web browsers don&rsquo;t start out with a predetermined
+(scaled) size selected to make this specific page look reasonable. The help
+file&mdash;and its sidenav&mdash;is meant to be fully usable on web browsers,
+too.
+
+#### Rarely, it overlaps the main text.
+
+On an iPad I tested with, when oriented in profile, the sidenav neither fades
+nor disappears when there is insufficient space, causing it to overlap the main
+text. This doesn&rsquo;t seem to happen in landscape or profile at any viewport
+width on a variety of browsers and operating systems in a variety of screen
+resolutions and display scalings.
+
+As above, I don't expect this to affect the program&rsquo;s help viewer or most
+other browsing scenarios, but it should still be investigated and fixed. It
+suggests a design mistake on my part that, if left in place, may manifest in
+more situations after some seemingly unrelated future change.
+
 ### Menu items are cumbersome to access while drawing.
 
 Some operations that users are likely to want to do while
@@ -575,10 +607,14 @@ This could be done by holding down modifier keys (<kbd>Shift</kbd>,
 
 ### User experience on older Windows could be better.
 
+#### Awkward toast fallback
+
 Although it is not a goal for Vid&shy;Draw to fully support any versions of
 Windows older than 10.0.17763, it might be good to come up with some other
 behavior than immediately opening the destination folder each time on systems
 that don&rsquo;t support toast notifications.
+
+#### Thin title bars
 
 Even older Windows systems, such as Windows 7, have very thin title bars, at
 least when styling is turned off or classic styling is used. This makes the
