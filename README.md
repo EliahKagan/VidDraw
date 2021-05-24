@@ -114,9 +114,9 @@ appear.
 
 Encoding with H.264 produces much smaller files than Motion JPEG, which is
 Vid&shy;Draw&rsquo;s default and itself much smaller than encodings without any
-compression. But I&rsquo;ve found that these files&mdash;files recorded in real
-time in the way Vid&shy;Draw records them, *not* H.264 video in
-general&mdash;are not playable on all players. [This may be due to a bug in
+compression. But I&rsquo;ve found that these H.264-encoded files&mdash;files
+recorded in real time in the way Vid&shy;Draw records them, *not* H.264 video
+in general&mdash;are not playable on all players. [This may be due to a bug in
 Vid&shy;Draw, but I&rsquo;m not
 sure.](#video-files-are-not-always-playable-on-all-players) The excellent and
 very popular VLC does not play them. Windows Media Player and the Movies & TV
@@ -216,7 +216,7 @@ confusing to use. Sorry. Maybe some of the following information will help.
 
 When the mouse cursor is over the canvas and you press the primary mouse
 button, recording begins. Moving the mouse while the primary mouse button is
-pressed draws on the canvas. Recording continues until your release the button.
+pressed draws on the canvas. Recording continues until you release the button.
 
 Even pressing the primary mouse button for a very short time records a video. A
 single short click is sufficient, though the video may consist of only one
@@ -229,8 +229,7 @@ saved.
 
 **To lift the pen while continuing to record**, press and hold another mouse
 button. So long as at least one button is pressed, recording continues. This
-lets you make individual videos of drawing sketches that consist of multiple,
-separate curves.
+lets you make an video of drawing a sketch with multiple disconnected strokes.
 
 If you ever want to continue recording while no mouse buttons are pressed,
 place the mouse cursor on the canvas, press and hold any mouse button, drag the
@@ -239,12 +238,12 @@ buttons (in either order). This effect, of keeping recording on even though
 you&rsquo;re not holding down any mouse button, persists until your next
 interaction with the canvas. So, to stop recording, click the canvas. (If you
 don&rsquo;t want to draw anything, click it with some button other than the
-primary mouse button.) Or you can continue drawing, and the next time you
-release all mouse buttons, recording will stop.
+primary mouse button.) Or you can resume drawing, and the next time you release
+all mouse buttons, recording will stop.
 
 When recording has stopped and the border has turned back from red to gray, the
-file is fully saved and should be playable, whether or not Vid&shy;Draw is
-still running. Conversely, it is fine to quit while still recording.
+file is fully saved and should be playable, whether Vid&shy;Draw is still
+running or not. Conversely, it is fine to quit while still recording.
 Vid&shy;Draw stops recording and cleanly saves the file on exit.
 
 The pen color can be changed using [the color picker](#pick-color), available
@@ -269,9 +268,9 @@ Vid&shy;Draw names files by the date and time at which it *started* recording
 them. The filenames consist of `VidDraw capture` followed by the date and time,
 like `VidDraw capture 2021-05-09 21-49-12`. (The ugly hyphen-delimited time is
 because Windows filesystems like NTFS don&rsquo;t support colon characters in
-filenames.) These video files exist immediately once recording has started,
-though it may not be playable&mdash;and is not guaranteed to be openable by
-other applications&mdash;until recording is completed.
+filenames.) This file exists immediately once recording has started, though it
+may not be playable&mdash;and is not guaranteed to be openable by other
+applications&mdash;until recording is completed.
 
 Since clicking the notification opens the destination folder and selects the
 file, you can rename it easily to whatever name you actually want it to have.
@@ -284,7 +283,7 @@ running in 32-bit mode&mdash;in that case, quitting the last 64-bit instance
 clears any remaining notifications from 64-bit instances, while quitting the
 last 32-bit instance clears any remaining notifications from 32-bit instances.
 
-Vid&shy;Draw is only able to raise toast notification on Windows 10, version
+Vid&shy;Draw is only able to raise toast notifications on Windows 10, version
 10.0.17763 or later. If Vid&shy;Draw can&rsquo;t raise toast notifications on
 your system, it falls back to opening the Explorer window immediately when
 recording finishes. But if Vid&shy;Draw can&rsquo;t show you a notification
@@ -539,11 +538,10 @@ version](https://github.com/baSSiLL/SharpAvi/tree/master/Sample) targeting the
 forked version](https://github.com/EliahKagan/SharpAvi/tree/net5/Sample)
 targeting [the fork of
 Sharp&shy;Avi](https://www.nuget.org/packages/SharpAvi.Net5) that Vid&shy;Draw
-uses&mdash;but it remains unclear to me if this is due to a bug in
-Sharp&shy;Avi, due to its sensitivity to x264vfw settings. I am also able to
-produce the problem in the Sharp&shy;Avi sample application with
-[Xvid](https://www.xvid.com/) (but, likewise, this might turn out to be due to
-how I have Xvid configured).
+uses. But it remains unclear to me, due to its sensitivity to x264vfw settings,
+whether it is due to a bug in Sharp&shy;Avi. I can also produce it in the
+Sharp&shy;Avi sample application with [Xvid](https://www.xvid.com/) (but,
+likewise, this might turn out to be because of how I have Xvid configured).
 
 ### The help&rsquo;s sidenav is brittle.
 
@@ -616,7 +614,7 @@ that don&rsquo;t support toast notifications.
 
 #### Thin title bars
 
-Even older Windows systems, such as Windows 7, have very thin title bars, at
+Old Windows operating systems, such as Windows 7, have very thin title bars, at
 least when styling is turned off or classic styling is used. This makes the
 border around the canvas (which turns red to indicate recording) look
 excessively thick. It&rsquo;s probably not worth it to detect and handle this
@@ -805,7 +803,8 @@ SOFTWARE.
 ### CsWin32
 
 Microsoft Corporation has released
-[CsWin32](https://github.com/microsoft/CsWin32) under the MIT license:
+[CsWin32](https://github.com/microsoft/CsWin32/tree/v0.1.422-beta) under the
+MIT license:
 
 > The MIT License (MIT)
 >
@@ -914,11 +913,13 @@ SOFTWARE.
 
 ### Milligram
 
-CJ Patoilo has released Milligram under the MIT license:
+CJ Patoilo has released
+[Milligram](https://github.com/milligram/milligram/tree/v1.4.1) under the MIT
+license:
 
 > The MIT License (MIT)
 >
-> Copyright (c) CJ Patoilo &lt;cjpatoilo@gmail.com&gt;
+> Copyright (c) CJ Patoilo &lt;cjpatoilo<!-- -->@gmail.com&gt;
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -1207,7 +1208,10 @@ without modification:
 
 ### Smooth Scroll behavior polyfill
 
-[Smooth Scroll behavior polyfill](https://github.com/iamdustan/smoothscroll/tree/v0.4.4), which is also sometimes called smoothscroll and smoothscroll-polyfill, has been released under the MIT license:
+[Smooth Scroll behavior
+polyfill](https://github.com/iamdustan/smoothscroll/tree/v0.4.4), which is also
+sometimes called smoothscroll and smoothscroll-polyfill, has been released
+under the MIT license:
 
 >The MIT License (MIT)
 >
