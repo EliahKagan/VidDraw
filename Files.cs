@@ -14,12 +14,17 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using static System.Text.RegularExpressions.RegexOptions;
 
 namespace VidDraw {
     /// <summary>Methods for querying and accessing files.</summary>
     internal static class Files {
+        /// <summary>The directory containing the running executable.</summary>
+        internal static string ExecutableDirectory
+            => GetDirectoryOrThrow(Assembly.GetExecutingAssembly().Location);
+
         internal static string GetDirectoryOrThrow(this string path)
             => Path.GetDirectoryName(path)
                 ?? throw new ArgumentException(

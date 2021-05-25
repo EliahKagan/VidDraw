@@ -15,6 +15,12 @@ using static System.Environment;
 
 namespace VidDraw {
     /// <summary>Some systemwide and per-user directories.</summary>
+    /// <remarks>
+    /// This queries the system and is a convenience class wrapping calls to
+    /// <see cref="GetFolderPath"/>. As such, it doesn't get information about
+    /// directories specific to this program or a running instanceo of it.
+    /// Those are contained in <see cref="Files"/> instead.
+    /// </remarks>
     internal static class Dirs {
         internal static string AppData
             => GetFolderPath(SpecialFolder.ApplicationData);

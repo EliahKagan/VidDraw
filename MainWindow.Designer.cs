@@ -21,6 +21,7 @@ namespace VidDraw {
         {
             if (disposing) {
                 components?.Dispose();
+                _aboutBox?.Dispose();
                 _colorPicker.Dispose(); // TODO: Check if this really is useful.
                 _recorder.Dispose();
             }

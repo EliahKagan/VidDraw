@@ -4,6 +4,12 @@
     <Compile Update="ColorPicker.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="HelpBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="HelpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

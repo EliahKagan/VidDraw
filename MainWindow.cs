@@ -459,12 +459,7 @@ namespace VidDraw {
             Shell.Execute(path);
         }
 
-        // TODO: Make a custom About dialog listing dependencies and their
-        //       copyright notices / licenses.
-        private void ShowAboutBox()
-            => MessageBox.Show(owner: this,
-                               text: "VidDraw (alpha), by Eliah Kagan",
-                               caption: "About VidDraw");
+        private void ShowAboutBox() => (_aboutBox ??= new()).ShowDialog(this);
 
         private static IReadOnlyList<CodecChoice> CodecChoices { get; } =
             BuildCodecChoices();
@@ -489,5 +484,7 @@ namespace VidDraw {
 
         private readonly IReadOnlyDictionary<MyMenuItemId, Action>
         _menuActions;
+
+        private HelpWindow? _aboutBox = null;
     }
 }
