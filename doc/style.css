@@ -129,7 +129,6 @@ body, pre.text>code {
 
 body {
   color: #444;
-  font-feature-settings: 'kern' 1;
   font-kerning: normal;
   font-size: 2rem;
   font-weight: 400;
