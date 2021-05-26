@@ -33,6 +33,8 @@ end
 
 local COMMENTED_0BSD = format_block_comment('../COPYING.0BSD')
 
+local upward_traversals = {}
+
 -- Remove block comments that are exactly the text of the accompanying license.
 -- This is to avoid repetition. The template file puts the license at the top.
 function RawBlock(el)
@@ -69,6 +71,11 @@ function Link(el)
 
   -- But if the href doesn't point in doc, add a parent path prefix.
   if count == 0 then
+    if not upward_traversals[el.target] then
+      upward_traversals[el.target] = true
+      print('Upward traversal: ' .. el.target)
+    end
+
     el.target = '../' .. el.target
   end
 
