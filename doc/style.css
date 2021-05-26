@@ -166,8 +166,11 @@ header>a.github-fork-ribbon::after {
 }
 
 nav {
-  /* These fallback fonts don't match Open Sans very well and aren't narrow
-     enough, but they're better than non-narrow system defaults. */
+  /*
+    The fallback fonts don't match Open Sans very well and aren't narrow
+    enough, but they're better than non-narrow system defaults. Fortunately
+    it's unlikely Open Sans Condensed will be unusable, since I'm shipping it.
+  */
   font-family: 'Open Sans Condensed', 'Ubuntu Condensed', 'Roboto Condensed', 'Nimbus Sans Narrow', 'Liberation Sans Narrow', 'Arial Narrow', sans-serif;
   font-size: 3rem;
   font-weight: 300;
