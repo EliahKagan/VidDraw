@@ -644,7 +644,7 @@ the second line.
   ([inline](#cswin32))
 - [*Fork me on GitHub* CSS
   ribbon](https://simonwhitaker.github.io/github-fork-ribbon-css/) 0.2.3 by
-  Simon Whitaker \[included\]\
+  Simon Whitaker \[[included](doc/bower_components/github-fork-ribbon-css/)\]\
   [MIT
   license](https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE)
   ([local](doc/bower_components/github-fork-ribbon-css/LICENSE),
