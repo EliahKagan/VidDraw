@@ -33,8 +33,6 @@ end
 
 local COMMENTED_0BSD = format_block_comment('../COPYING.0BSD')
 
-local upward_traversals = {}
-
 -- Remove block comments that are exactly the text of the accompanying license.
 -- This is to avoid repetition. The template file puts the license at the top.
 function RawBlock(el)
@@ -55,8 +53,17 @@ function Header(el)
   end
 end
 
--- Adjust links to account for different input and output directories.
-function Link(el)
+local upward_traversals = {}
+
+local function note_upward_traversal(target)
+  if not upward_traversals[target] then
+    upward_traversals[target] = true
+    print('Upward traversal: ' .. target)
+  end
+end
+
+-- Adjust a link to account for different input and output directories.
+local function adjust_path(el)
   assert(not (el.target:find('^/') or el.target:find('^file:')),
          "Can't adjust absolute local href")
 
@@ -71,13 +78,21 @@ function Link(el)
 
   -- But if the href doesn't point in doc, add a parent path prefix.
   if count == 0 then
-    if not upward_traversals[el.target] then
-      upward_traversals[el.target] = true
-      print('Upward traversal: ' .. el.target)
-    end
-
+    note_upward_traversal(el.target)
     el.target = '../' .. el.target
   end
+end
 
+-- If the link doesn't already have title text, use its address.
+local function add_missing_title_text(el)
+  if el.title == '' then
+    el.title = el.target
+  end
+end
+
+-- Adjust links' relative paths and add title text if missing.
+function Link(el)
+  adjust_path(el)
+  add_missing_title_text(el)
   return el
 end

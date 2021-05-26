@@ -54,59 +54,59 @@
 <h1>VidDraw - record video as you draw</h1>
 <p><em>Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;</em>.</p>
 <p><strong>Vid­Draw</strong> is a Windows program that records a video of a canvas as you draw on it. Recording starts when you begin drawing and stops when you’re no longer holding down any mouse buttons.</p>
-<p>The main purpose of Vid­Draw is to demonstrate usage of <a href="https://github.com/baSSiLL/SharpAvi">Sharp­Avi</a> (which wraps <a href="https://docs.microsoft.com/en-us/windows/win32/api/vfw/">VfW</a>) and <a href="https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp">toast notifications</a>. It started out as a prototype for the video recording feature of a larger program I’ve been working on. It is also kind of a fun toy.</p>
-<p>This is <strong>Vid­Draw alpha 1</strong>. It still has <a href="#known-bugs">some usability bugs</a>.</p>
+<p>The main purpose of Vid­Draw is to demonstrate usage of <a href="https://github.com/baSSiLL/SharpAvi" title="https://github.com/baSSiLL/SharpAvi">Sharp­Avi</a> (which wraps <a href="https://docs.microsoft.com/en-us/windows/win32/api/vfw/" title="https://docs.microsoft.com/en-us/windows/win32/api/vfw/">VfW</a>) and <a href="https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp" title="https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp">toast notifications</a>. It started out as a prototype for the video recording feature of a larger program I’ve been working on. It is also kind of a fun toy.</p>
+<p>This is <strong>Vid­Draw alpha 1</strong>. It still has <a href="#known-bugs" title="#known-bugs">some usability bugs</a>.</p>
 <section id="license" class="level2">
 <h2>License</h2>
-<p>Vid­Draw is <a href="https://en.wikipedia.org/wiki/Free_software">free software</a>. The program <a href="../COPYING.0BSD">is itself licensed</a> under <a href="https://spdx.org/licenses/0BSD.html">0BSD</a> (“Zero-Clause BSD License,” also known as the <a href="https://opensource.org/licenses/0BSD">Free Public License 1.0.0</a>), which is a <a href="https://en.wikipedia.org/wiki/Public-domain-equivalent_license">“public domain equivalent”</a> license. Vid­Draw’s dependencies are also free, but they are offered under other licenses. See <a href="#dependencies">Dependencies</a> below for details.</p>
-<p>Since some of Vid­Draw’s dependencies are included directly in this repository, some of the files in this repository have other authors and are licensed under terms other than 0BSD. See <a href="../LICENSE"><code>LICENSE</code></a> and <a href="#notices">Notices</a>.</p>
+<p>Vid­Draw is <a href="https://en.wikipedia.org/wiki/Free_software" title="https://en.wikipedia.org/wiki/Free_software">free software</a>. The program <a href="../COPYING.0BSD" title="../COPYING.0BSD">is itself licensed</a> under <a href="https://spdx.org/licenses/0BSD.html" title="https://spdx.org/licenses/0BSD.html">0BSD</a> (“Zero-Clause BSD License,” also known as the <a href="https://opensource.org/licenses/0BSD" title="https://opensource.org/licenses/0BSD">Free Public License 1.0.0</a>), which is a <a href="https://en.wikipedia.org/wiki/Public-domain-equivalent_license" title="https://en.wikipedia.org/wiki/Public-domain-equivalent_license">“public domain equivalent”</a> license. Vid­Draw’s dependencies are also free, but they are offered under other licenses. See <a href="#dependencies" title="#dependencies">Dependencies</a> below for details.</p>
+<p>Since some of Vid­Draw’s dependencies are included directly in this repository, some of the files in this repository have other authors and are licensed under terms other than 0BSD. See <a href="../LICENSE" title="../LICENSE"><code>LICENSE</code></a> and <a href="#notices" title="#notices">Notices</a>.</p>
 </section>
 <section id="setup" class="level2">
 <h2>Setup</h2>
-<p>This alpha version of Vid­Draw doesn’t have binary downloads, so it must be built from source. You’ll need the <a href="https://dotnet.microsoft.com/download/dotnet/5.0">.NET 5</a> SDK. To clone the repository and build Vid­Draw, run:</p>
+<p>This alpha version of Vid­Draw doesn’t have binary downloads, so it must be built from source. You’ll need the <a href="https://dotnet.microsoft.com/download/dotnet/5.0" title="https://dotnet.microsoft.com/download/dotnet/5.0">.NET 5</a> SDK. To clone the repository and build Vid­Draw, run:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone https<span class="op">://</span>github<span class="op">.</span><span class="fu">com</span><span class="op">/</span>EliahKagan<span class="op">/</span>VidDraw<span class="op">.</span><span class="fu">git</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> VidDraw</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dotnet build</span></code></pre></div>
 <p>Then, to run the program:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dotnet run</span></code></pre></div>
 <p>Those commands build and run a “debug” build. If you want a “release” build instead, use <code>dotnet build -c Release</code> and <code>dotnet run -c Release</code>.</p>
-<p>Dependencies not included in this repository will be <a href="https://www.nuget.org/">downloaded automatically</a>. Running <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run"><code>dotnet run</code></a> without first running <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build"><code>dotnet build</code></a> also works, though if you do that the first time, it may appear to have frozen for a short while, as dependencies are downloaded. (In contrast, <code>dotnet build</code> is more verbose.)</p>
+<p>Dependencies not included in this repository will be <a href="https://www.nuget.org/" title="https://www.nuget.org/">downloaded automatically</a>. Running <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run" title="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run"><code>dotnet run</code></a> without first running <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build" title="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build"><code>dotnet build</code></a> also works, though if you do that the first time, it may appear to have frozen for a short while, as dependencies are downloaded. (In contrast, <code>dotnet build</code> is more verbose.)</p>
 <p>If you prefer to open the solution file <code>VidDraw.sln</code> in Visual Studio 2019 and build Vid­Draw from there, that is also supported.</p>
-<p>That’s all you need. If you want to read about codec stuff… read on! Otherwise, you may want to skip to <a href="#usage-tips">Usage Tips</a> or <a href="#the-menu">The Menu</a>, or just try out the program.</p>
+<p>That’s all you need. If you want to read about codec stuff… read on! Otherwise, you may want to skip to <a href="#usage-tips" title="#usage-tips">Usage Tips</a> or <a href="#the-menu" title="#the-menu">The Menu</a>, or just try out the program.</p>
 <section id="optional-get-x264vfw-for-h264-support" class="level3">
 <h3>Optional: Get x264vfw for H.264 support</h3>
-<p>If you want Vid­Draw to be able to encode H.264 video, you’ll need <a href="https://sourceforge.net/projects/x264vfw/">x264vfw</a>. You don’t have to install that before Vid­Draw, though. You can even install it while Vid­Draw is already running, and H.264 will be ungrayed in Vid­Draw’s menu.</p>
-<p>In the x264vfw configuration, you should check the box for “Zero Latency” <a href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">to avoid picture freezes</a> while encoding video in real time. Note that the 32-bit and 64-bit x264vfw codecs are configured separately; changing the configuration for one doesn’t affect the other.</p>
+<p>If you want Vid­Draw to be able to encode H.264 video, you’ll need <a href="https://sourceforge.net/projects/x264vfw/" title="https://sourceforge.net/projects/x264vfw/">x264vfw</a>. You don’t have to install that before Vid­Draw, though. You can even install it while Vid­Draw is already running, and H.264 will be ungrayed in Vid­Draw’s menu.</p>
+<p>In the x264vfw configuration, you should check the box for “Zero Latency” <a href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder" title="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">to avoid picture freezes</a> while encoding video in real time. Note that the 32-bit and 64-bit x264vfw codecs are configured separately; changing the configuration for one doesn’t affect the other.</p>
 <p>x264fw’s installer creates “Configure x264vfw” and “Configure x264vfw64” shortcuts (or just one, if you told it to install the codec for just one architecture or you’re on a 32-bit system). Besides those shortcuts, another way to open the x264vfw configuration dialog is from the menu in Vid­Draw: so long as x264vfw is installed for the same architecture as the running Vid­Draw process, a “Configure x264vfw (x86)” or “Configure x264vfw (x64)” menu item will appear.</p>
 </section>
 <section id="a-problem-with-h264-in-viddraw" class="level3">
 <h3>A problem with H.264 in VidDraw</h3>
-<p>Encoding with H.264 produces much smaller files than Motion JPEG, which is Vid­Draw’s default and itself much smaller than encodings without any compression. But I’ve found that these H.264-encoded files—files recorded in real time in the way Vid­Draw records them, <em>not</em> H.264 video in general—are not playable on all players. <a href="#video-files-are-not-always-playable-on-all-players">This may be due to a bug in Vid­Draw, but I’m not sure.</a> The excellent and very popular VLC does not play them. Windows Media Player and the Movies &amp; TV app (and also <a href="https://mpc-hc.org/">MPC-HC</a>) do play them.</p>
+<p>Encoding with H.264 produces much smaller files than Motion JPEG, which is Vid­Draw’s default and itself much smaller than encodings without any compression. But I’ve found that these H.264-encoded files—files recorded in real time in the way Vid­Draw records them, <em>not</em> H.264 video in general—are not playable on all players. <a href="#video-files-are-not-always-playable-on-all-players" title="#video-files-are-not-always-playable-on-all-players">This may be due to a bug in Vid­Draw, but I’m not sure.</a> The excellent and very popular VLC does not play them. Windows Media Player and the Movies &amp; TV app (and also <a href="https://mpc-hc.org/" title="https://mpc-hc.org/">MPC-HC</a>) do play them.</p>
 <p>Other than just using Motion JPEG instead (or waiting until Vid­Draw is out of alpha?), there are a couple workarounds to produce a video that VLC will play:</p>
 <section id="configure-x264vfw-to-make-every-frame-a-keyframe" class="level4">
 <h4>Configure x264vfw to make every frame a keyframe</h4>
-<p>At the cost of considerably larger files (but still not as big as Motion JPEG), making every frame a <a href="https://en.wikipedia.org/wiki/Key_frame">keyframe</a> fixes the problem in VLC. To do that, open the x264vfw configuration dialog and—in the textarea labeled “Extra command line (for advanced users)”—put:</p>
+<p>At the cost of considerably larger files (but still not as big as Motion JPEG), making every frame a <a href="https://en.wikipedia.org/wiki/Key_frame" title="https://en.wikipedia.org/wiki/Key_frame">keyframe</a> fixes the problem in VLC. To do that, open the x264vfw configuration dialog and—in the textarea labeled “Extra command line (for advanced users)”—put:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">--keyint</span> 1</span></code></pre></div>
-<p><em>See <a href="https://forums.guru3d.com/threads/x264vfw-compression-wtf-am-i-doing-wrong.373036/">x264vfw Compression - WTF am I doing wrong?</a> on the <a href="https://www.guru3d.com/">Guru3D.com</a> forums.</em></p>
+<p><em>See <a href="https://forums.guru3d.com/threads/x264vfw-compression-wtf-am-i-doing-wrong.373036/" title="https://forums.guru3d.com/threads/x264vfw-compression-wtf-am-i-doing-wrong.373036/">x264vfw Compression - WTF am I doing wrong?</a> on the <a href="https://www.guru3d.com/" title="https://www.guru3d.com/">Guru3D.com</a> forums.</em></p>
 </section>
 <section id="post-process-the-video-with-ffmpeg" class="level4">
 <h4>Post-process the video with FFmpeg</h4>
-<p>Given a video from Vid­Draw that VLC cannot open, <a href="https://ffmpeg.org/">FFmpeg</a> will repair it:</p>
+<p>Given a video from Vid­Draw that VLC cannot open, <a href="https://ffmpeg.org/" title="https://ffmpeg.org/">FFmpeg</a> will repair it:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ffmpeg <span class="op">-</span>err_detect ignore_err <span class="op">-</span>i <span class="st">&quot;VidDraw capture 2021-05-08 16-38-04.avi&quot;</span> <span class="op">-</span>c <span class="fu">copy</span> <span class="st">&quot;VidDraw capture 2021-05-08 16-38-04 fixed.avi&quot;</span></span></code></pre></div>
 <p>You would run that from the <code>Videos</code> folder (where Vid­Draw saved the file). Change <code>VidDraw capture 2021-05-08 16-38-04.avi</code> to the actual name of the file Vid­Draw created. The second filename names FFmpeg’s output file; put whatever you like for that.</p>
-<p><em>See <a href="https://video.stackexchange.com/users/1871/gyan">Gyan</a><!-- -->’s <a href="https://video.stackexchange.com/a/18226">answer</a> to <a href="https://video.stackexchange.com/questions/18220/fix-bad-files-and-streams-with-ffmpeg-so-vlc-and-other-players-would-not-crash">Fix bad files and streams with ffmpeg so VLC and other players would not crash</a> on <a href="https://video.stackexchange.com/">Video Production Stack Exchange</a>.</em></p>
+<p><em>See <a href="https://video.stackexchange.com/users/1871/gyan" title="https://video.stackexchange.com/users/1871/gyan">Gyan</a><!-- -->’s <a href="https://video.stackexchange.com/a/18226" title="https://video.stackexchange.com/a/18226">answer</a> to <a href="https://video.stackexchange.com/questions/18220/fix-bad-files-and-streams-with-ffmpeg-so-vlc-and-other-players-would-not-crash" title="https://video.stackexchange.com/questions/18220/fix-bad-files-and-streams-with-ffmpeg-so-vlc-and-other-players-would-not-crash">Fix bad files and streams with ffmpeg so VLC and other players would not crash</a> on <a href="https://video.stackexchange.com/" title="https://video.stackexchange.com/">Video Production Stack Exchange</a>.</em></p>
 </section>
 </section>
 <section id="optional-regenerate-the-documentation" class="level3">
 <h3>Optional: Regenerate the Documentation</h3>
 <p>If you’re just building and using Vid­Draw, and not modifying it—or modifying it but not modifying its documentation—you can skip this section.</p>
-<p>Vid­Draw comes with <code>doc\index.html</code>. Building Vid­Draw as described above places a copy of that file (and some others) in the build output directory, which the program’s <a href="#about-viddraw">built-in help viewer</a> displays. <code>doc\index.html</code> is itself generated from <code>README.md</code>, and building Vid­Draw does not regenerate it. If you’re hacking on Vid­Draw and you make changes to <code>README.md</code> or to files in the <code>pandoc</code> directory, then you should regenerate it by running the <code>generate.cmd</code> script in the <code>pandoc</code> directory:</p>
+<p>Vid­Draw comes with <code>doc\index.html</code>. Building Vid­Draw as described above places a copy of that file (and some others) in the build output directory, which the program’s <a href="#about-viddraw" title="#about-viddraw">built-in help viewer</a> displays. <code>doc\index.html</code> is itself generated from <code>README.md</code>, and building Vid­Draw does not regenerate it. If you’re hacking on Vid­Draw and you make changes to <code>README.md</code> or to files in the <code>pandoc</code> directory, then you should regenerate it by running the <code>generate.cmd</code> script in the <code>pandoc</code> directory:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pandoc\generate<span class="op">.</span><span class="fu">cmd</span></span></code></pre></div>
 <p>(That assumes you are in the repository’s top-level directory.)</p>
 <p>If you’re on a Unix-like operating system or otherwise using a Unix-style shell, such as Bash, use the <code>generate</code> shell script instead:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc/generate</span></span></code></pre></div>
 <p>Note that while generating Vid­Draw’s documentation is supported on Unix-like systems, neither building nor running the program is supported on any non-Windows operating systems.</p>
-<p>On 64-bit Windows systems, if you don't have <a href="https://en.wikipedia.org/wiki/Pandoc">Pandoc</a>, one way to install it is with <a href="https://scoop.sh/">Scoop</a>:</p>
+<p>On 64-bit Windows systems, if you don't have <a href="https://en.wikipedia.org/wiki/Pandoc" title="https://en.wikipedia.org/wiki/Pandoc">Pandoc</a>, one way to install it is with <a href="https://scoop.sh/" title="https://scoop.sh/">Scoop</a>:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>scoop install pandoc</span></code></pre></div>
 <p>Modifications to files other than <code>README.md</code> and those in the <code>pandoc</code> directory do not require <code>doc\index.html</code> to be regenerated.</p>
 </section>
@@ -123,23 +123,23 @@
 <p><strong>To lift the pen while continuing to record</strong>, press and hold another mouse button. So long as at least one button is pressed, recording continues. This lets you make an video of drawing a sketch with multiple disconnected strokes.</p>
 <p>If you ever want to continue recording while no mouse buttons are pressed, place the mouse cursor on the canvas, press and hold any mouse button, drag the cursor out of the canvas, press any other mouse button, then release both buttons (in either order). This effect, of keeping recording on even though you’re not holding down any mouse button, persists until your next interaction with the canvas. So, to stop recording, click the canvas. (If you don’t want to draw anything, click it with some button other than the primary mouse button.) Or you can resume drawing, and the next time you release all mouse buttons, recording will stop.</p>
 <p>When recording has stopped and the border has turned back from red to gray, the file is fully saved and should be playable, whether Vid­Draw is still running or not. Conversely, it is fine to quit while still recording. Vid­Draw stops recording and cleanly saves the file on exit.</p>
-<p>The pen color can be changed using <a href="#pick-color">the color picker</a>, available in <a href="#the-menu">the menu</a>.</p>
+<p>The pen color can be changed using <a href="#pick-color" title="#pick-color">the color picker</a>, available in <a href="#the-menu" title="#the-menu">the menu</a>.</p>
 <p>The canvas in Vid­Draw is always 800×600.</p>
 </section>
 <section id="save-location-and-toast-notifications" class="level3">
 <h3>Save Location and Toast Notifications</h3>
 <p>Vid­Draw saves files in your Videos folder. The location of this folder is configurable per-user in Windows, but by default it is the folder called <code>Videos</code> and located directly in your home folder.</p>
-<p>When a recording ends (while Vid­Draw is still running), Vid­Draw raises a <a href="https://en.wikipedia.org/wiki/Pop-up_notification">toast notification</a> informing you of the filename as well as the encoding that was used for the video. Clicking this notification opens a file browser (i.e., Explorer) window for the destination folder, with the newly finished video selected.</p>
+<p>When a recording ends (while Vid­Draw is still running), Vid­Draw raises a <a href="https://en.wikipedia.org/wiki/Pop-up_notification" title="https://en.wikipedia.org/wiki/Pop-up_notification">toast notification</a> informing you of the filename as well as the encoding that was used for the video. Clicking this notification opens a file browser (i.e., Explorer) window for the destination folder, with the newly finished video selected.</p>
 <p>Vid­Draw names files by the date and time at which it <em>started</em> recording them. The filenames consist of <code>VidDraw capture</code> followed by the date and time, like <code>VidDraw capture 2021-05-09 21-49-12</code>. (The ugly hyphen-delimited time is because Windows filesystems like NTFS don’t support colon characters in filenames.) This file exists immediately once recording has started, though it may not be playable—and is not guaranteed to be openable by other applications—until recording is completed.</p>
 <p>Since clicking the notification opens the destination folder and selects the file, you can rename it easily to whatever name you actually want it to have.</p>
 <p>Quitting Vid­Draw clears any notifications that have not been clicked or dismissed. <em>Unless</em> you were running multiple instances of Vid­Draw—in that case, they all stick around until the last instance is closed. <em>Unless</em> some instances are running in 64-bit mode while others are running in 32-bit mode—in that case, quitting the last 64-bit instance clears any remaining notifications from 64-bit instances, while quitting the last 32-bit instance clears any remaining notifications from 32-bit instances.</p>
 <p>Vid­Draw is only able to raise toast notifications on Windows 10, version 10.0.17763 or later. If Vid­Draw can’t raise toast notifications on your system, it falls back to opening the Explorer window immediately when recording finishes. But if Vid­Draw can’t show you a notification because you’ve configured notifications in Windows 10 not to show them (or turned them off), then Vid­Draw does <em>not</em> try to circumvent this by showing a file browser window. In that case, nothing special happens when recording finishes.</p>
-<p>You can always open the destination folder by clicking “Open Videos Folder” <a href="#the-menu">in Vid­Draw’s menu</a>.</p>
+<p>You can always open the destination folder by clicking “Open Videos Folder” <a href="#the-menu" title="#the-menu">in Vid­Draw’s menu</a>.</p>
 </section>
 </section>
 <section id="the-menu" class="level2">
 <h2>The Menu</h2>
-<p>Vid­Draw augments its <em>system menu</em>—the application menu that you can open by left- or right-clicking on the left side of the title bar, right-clicking anywhere on the title bar, or pressing <kbd>Alt</kbd>+<kbd>Space</kbd>, and that contains standard items like “Move” and “Close”—with <a href="#encoding-codec-choices">encoding choices</a> and some <a href="#other-stuff-in-the-menu">other operations</a> specific to Vid­Draw.</p>
+<p>Vid­Draw augments its <em>system menu</em>—the application menu that you can open by left- or right-clicking on the left side of the title bar, right-clicking anywhere on the title bar, or pressing <kbd>Alt</kbd>+<kbd>Space</kbd>, and that contains standard items like “Move” and “Close”—with <a href="#encoding-codec-choices" title="#encoding-codec-choices">encoding choices</a> and some <a href="#other-stuff-in-the-menu" title="#other-stuff-in-the-menu">other operations</a> specific to Vid­Draw.</p>
 <p>Some menu items change settings. These changes are saved in a <code>VidDraw</code> subdirectory of your per-user application data (<code>%APPDATA%</code>) directory, which is usually <code>%USERPROFILE%\AppData\Roaming</code> (where <code>%USERPROFILE%</code> is your home directory).</p>
 <section id="encoding-codec-choices" class="level3">
 <h3>Encoding (“Codec”) Choices</h3>
@@ -149,33 +149,33 @@
 <section id="raw-frame-copy" class="level4">
 <h4>Raw (frame copy)</h4>
 <p>This is the worst possible encoding and I don’t recommend using it. Each bitmap is captured from the canvas as-is, including the alpha channel data (the “A” in “ARGB”). The canvas, and the recorded video stream, use different conventions for the order in which each line (row of pixels) is stored, so this order is reversed; otherwise, it is a raw “frame copy.”</p>
-<p>The only reason I put this in Vid­Draw was to demonstrate how to write video frames in Sharp­Avi without an <a href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders">encoder</a>. But you should use an encoder. If you want uncompressed video, I recommend using <a href="#uncompressed">Uncompressed</a> instead, which leaves out the unused alpha channel.</p>
+<p>The only reason I put this in Vid­Draw was to demonstrate how to write video frames in Sharp­Avi without an <a href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders" title="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders">encoder</a>. But you should use an encoder. If you want uncompressed video, I recommend using <a href="#uncompressed" title="#uncompressed">Uncompressed</a> instead, which leaves out the unused alpha channel.</p>
 </section>
 <section id="uncompressed" class="level4">
 <h4>Uncompressed</h4>
-<p>If you want uncompressed video (where each frame is a bitmap), you should use this. It uses Sharp­Avi’s <code>UncompressedVideoEncoder</code>. As the <a href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">Sharp­Avi wiki</a> says:</p>
+<p>If you want uncompressed video (where each frame is a bitmap), you should use this. It uses Sharp­Avi’s <code>UncompressedVideoEncoder</code>. As the <a href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder" title="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">Sharp­Avi wiki</a> says:</p>
 <blockquote>
-<p>The simplest [encoder] is <a href="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/UncompressedVideoEncoder.cs">UncompressedVideoEncoder</a>. It does no real encoding, just flips image vertically and converts BGR32 data to BGR24 data to reduce the size.</p>
+<p>The simplest [encoder] is <a href="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/UncompressedVideoEncoder.cs" title="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/UncompressedVideoEncoder.cs">UncompressedVideoEncoder</a>. It does no real encoding, just flips image vertically and converts BGR32 data to BGR24 data to reduce the size.</p>
 </blockquote>
-<p>Video files created this way are quite large, if you’re recording for more a few seconds. If you’re keeping videos you create this way, you may want to encode them with a compressed codec afterwards. If your hard disk is slow, you may experience lag while encoding this way. It’s still better than <a href="#raw-frame-copy">Raw (frame copy)</a>, though.</p>
+<p>Video files created this way are quite large, if you’re recording for more a few seconds. If you’re keeping videos you create this way, you may want to encode them with a compressed codec afterwards. If your hard disk is slow, you may experience lag while encoding this way. It’s still better than <a href="#raw-frame-copy" title="#raw-frame-copy">Raw (frame copy)</a>, though.</p>
 </section>
 <section id="motion-jpeg" class="level4">
 <h4>Motion JPEG</h4>
-<p><a href="https://en.wikipedia.org/wiki/Motion_JPEG">Motion JPEG</a> is Vid­Draw’s default encoding. Each frame is converted to and stored as a JPEG image. This uses Sharp­Avi’s <code>MotionJpegVideoEncoderWpf</code>. From the <a href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">Sharp­Avi wiki</a>:</p>
+<p><a href="https://en.wikipedia.org/wiki/Motion_JPEG" title="https://en.wikipedia.org/wiki/Motion_JPEG">Motion JPEG</a> is Vid­Draw’s default encoding. Each frame is converted to and stored as a JPEG image. This uses Sharp­Avi’s <code>MotionJpegVideoEncoderWpf</code>. From the <a href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder" title="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">Sharp­Avi wiki</a>:</p>
 <blockquote>
-<p>Next is <a href="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/MotionJpegVideoEncoderWpf.cs">MotionJpegVideoEncoderWpf</a> which does Motion JPEG encoding. It uses <code>System.Windows.Media.Imaging.JpegBitmapEncoder</code> under the hood. Besides dimensions, you provide the desired quality level to its constructor, ranging from 1 (low quality, small size) to 100 (high quality, large size).</p>
+<p>Next is <a href="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/MotionJpegVideoEncoderWpf.cs" title="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/MotionJpegVideoEncoderWpf.cs">MotionJpegVideoEncoderWpf</a> which does Motion JPEG encoding. It uses <code>System.Windows.Media.Imaging.JpegBitmapEncoder</code> under the hood. Besides dimensions, you provide the desired quality level to its constructor, ranging from 1 (low quality, small size) to 100 (high quality, large size).</p>
 </blockquote>
 <p>Vid­Draw uses a quality of 100, since the pen in Vid­Draw makes 1-pixel-thick curves, and lower qualities of Motion JPEG (like the oft-used 70) tend not to render such curves crisply.</p>
 <p>The file size is unhappily large, but nowhere near as bad as the uncompressed encodings.</p>
 </section>
 <section id="h264-mpeg-4-avc" class="level4">
 <h4>H.264 (MPEG-4 AVC)</h4>
-<p>If the <a href="https://sourceforge.net/projects/x264vfw/">x264vfw</a> codec (of the same architecture as the Vid­Draw process) <a href="#optional-get-x264vfw-for-h264-support">is installed</a>, the menu item for <a href="https://en.wikipedia.org/wiki/Advanced_Video_Coding">H.264</a> is unfaded. It isn’t the default because Vid­Draw doesn’t ship that codec and you may not already have it, and because there are <a href="#a-problem-with-h264-in-viddraw">configuration choices for you to make</a> and <a href="#video-files-are-not-always-playable-on-all-players">playback issues to wrangle with</a>.</p>
-<p>Still, I recommend encoding in H.264 if you can, because it produces higher quality than <a href="#motion-jpeg">Motion JPEG</a> at a small fraction of the file size (<em>even</em> if you use <a href="#configure-x264vfw-to-make-every-frame-a-keyframe"><code>--keyint 1</code></a>).</p>
-<p>The <a href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">Sharp­Avi wiki</a> says:</p>
+<p>If the <a href="https://sourceforge.net/projects/x264vfw/" title="https://sourceforge.net/projects/x264vfw/">x264vfw</a> codec (of the same architecture as the Vid­Draw process) <a href="#optional-get-x264vfw-for-h264-support" title="#optional-get-x264vfw-for-h264-support">is installed</a>, the menu item for <a href="https://en.wikipedia.org/wiki/Advanced_Video_Coding" title="https://en.wikipedia.org/wiki/Advanced_Video_Coding">H.264</a> is unfaded. It isn’t the default because Vid­Draw doesn’t ship that codec and you may not already have it, and because there are <a href="#a-problem-with-h264-in-viddraw" title="#a-problem-with-h264-in-viddraw">configuration choices for you to make</a> and <a href="#video-files-are-not-always-playable-on-all-players" title="#video-files-are-not-always-playable-on-all-players">playback issues to wrangle with</a>.</p>
+<p>Still, I recommend encoding in H.264 if you can, because it produces higher quality than <a href="#motion-jpeg" title="#motion-jpeg">Motion JPEG</a> at a small fraction of the file size (<em>even</em> if you use <a href="#configure-x264vfw-to-make-every-frame-a-keyframe" title="#configure-x264vfw-to-make-every-frame-a-keyframe"><code>--keyint 1</code></a>).</p>
+<p>The <a href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder" title="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">Sharp­Avi wiki</a> says:</p>
 <blockquote>
-<p>Finally, <a href="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/Mpeg4VideoEncoderVcm.cs">Mpeg4VideoEncoderVcm</a> does MPEG-4 encoding using <em>Video for Windows</em> (aka <em>VfW</em>) or <em>Video Compression Manager</em> (aka <em>VCM</em>) compatible codec installed on the system.</p>
-<p>Currently tested codecs include <strong>Microsoft MPEG-4 V2</strong> and <strong>V3</strong>, <a href="https://www.xvid.com/download/">Xvid</a>, <a href="http://www.divx.com/en/software/divx">DivX</a> and <a href="http://sourceforge.net/projects/x264vfw/files/">x264vfw</a>. Unfortunately, some of them have only 32-bit versions, others produce errors in 64 bits. The only codec which looks to work reliably in 64 bits is <strong>x264vfw64</strong>. For <strong>x264vfw</strong> (both 32- and 64-bit), it is recommended to check option <strong>Zero Latency</strong> in its settings to prevent picture freezes.</p>
+<p>Finally, <a href="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/Mpeg4VideoEncoderVcm.cs" title="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/Mpeg4VideoEncoderVcm.cs">Mpeg4VideoEncoderVcm</a> does MPEG-4 encoding using <em>Video for Windows</em> (aka <em>VfW</em>) or <em>Video Compression Manager</em> (aka <em>VCM</em>) compatible codec installed on the system.</p>
+<p>Currently tested codecs include <strong>Microsoft MPEG-4 V2</strong> and <strong>V3</strong>, <a href="https://www.xvid.com/download/" title="https://www.xvid.com/download/">Xvid</a>, <a href="http://www.divx.com/en/software/divx" title="http://www.divx.com/en/software/divx">DivX</a> and <a href="http://sourceforge.net/projects/x264vfw/files/" title="http://sourceforge.net/projects/x264vfw/files/">x264vfw</a>. Unfortunately, some of them have only 32-bit versions, others produce errors in 64 bits. The only codec which looks to work reliably in 64 bits is <strong>x264vfw64</strong>. For <strong>x264vfw</strong> (both 32- and 64-bit), it is recommended to check option <strong>Zero Latency</strong> in its settings to prevent picture freezes.</p>
 </blockquote>
 </section>
 </section>
@@ -187,7 +187,7 @@
 </section>
 <section id="pick-color" class="level4">
 <h4>Pick Color…</h4>
-<p>The pen color is black by default. “Pick Color…” opens a color picker in which you can choose another color. The color picker is based on <a href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.colordialog?view=net-5.0"><code>ColorDialog</code></a>, which wraps the <a href="https://docs.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box">standard Windows color dialog box</a> and, as such, allows you to define custom color presets. Vid­Draw saves your custom colors, so they are available if you quit Vid­Draw and run it again. Your custom Vid­Draw colors do not appear in any other programs’ color dialogs.</p>
+<p>The pen color is black by default. “Pick Color…” opens a color picker in which you can choose another color. The color picker is based on <a href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.colordialog?view=net-5.0" title="https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.colordialog?view=net-5.0"><code>ColorDialog</code></a>, which wraps the <a href="https://docs.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box" title="https://docs.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box">standard Windows color dialog box</a> and, as such, allows you to define custom color presets. Vid­Draw saves your custom colors, so they are available if you quit Vid­Draw and run it again. Your custom Vid­Draw colors do not appear in any other programs’ color dialogs.</p>
 <p>(Unfortunately, defining custom colors but cancelling out of the color picker discards the new custom colors—you have to click “OK.” Since this is what users familiar with the Windows color dialog expect, I don’t think I should try to change it for Vid­Draw’s color picker.)</p>
 </section>
 <section id="open-videos-folder" class="level4">
@@ -212,7 +212,7 @@
 <h2>Known Bugs</h2>
 <section id="an-indirect-dependency-has-confusing-licensing" class="level3">
 <h3>An indirect dependency has confusing licensing.</h3>
-<p>Vid­Draw has <a href="https://github.com/microsoft/win32metadata">win32metadata</a> as an indirect dependency, via <a href="https://github.com/microsoft/CsWin32">CsWin32</a>. win32metadata’s <a href="https://github.com/microsoft/win32metadata">GitHub repository</a> is <a href="https://github.com/microsoft/win32metadata/blob/master/LICENSE">MIT licensed</a>, but its <a href="https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Metadata">NuGet package</a> shows the <a href="https://aka.ms/WinSDKLicenseURL">Windows SDK license</a>. This <a href="https://github.com/microsoft/win32metadata/issues/387">is intentional</a>.</p>
+<p>Vid­Draw has <a href="https://github.com/microsoft/win32metadata" title="https://github.com/microsoft/win32metadata">win32metadata</a> as an indirect dependency, via <a href="https://github.com/microsoft/CsWin32" title="https://github.com/microsoft/CsWin32">CsWin32</a>. win32metadata’s <a href="https://github.com/microsoft/win32metadata" title="https://github.com/microsoft/win32metadata">GitHub repository</a> is <a href="https://github.com/microsoft/win32metadata/blob/master/LICENSE" title="https://github.com/microsoft/win32metadata/blob/master/LICENSE">MIT licensed</a>, but its <a href="https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Metadata" title="https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Metadata">NuGet package</a> shows the <a href="https://aka.ms/WinSDKLicenseURL" title="https://aka.ms/WinSDKLicenseURL">Windows SDK license</a>. This <a href="https://github.com/microsoft/win32metadata/issues/387" title="https://github.com/microsoft/win32metadata/issues/387">is intentional</a>.</p>
 <p>I’m unclear on what, if any, actual restrictions this imposes on how the source code, or a compiled binary, of Vid­Draw, can be used. I intend that Vid­Draw be both permissively licensed and GPL-compatible. Adding the CsWin32 package prompted for win32metadata license acceptance. Even if this doesn’t conflict with those goals, I fear it may chill reuse and adaptation of Vid­Draw, unless clarified. So this should either be clarified, or the CsWin32 dependency removed (which would actually not be too hard). This should be done before the release of alpha 2 and preferably before the release of alpha 1.</p>
 </section>
 <section id="sometimes-there-is-an-initial-lag-on-the-first-recording" class="level3">
@@ -224,8 +224,8 @@
 </section>
 <section id="video-files-are-not-always-playable-on-all-players" class="level3">
 <h3>Video files are not always playable on all players.</h3>
-<p><a href="#a-problem-with-h264-in-viddraw">As detailed above</a>, when H.264 encoding is selected and x264vfw has not been configured to make every frame a keyframe (which increases file size dramatically, albeit still less than the other encodings), VLC cannot play the file. This is even though VLC fully supports H.264 (and manages to play even most broken H.264 videos). It may be a problem with the way I’ve configured x264vfw. But <a href="https://ffmpeg.org/">FFmpeg</a> is able to repair the files, and it reports problems with them, so I think this is a bug.</p>
-<p>I can produce this problem (on the same system) with the Sharp­Avi sample application—both the <a href="https://github.com/baSSiLL/SharpAvi/tree/master/Sample">upstream version</a> targeting the <a href="https://www.nuget.org/packages/SharpAvi/">upstream Sharp­Avi</a> and <a href="https://github.com/EliahKagan/SharpAvi/tree/net5/Sample">my forked version</a> targeting <a href="https://www.nuget.org/packages/SharpAvi.Net5">the fork of Sharp­Avi</a> that Vid­Draw uses. But it remains unclear to me, due to its sensitivity to x264vfw settings, whether it is due to a bug in Sharp­Avi. I can also produce it in the Sharp­Avi sample application with <a href="https://www.xvid.com/">Xvid</a> (but, likewise, this might turn out to be because of how I have Xvid configured).</p>
+<p><a href="#a-problem-with-h264-in-viddraw" title="#a-problem-with-h264-in-viddraw">As detailed above</a>, when H.264 encoding is selected and x264vfw has not been configured to make every frame a keyframe (which increases file size dramatically, albeit still less than the other encodings), VLC cannot play the file. This is even though VLC fully supports H.264 (and manages to play even most broken H.264 videos). It may be a problem with the way I’ve configured x264vfw. But <a href="https://ffmpeg.org/" title="https://ffmpeg.org/">FFmpeg</a> is able to repair the files, and it reports problems with them, so I think this is a bug.</p>
+<p>I can produce this problem (on the same system) with the Sharp­Avi sample application—both the <a href="https://github.com/baSSiLL/SharpAvi/tree/master/Sample" title="https://github.com/baSSiLL/SharpAvi/tree/master/Sample">upstream version</a> targeting the <a href="https://www.nuget.org/packages/SharpAvi/" title="https://www.nuget.org/packages/SharpAvi/">upstream Sharp­Avi</a> and <a href="https://github.com/EliahKagan/SharpAvi/tree/net5/Sample" title="https://github.com/EliahKagan/SharpAvi/tree/net5/Sample">my forked version</a> targeting <a href="https://www.nuget.org/packages/SharpAvi.Net5" title="https://www.nuget.org/packages/SharpAvi.Net5">the fork of Sharp­Avi</a> that Vid­Draw uses. But it remains unclear to me, due to its sensitivity to x264vfw settings, whether it is due to a bug in Sharp­Avi. I can also produce it in the Sharp­Avi sample application with <a href="https://www.xvid.com/" title="https://www.xvid.com/">Xvid</a> (but, likewise, this might turn out to be because of how I have Xvid configured).</p>
 </section>
 <section id="the-helps-sidenav-is-brittle" class="level3">
 <h3>The help’s sidenav is brittle.</h3>
@@ -247,7 +247,7 @@
 <section id="it-might-be-useful-to-be-able-to-pause" class="level3">
 <h3>It might be useful to be able to pause.</h3>
 <p>Vid­Draw’s user experience is intended to be simple and spontaneous, so I haven’t included any option to pause and unpause recording. If recording <em>ever</em> pauses, then users are likely to assume, and some may prefer, that opening a modal dialog box or changing focus to another application will pause it. So, if pausing is added, options to enable (and disable) automatic pausing in those situations should be added too.</p>
-<p>Fixing this may help with <a href="#menu-items-are-cumbersome-to-access-while-drawing">Menu items are cumbersome to access while drawing</a> as well.</p>
+<p>Fixing this may help with <a href="#menu-items-are-cumbersome-to-access-while-drawing" title="#menu-items-are-cumbersome-to-access-while-drawing">Menu items are cumbersome to access while drawing</a> as well.</p>
 </section>
 <section id="the-pen-thickness-should-be-adjustable-in-some-way" class="level3">
 <h3>The pen thickness should be adjustable in some way.</h3>
@@ -271,53 +271,53 @@
 <p>Vid­Draw uses the following libraries and fonts. Thanks go to the authors and contributors to all these projects—and especially to Vasili Maslov for writing Sharp­Avi. Some of these dependencies are included in this repository while others are retrieved by NuGet.</p>
 <p>This list is in alphabetical order. Entries for libraries included in this repository contain <em>“[included]”</em> links to their subdirectories. Links to each dependency’s detailed licensing information are given on the second line.</p>
 <ul>
-<li><a href="https://www.bryanbraun.com/anchorjs/">AnchorJS</a> 4.3.1 by Bryan Braun [<a href="bower_components/anchor-js/">included</a>]<br />
-<a href="https://github.com/bryanbraun/anchorjs/blob/4.3.1/LICENSE">MIT license</a> (<a href="bower_components/anchor-js/LICENSE">local</a>, <a href="#anchorjs">inline</a>)</li>
-<li><a href="https://github.com/microsoft/CsWin32">CsWin32</a> 0.1.422-beta by Andrew Arnott / Microsoft [<a href="https://www.nuget.org/packages/Microsoft.Windows.CsWin32">nuget</a>]<br />
-<a href="https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE">MIT license</a> (<a href="#cswin32">inline</a>)</li>
-<li><a href="https://simonwhitaker.github.io/github-fork-ribbon-css/"><em>Fork me on GitHub</em> CSS ribbon</a> 0.2.3 by Simon Whitaker [<a href="bower_components/github-fork-ribbon-css/">included</a>]<br />
-<a href="https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE">MIT license</a> (<a href="bower_components/github-fork-ribbon-css/LICENSE">local</a>, <a href="#fork-me-on-github-css-ribbon">inline</a>)</li>
-<li><a href="https://www.newtonsoft.com/json">Json.NET</a> (Newtonsoft.Json) 13.0.1 by James Newton-King [<a href="https://www.nuget.org/packages/Newtonsoft.Json">nuget</a>]<br />
-<a href="https://github.com/JamesNK/Newtonsoft.Json/blob/13.0.1/LICENSE.md">MIT license</a> (<a href="#jsonnet">inline</a>)</li>
-<li><a href="https://auth0.github.io/kbd/">kbd</a> 0.0.1 by Auth0 [<a href="bower_components/kbd/">included</a>]<br />
-<a href="https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md">MIT license</a> (<a href="bower_components/kbd/LICENSE.md">local</a>, <a href="#kbd">inline</a>)</li>
-<li><a href="https://milligram.io/">Milligram</a> 1.4.1 by CJ Patoilo [<a href="bower_components/milligram/">included</a>]<br />
-<a href="https://github.com/milligram/milligram/blob/v1.4.1/license">MIT license</a> (<a href="bower_components/milligram/license">local</a>, <a href="#milligram">inline</a>)</li>
-<li><a href="https://necolas.github.io/normalize.css/">normalize.css</a> 8.0.1 by Nicolas Gallagher and Jonathan Neal [<a href="bower_components/normalize.css/">included</a>]<br />
-<a href="https://github.com/necolas/normalize.css/blob/8.0.1/LICENSE.md">MIT license</a> (<a href="bower_components/normalize.css/LICENSE.md">local</a>, <a href="#normalizecss">inline</a>)</li>
-<li><a href="https://fonts.google.com/specimen/Open+Sans">Open Sans</a> 1.10 (font) by Steve Matteson [<a href="fonts/Open_Sans/">included</a>]<br />
-<a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a> (<a href="fonts/Open_Sans/LICENSE.txt">local</a>, <a href="#open-sans-open-sans-condensed">inline</a>)</li>
-<li><a href="https://fonts.google.com/specimen/Open+Sans+Condensed">Open Sans Condensed</a> 1.10 (font) by Steve Matteson [<a href="fonts/Open_Sans_Condensed/">included</a>]<br />
-<a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a> (<a href="fonts/Open_Sans_Condensed/LICENSE.txt">local</a>, <a href="#open-sans-open-sans-condensed">inline</a>)</li>
-<li><a href="https://github.com/EliahKagan/SharpAvi">SharpAvi.Net5</a> 2.1.2-rc, my fork of <a href="https://github.com/baSSiLL/SharpAvi">SharpAvi</a> 2.1.2 by Vasili Maslov [<a href="https://www.nuget.org/packages/SharpAvi.Net5">nuget</a>]<br />
-<a href="https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md">MIT license</a> (<a href="#sharpavi">inline</a>)</li>
-<li><a href="https://iamdustan.github.io/smoothscroll">Smooth Scroll behavior polyfill</a> 0.4.4 by Dustan Kasten and Jeremias Menichelli [<a href="bower_components/smoothscroll/">included</a>]<br />
-<a href="https://github.com/iamdustan/smoothscroll/blob/v0.4.4/LICENSE">MIT license</a> (<a href="bower_components/smoothscroll/LICENSE">local</a>, <a href="#smooth-scroll-behavior-polyfill">inline</a>)</li>
-<li><a href="https://docs.microsoft.com/en-us/windows/communitytoolkit/">Windows Community Toolkit</a> – <a href="https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications">Notifications</a> 7.0.2 by .NET Foundation and Contributors [<a href="https://www.nuget.org/packages/Microsoft.Toolkit.Uwp.Notifications">nuget</a>]<br />
-<a href="https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/v7.0.2/license.md">MIT license</a> (<a href="#windows-community-toolkit">inline</a>)</li>
+<li><a href="https://www.bryanbraun.com/anchorjs/" title="https://www.bryanbraun.com/anchorjs/">AnchorJS</a> 4.3.1 by Bryan Braun [<a href="bower_components/anchor-js/" title="bower_components/anchor-js/">included</a>]<br />
+<a href="https://github.com/bryanbraun/anchorjs/blob/4.3.1/LICENSE" title="https://github.com/bryanbraun/anchorjs/blob/4.3.1/LICENSE">MIT license</a> (<a href="bower_components/anchor-js/LICENSE" title="bower_components/anchor-js/LICENSE">local</a>, <a href="#anchorjs" title="#anchorjs">inline</a>)</li>
+<li><a href="https://github.com/microsoft/CsWin32" title="https://github.com/microsoft/CsWin32">CsWin32</a> 0.1.422-beta by Andrew Arnott / Microsoft [<a href="https://www.nuget.org/packages/Microsoft.Windows.CsWin32" title="https://www.nuget.org/packages/Microsoft.Windows.CsWin32">nuget</a>]<br />
+<a href="https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE" title="https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE">MIT license</a> (<a href="#cswin32" title="#cswin32">inline</a>)</li>
+<li><a href="https://simonwhitaker.github.io/github-fork-ribbon-css/" title="https://simonwhitaker.github.io/github-fork-ribbon-css/"><em>Fork me on GitHub</em> CSS ribbon</a> 0.2.3 by Simon Whitaker [<a href="bower_components/github-fork-ribbon-css/" title="bower_components/github-fork-ribbon-css/">included</a>]<br />
+<a href="https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE" title="https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE">MIT license</a> (<a href="bower_components/github-fork-ribbon-css/LICENSE" title="bower_components/github-fork-ribbon-css/LICENSE">local</a>, <a href="#fork-me-on-github-css-ribbon" title="#fork-me-on-github-css-ribbon">inline</a>)</li>
+<li><a href="https://www.newtonsoft.com/json" title="https://www.newtonsoft.com/json">Json.NET</a> (Newtonsoft.Json) 13.0.1 by James Newton-King [<a href="https://www.nuget.org/packages/Newtonsoft.Json" title="https://www.nuget.org/packages/Newtonsoft.Json">nuget</a>]<br />
+<a href="https://github.com/JamesNK/Newtonsoft.Json/blob/13.0.1/LICENSE.md" title="https://github.com/JamesNK/Newtonsoft.Json/blob/13.0.1/LICENSE.md">MIT license</a> (<a href="#jsonnet" title="#jsonnet">inline</a>)</li>
+<li><a href="https://auth0.github.io/kbd/" title="https://auth0.github.io/kbd/">kbd</a> 0.0.1 by Auth0 [<a href="bower_components/kbd/" title="bower_components/kbd/">included</a>]<br />
+<a href="https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md" title="https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md">MIT license</a> (<a href="bower_components/kbd/LICENSE.md" title="bower_components/kbd/LICENSE.md">local</a>, <a href="#kbd" title="#kbd">inline</a>)</li>
+<li><a href="https://milligram.io/" title="https://milligram.io/">Milligram</a> 1.4.1 by CJ Patoilo [<a href="bower_components/milligram/" title="bower_components/milligram/">included</a>]<br />
+<a href="https://github.com/milligram/milligram/blob/v1.4.1/license" title="https://github.com/milligram/milligram/blob/v1.4.1/license">MIT license</a> (<a href="bower_components/milligram/license" title="bower_components/milligram/license">local</a>, <a href="#milligram" title="#milligram">inline</a>)</li>
+<li><a href="https://necolas.github.io/normalize.css/" title="https://necolas.github.io/normalize.css/">normalize.css</a> 8.0.1 by Nicolas Gallagher and Jonathan Neal [<a href="bower_components/normalize.css/" title="bower_components/normalize.css/">included</a>]<br />
+<a href="https://github.com/necolas/normalize.css/blob/8.0.1/LICENSE.md" title="https://github.com/necolas/normalize.css/blob/8.0.1/LICENSE.md">MIT license</a> (<a href="bower_components/normalize.css/LICENSE.md" title="bower_components/normalize.css/LICENSE.md">local</a>, <a href="#normalizecss" title="#normalizecss">inline</a>)</li>
+<li><a href="https://fonts.google.com/specimen/Open+Sans" title="https://fonts.google.com/specimen/Open+Sans">Open Sans</a> 1.10 (font) by Steve Matteson [<a href="fonts/Open_Sans/" title="fonts/Open_Sans/">included</a>]<br />
+<a href="https://www.apache.org/licenses/LICENSE-2.0.html" title="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a> (<a href="fonts/Open_Sans/LICENSE.txt" title="fonts/Open_Sans/LICENSE.txt">local</a>, <a href="#open-sans-open-sans-condensed" title="#open-sans-open-sans-condensed">inline</a>)</li>
+<li><a href="https://fonts.google.com/specimen/Open+Sans+Condensed" title="https://fonts.google.com/specimen/Open+Sans+Condensed">Open Sans Condensed</a> 1.10 (font) by Steve Matteson [<a href="fonts/Open_Sans_Condensed/" title="fonts/Open_Sans_Condensed/">included</a>]<br />
+<a href="https://www.apache.org/licenses/LICENSE-2.0.html" title="https://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a> (<a href="fonts/Open_Sans_Condensed/LICENSE.txt" title="fonts/Open_Sans_Condensed/LICENSE.txt">local</a>, <a href="#open-sans-open-sans-condensed" title="#open-sans-open-sans-condensed">inline</a>)</li>
+<li><a href="https://github.com/EliahKagan/SharpAvi" title="https://github.com/EliahKagan/SharpAvi">SharpAvi.Net5</a> 2.1.2-rc, my fork of <a href="https://github.com/baSSiLL/SharpAvi" title="https://github.com/baSSiLL/SharpAvi">SharpAvi</a> 2.1.2 by Vasili Maslov [<a href="https://www.nuget.org/packages/SharpAvi.Net5" title="https://www.nuget.org/packages/SharpAvi.Net5">nuget</a>]<br />
+<a href="https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md" title="https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md">MIT license</a> (<a href="#sharpavi" title="#sharpavi">inline</a>)</li>
+<li><a href="https://iamdustan.github.io/smoothscroll" title="https://iamdustan.github.io/smoothscroll">Smooth Scroll behavior polyfill</a> 0.4.4 by Dustan Kasten and Jeremias Menichelli [<a href="bower_components/smoothscroll/" title="bower_components/smoothscroll/">included</a>]<br />
+<a href="https://github.com/iamdustan/smoothscroll/blob/v0.4.4/LICENSE" title="https://github.com/iamdustan/smoothscroll/blob/v0.4.4/LICENSE">MIT license</a> (<a href="bower_components/smoothscroll/LICENSE" title="bower_components/smoothscroll/LICENSE">local</a>, <a href="#smooth-scroll-behavior-polyfill" title="#smooth-scroll-behavior-polyfill">inline</a>)</li>
+<li><a href="https://docs.microsoft.com/en-us/windows/communitytoolkit/" title="https://docs.microsoft.com/en-us/windows/communitytoolkit/">Windows Community Toolkit</a> – <a href="https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications" title="https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications">Notifications</a> 7.0.2 by .NET Foundation and Contributors [<a href="https://www.nuget.org/packages/Microsoft.Toolkit.Uwp.Notifications" title="https://www.nuget.org/packages/Microsoft.Toolkit.Uwp.Notifications">nuget</a>]<br />
+<a href="https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/v7.0.2/license.md" title="https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/v7.0.2/license.md">MIT license</a> (<a href="#windows-community-toolkit" title="#windows-community-toolkit">inline</a>)</li>
 </ul>
-<p>Vid­Draw is a C# program targeting <a href="https://dotnet.microsoft.com/">.NET</a> 5 on Windows. It uses <a href="https://github.com/dotnet/winforms">Windows Forms</a>, and it makes calls to the <a href="https://en.wikipedia.org/wiki/Windows_API">Windows API</a> via libraries such as Sharp­Avi and Windows Forms as well as directly. Components that I believe are considered part of the framework (.NET) or operating system (Windows) are not listed above.</p>
+<p>Vid­Draw is a C# program targeting <a href="https://dotnet.microsoft.com/" title="https://dotnet.microsoft.com/">.NET</a> 5 on Windows. It uses <a href="https://github.com/dotnet/winforms" title="https://github.com/dotnet/winforms">Windows Forms</a>, and it makes calls to the <a href="https://en.wikipedia.org/wiki/Windows_API" title="https://en.wikipedia.org/wiki/Windows_API">Windows API</a> via libraries such as Sharp­Avi and Windows Forms as well as directly. Components that I believe are considered part of the framework (.NET) or operating system (Windows) are not listed above.</p>
 <p>Indirect dependencies (dependencies of the above-listed dependencies that are either included in them or otherwise resolved through them) are also not listed.</p>
 <section id="viddraw-and-x264vfw" class="level3">
 <h3>VidDraw and x264vfw</h3>
-<p>Vid­Draw does not depend on <a href="https://sourceforge.net/projects/x264vfw/">x264vfw</a> but is capable of using it <a href="#optional-get-x264vfw-for-h264-support">if it is installed</a>. x264vfw is a <a href="https://en.wikipedia.org/wiki/Video_for_Windows">VfW</a> codec for <a href="https://en.wikipedia.org/wiki/Video_coding_format">H.264</a> by Anton Mitrofanov and other authors, derived from <a href="https://www.videolan.org/developers/x264.html">x264</a>. Since, when installed and selected in Vid­Draw, it greatly reduces file size while preserving quality, I’m thankful to all the developers of x264vfw and x264 for the work they’ve done. Per its <a href="https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/COPYING">COPYING</a> file and license headers in most of <a href="https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/">its source code files</a>, x264vfw is licensed under <a href="https://spdx.org/licenses/GPL-2.0-or-later.html">the GNU GPL v2 or later</a>.</p>
-<p>Vid­Draw uses x264vfw via Sharp­Avi in a manner analogous to how any VfW codec may be used, doesn’t itself include the codec, and interacts with it <a href="https://www.gnu.org/licenses/gpl-faq.en.html#MereAggregation">at arm’s length</a> (VfW codecs are shared libraries, but as I understand it, programs that use them don’t link to them or directly call API functions that they define). So I believe the GPL does not require that Vid­Draw or any of the libraries Vid­Draw uses be offered under the GPL or have a GPL-compatible license.</p>
-<p>Please note that, for practical and ideological reasons unrelated to x264vfw, I still intend Vid­Draw to be GPL-compatible! If it is not, or even if it <a href="#an-indirect-dependency-has-confusing-licensing">appears not to be</a>, I’d consider that a serious bug.</p>
+<p>Vid­Draw does not depend on <a href="https://sourceforge.net/projects/x264vfw/" title="https://sourceforge.net/projects/x264vfw/">x264vfw</a> but is capable of using it <a href="#optional-get-x264vfw-for-h264-support" title="#optional-get-x264vfw-for-h264-support">if it is installed</a>. x264vfw is a <a href="https://en.wikipedia.org/wiki/Video_for_Windows" title="https://en.wikipedia.org/wiki/Video_for_Windows">VfW</a> codec for <a href="https://en.wikipedia.org/wiki/Video_coding_format" title="https://en.wikipedia.org/wiki/Video_coding_format">H.264</a> by Anton Mitrofanov and other authors, derived from <a href="https://www.videolan.org/developers/x264.html" title="https://www.videolan.org/developers/x264.html">x264</a>. Since, when installed and selected in Vid­Draw, it greatly reduces file size while preserving quality, I’m thankful to all the developers of x264vfw and x264 for the work they’ve done. Per its <a href="https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/COPYING" title="https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/COPYING">COPYING</a> file and license headers in most of <a href="https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/" title="https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/">its source code files</a>, x264vfw is licensed under <a href="https://spdx.org/licenses/GPL-2.0-or-later.html" title="https://spdx.org/licenses/GPL-2.0-or-later.html">the GNU GPL v2 or later</a>.</p>
+<p>Vid­Draw uses x264vfw via Sharp­Avi in a manner analogous to how any VfW codec may be used, doesn’t itself include the codec, and interacts with it <a href="https://www.gnu.org/licenses/gpl-faq.en.html#MereAggregation" title="https://www.gnu.org/licenses/gpl-faq.en.html#MereAggregation">at arm’s length</a> (VfW codecs are shared libraries, but as I understand it, programs that use them don’t link to them or directly call API functions that they define). So I believe the GPL does not require that Vid­Draw or any of the libraries Vid­Draw uses be offered under the GPL or have a GPL-compatible license.</p>
+<p>Please note that, for practical and ideological reasons unrelated to x264vfw, I still intend Vid­Draw to be GPL-compatible! If it is not, or even if it <a href="#an-indirect-dependency-has-confusing-licensing" title="#an-indirect-dependency-has-confusing-licensing">appears not to be</a>, I’d consider that a serious bug.</p>
 </section>
 </section>
 <section id="notices" class="level2">
 <h2>Notices</h2>
-<p>Vid­Draw, but not its dependencies, is licensed under <a href="../COPYING.0BSD">0BSD</a>. Thus, everything in this repository <em>except</em> the contents of <code>doc/bower_components</code> and of the subdirectories of <code>doc/fonts</code> is offered under 0BSD:</p>
+<p>Vid­Draw, but not its dependencies, is licensed under <a href="../COPYING.0BSD" title="../COPYING.0BSD">0BSD</a>. Thus, everything in this repository <em>except</em> the contents of <code>doc/bower_components</code> and of the subdirectories of <code>doc/fonts</code> is offered under 0BSD:</p>
 <blockquote>
 <p>Copyright (c) 2021 Eliah Kagan</p>
 <p>Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</p>
 </blockquote>
-<p>Licenses and accompanying information for each of Vid­Draw’s <a href="#dependencies">above-listed dependencies</a> are reproduced below in full (but only some, not all, dependencies are themselves included in this repository).</p>
+<p>Licenses and accompanying information for each of Vid­Draw’s <a href="#dependencies" title="#dependencies">above-listed dependencies</a> are reproduced below in full (but only some, not all, dependencies are themselves included in this repository).</p>
 <p>Some licenses contain copyright statements, which differ across projects that are licensed the same way. These licenses are short anyway, so I’ve kept the full text of each.</p>
 <section id="anchorjs" class="level3">
 <h3>AnchorJS</h3>
-<p>Bryan Braun has released <a href="https://github.com/bryanbraun/anchorjs/tree/4.3.1">AnchorJS</a> under the MIT license:</p>
+<p>Bryan Braun has released <a href="https://github.com/bryanbraun/anchorjs/tree/4.3.1" title="https://github.com/bryanbraun/anchorjs/tree/4.3.1">AnchorJS</a> under the MIT license:</p>
 <blockquote>
 <p>MIT License</p>
 <p>Copyright (c) 2021 Bryan Braun</p>
@@ -328,7 +328,7 @@
 </section>
 <section id="cswin32" class="level3">
 <h3>CsWin32</h3>
-<p>Microsoft Corporation has released <a href="https://github.com/microsoft/CsWin32/tree/v0.1.422-beta">CsWin32</a> under the MIT license:</p>
+<p>Microsoft Corporation has released <a href="https://github.com/microsoft/CsWin32/tree/v0.1.422-beta" title="https://github.com/microsoft/CsWin32/tree/v0.1.422-beta">CsWin32</a> under the MIT license:</p>
 <blockquote>
 <p>The MIT License (MIT)</p>
 <p>Copyright (c) Microsoft Corporation</p>
@@ -339,7 +339,7 @@
 </section>
 <section id="fork-me-on-github-css-ribbon" class="level3">
 <h3><em>Fork me on GitHub</em> CSS Ribbon</h3>
-<p>Simon Whitaker has released <a href="https://github.com/simonwhitaker/github-fork-ribbon-css/tree/0.2.3"><em>Fork me on GitHub</em> CSS Ribbon</a> under the MIT license:</p>
+<p>Simon Whitaker has released <a href="https://github.com/simonwhitaker/github-fork-ribbon-css/tree/0.2.3" title="https://github.com/simonwhitaker/github-fork-ribbon-css/tree/0.2.3"><em>Fork me on GitHub</em> CSS Ribbon</a> under the MIT license:</p>
 <blockquote>
 <p>The MIT License (MIT)</p>
 <p>Copyright (c) 2013 Simon Whitaker</p>
@@ -350,7 +350,7 @@
 </section>
 <section id="jsonnet" class="level3">
 <h3>Json<!-- -->.NET</h3>
-<p>James Newton-King has released <a href="https://github.com/JamesNK/Newtonsoft.Json/tree/13.0.1">Json.NET</a> under the MIT license:</p>
+<p>James Newton-King has released <a href="https://github.com/JamesNK/Newtonsoft.Json/tree/13.0.1" title="https://github.com/JamesNK/Newtonsoft.Json/tree/13.0.1">Json.NET</a> under the MIT license:</p>
 <blockquote>
 <p>The MIT License (MIT)</p>
 <p>Copyright (c) 2007 James Newton-King</p>
@@ -361,7 +361,7 @@
 </section>
 <section id="kbd" class="level3">
 <h3>kbd</h3>
-<p>Auth0 Inc. has released <a href="https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md">kbd</a> under the MIT license:</p>
+<p>Auth0 Inc. has released <a href="https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md" title="https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md">kbd</a> under the MIT license:</p>
 <blockquote>
 <p>The MIT License (MIT)</p>
 <p>Copyright (c) 2014 Auth0 Inc.</p>
@@ -372,7 +372,7 @@
 </section>
 <section id="milligram" class="level3">
 <h3>Milligram</h3>
-<p>CJ Patoilo has released <a href="https://github.com/milligram/milligram/tree/v1.4.1">Milligram</a> under the MIT license:</p>
+<p>CJ Patoilo has released <a href="https://github.com/milligram/milligram/tree/v1.4.1" title="https://github.com/milligram/milligram/tree/v1.4.1">Milligram</a> under the MIT license:</p>
 <blockquote>
 <p>The MIT License (MIT)</p>
 <p>Copyright (c) CJ Patoilo &lt;cjpatoilo<!-- -->@gmail.com&gt;</p>
@@ -383,7 +383,7 @@
 </section>
 <section id="normalizecss" class="level3">
 <h3>normalize.css</h3>
-<p>Nicolas Gallagher and Jonathan Neal have released <a href="https://github.com/necolas/normalize.css/tree/v2.1.3">normalize.css</a> under the MIT license:</p>
+<p>Nicolas Gallagher and Jonathan Neal have released <a href="https://github.com/necolas/normalize.css/tree/v2.1.3" title="https://github.com/necolas/normalize.css/tree/v2.1.3">normalize.css</a> under the MIT license:</p>
 <blockquote>
 <h1 id="the-mit-license-mit">The MIT License (MIT)</h1>
 <p>Copyright © Nicolas Gallagher and Jonathan Neal</p>
@@ -394,8 +394,8 @@
 </section>
 <section id="open-sans-open-sans-condensed" class="level3">
 <h3>Open Sans<br> Open Sans Condensed</h3>
-<p>Google Corporation has released <a href="https://fonts.google.com/specimen/Open+Sans">Open Sans</a> and <a href="https://fonts.google.com/specimen/Open+Sans+Condensed">Open Sans Condensed</a>, fonts designed by Steve Matteson of Ascender Corporation and © 2011 Google Corporation, under the Apache License, Version 2.0.</p>
-<p>Please note that the <code>.woff</code> files in this repository are not the same files as downloaded from Google Fonts, which provided the fonts as <code>.ttf</code> files. I compressed them to produce the <code>.woff</code> files found here using <a href="http://manpages.ubuntu.com/manpages/hirsute/en/man1/sfnt2woff.1.html"><code>sfnt2woff</code></a>. This is lossless; the exact, byte-for-byte original <code>.ttf</code> files can be recovered by decompressing them with <a href="http://manpages.ubuntu.com/manpages/hirsute/en/man1/woff2sfnt.1.html"><code>woff2sfnt</code></a>.</p>
+<p>Google Corporation has released <a href="https://fonts.google.com/specimen/Open+Sans" title="https://fonts.google.com/specimen/Open+Sans">Open Sans</a> and <a href="https://fonts.google.com/specimen/Open+Sans+Condensed" title="https://fonts.google.com/specimen/Open+Sans+Condensed">Open Sans Condensed</a>, fonts designed by Steve Matteson of Ascender Corporation and © 2011 Google Corporation, under the Apache License, Version 2.0.</p>
+<p>Please note that the <code>.woff</code> files in this repository are not the same files as downloaded from Google Fonts, which provided the fonts as <code>.ttf</code> files. I compressed them to produce the <code>.woff</code> files found here using <a href="http://manpages.ubuntu.com/manpages/hirsute/en/man1/sfnt2woff.1.html" title="http://manpages.ubuntu.com/manpages/hirsute/en/man1/sfnt2woff.1.html"><code>sfnt2woff</code></a>. This is lossless; the exact, byte-for-byte original <code>.ttf</code> files can be recovered by decompressing them with <a href="http://manpages.ubuntu.com/manpages/hirsute/en/man1/woff2sfnt.1.html" title="http://manpages.ubuntu.com/manpages/hirsute/en/man1/woff2sfnt.1.html"><code>woff2sfnt</code></a>.</p>
 <pre class="text"><code>                              Apache License
                         Version 2.0, January 2004
                      http://www.apache.org/licenses/
@@ -600,7 +600,7 @@ limitations under the License.</code></pre>
 </section>
 <section id="sharpavi" class="level3">
 <h3>SharpAvi</h3>
-<p>Vasili Maslov has released <a href="https://github.com/baSSiLL/SharpAvi/tree/v2.1.2">SharpAvi</a> under the <a href="https://github.com/baSSiLL/SharpAvi/blob/v2.1.2/LICENSE.md">MIT license</a>. My fork of SharpAvi, <a href="https://github.com/EliahKagan/SharpAvi/tree/v2.1.2-net5-rc">SharpAvi.Net5</a>, retains its <a href="https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md">license file</a> without modification:</p>
+<p>Vasili Maslov has released <a href="https://github.com/baSSiLL/SharpAvi/tree/v2.1.2" title="https://github.com/baSSiLL/SharpAvi/tree/v2.1.2">SharpAvi</a> under the <a href="https://github.com/baSSiLL/SharpAvi/blob/v2.1.2/LICENSE.md" title="https://github.com/baSSiLL/SharpAvi/blob/v2.1.2/LICENSE.md">MIT license</a>. My fork of SharpAvi, <a href="https://github.com/EliahKagan/SharpAvi/tree/v2.1.2-net5-rc" title="https://github.com/EliahKagan/SharpAvi/tree/v2.1.2-net5-rc">SharpAvi.Net5</a>, retains its <a href="https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md" title="https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md">license file</a> without modification:</p>
 <blockquote>
 <p>Copyright (c) 2013-2018 Vasili Maslov</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
@@ -610,7 +610,7 @@ limitations under the License.</code></pre>
 </section>
 <section id="smooth-scroll-behavior-polyfill" class="level3">
 <h3>Smooth Scroll behavior polyfill</h3>
-<p><a href="https://github.com/iamdustan/smoothscroll/tree/v0.4.4">Smooth Scroll behavior polyfill</a>, which is also sometimes called smoothscroll and smoothscroll-polyfill, has been released under the MIT license:</p>
+<p><a href="https://github.com/iamdustan/smoothscroll/tree/v0.4.4" title="https://github.com/iamdustan/smoothscroll/tree/v0.4.4">Smooth Scroll behavior polyfill</a>, which is also sometimes called smoothscroll and smoothscroll-polyfill, has been released under the MIT license:</p>
 <blockquote>
 <p>The MIT License (MIT)</p>
 <p>Copyright (c) 2013 Dustan Kasten</p>
@@ -618,14 +618,14 @@ limitations under the License.</code></pre>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </blockquote>
-<p>Regarding authorship, <a href="https://iamdustan.github.io/smoothscroll">the software’s website</a> mentions:</p>
+<p>Regarding authorship, <a href="https://iamdustan.github.io/smoothscroll" title="https://iamdustan.github.io/smoothscroll">the software’s website</a> mentions:</p>
 <blockquote>
 <p>Polyfill written by Dustan Kasten and Jeremias Menichelli</p>
 </blockquote>
 </section>
 <section id="windows-community-toolkit" class="level3">
 <h3>Windows Community Toolkit</h3>
-<p>The .NET Foundation and Contributors have released the <a href="https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/v7.0.2">Windows Community Toolkit</a> under the MIT license:</p>
+<p>The .NET Foundation and Contributors have released the <a href="https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/v7.0.2" title="https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/v7.0.2">Windows Community Toolkit</a> under the MIT license:</p>
 <blockquote>
 <h1 id="windows-community-toolkit-1">Windows Community Toolkit</h1>
 <p>Copyright (c) .NET Foundation and Contributors</p>
