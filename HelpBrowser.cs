@@ -11,6 +11,7 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -32,31 +33,9 @@ namespace VidDraw {
             // navigation would (at most) change sections on the same page.
             if (e.Url.Equals(Url)) return;
 
-            // We never follow other kinds of links in the help browser itself.
+            // Other links are opened (if at all) outside the help browser.
             e.Cancel = true;
-
-            switch (e.Url.Scheme) {
-            // Open links to local directories in Explorer windows.
-            case "file" when Directory.Exists(e.Url.AbsolutePath):
-                Shell.Execute(e.Url.AbsolutePath);
-                break;
-
-            // Hackishly open all other local links in the default browser.
-            case "file":
-                e.Url.AbsoluteUri.OpenLike(HelpPath);
-                break;
-
-            // Open web links in the default browser.
-            case "http":
-            case "https":
-                Shell.Execute(e.Url.AbsoluteUri);
-                break;
-
-            default:
-                Debug.Print(nameof(HelpBrowser)
-                            + $"Unexpected protocol \"{e.Url.Scheme}\"");
-                break;
-            }
+            OpenOutside(e.Url);
         }
 
         private static string DocDir { get; } =
@@ -64,5 +43,31 @@ namespace VidDraw {
 
         private static string HelpPath { get; } =
             Path.Combine(DocDir, "index.html");
+
+        private static void OpenOutside(Uri url)
+        {
+            switch (url.Scheme) {
+            // Open links to local directories in Explorer windows.
+            case "file" when Directory.Exists(url.AbsolutePath):
+                Shell.Execute(url.AbsolutePath);
+                break;
+
+            // Hackishly open all other local links in the default browser.
+            case "file":
+                url.AbsoluteUri.OpenLike(HelpPath);
+                break;
+
+            // Open web links in the default browser.
+            case "http":
+            case "https":
+                Shell.Execute(url.AbsoluteUri);
+                break;
+
+            default:
+                Debug.Print(nameof(HelpBrowser)
+                            + $"Unexpected protocol \"{url.Scheme}\"");
+                break;
+            }
+        }
     }
 }
