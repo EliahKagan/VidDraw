@@ -14,7 +14,7 @@
 using System.Windows.Forms;
 
 namespace VidDraw {
-    public partial class HelpWindow : Form {
+    public sealed partial class HelpWindow : Form {
         public HelpWindow()
         {
             InitializeComponent();

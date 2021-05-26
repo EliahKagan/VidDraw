@@ -31,16 +31,6 @@ namespace VidDraw {
                     paramName: nameof(path),
                     message: "Must include filename, not just folder/drive");
 
-        internal static bool EndsWithDirectorySeparator(this string path)
-        {
-            if (path.Length == 0) return false;
-
-            var ch = path[^1];
-
-            return ch == Path.DirectorySeparatorChar
-                || ch == Path.AltDirectorySeparatorChar;
-        }
-
         /// <summary>
         /// Creates a new file with the given filename or one based on it,
         /// ensuring no conflict with any existing file.

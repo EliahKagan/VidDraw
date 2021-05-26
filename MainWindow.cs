@@ -26,7 +26,7 @@ using SharpAvi.Codecs;
 
 namespace VidDraw {
     /// <summary>The application window, containing a drawing canvas.</summary>
-    internal partial class MainWindow : Form {
+    internal sealed partial class MainWindow : Form {
         internal MainWindow()
         {
             InitializeComponent();

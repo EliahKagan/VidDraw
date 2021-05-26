@@ -13,12 +13,18 @@
 
 using System.Diagnostics;
 using System.IO;
+using Microsoft.Windows.Sdk;
 
 namespace VidDraw {
     /// <summary>
     /// Convenience methods for interacting with the Windows shell.
     /// </summary>
     internal static class Shell {
+        internal static unsafe void OpenLike(this string pathToOpen,
+                                             string pathToConsult)
+            => Process.Start(fileName: FindExecutable(pathToConsult),
+                             arguments: new[] { pathToOpen });
+
         internal static void Execute(string path)
             => Process.Start(new ProcessStartInfo() {
                 FileName = path,
@@ -36,5 +42,12 @@ namespace VidDraw {
             => Process.Start(
                 fileName: Path.Combine(Dirs.Windows, "explorer.exe"),
                 arguments: $"/select,\"{path}\"");
+
+        private static unsafe string FindExecutable(string path)
+        {
+            var buffer = stackalloc char[Native.MAX_PATH];
+            PInvoke.FindExecutable(path, null, buffer);
+            return new string(buffer);
+        }
     }
 }

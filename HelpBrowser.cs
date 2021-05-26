@@ -11,7 +11,6 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
@@ -38,28 +37,13 @@ namespace VidDraw {
 
             switch (e.Url.Scheme) {
             // Open links to local directories in Explorer windows.
-            case "file" when e.Url.AbsolutePath.EndsWithDirectorySeparator():
+            case "file" when Directory.Exists(e.Url.AbsolutePath):
                 Shell.Execute(e.Url.AbsolutePath);
                 break;
 
             // Hackishly open all other local links in the default browser.
             case "file":
-                var path = Path.GetRelativePath(relativeTo: DocDir,
-                                                path: e.Url.AbsolutePath);
-
-                // FIXME: This doesn't work, because ShellExecute doesn't
-                // preserve query strings. So this will have to be done a
-                // totally different way, maybe with:
-                // https://docs.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-findexecutablew
-                var redirect = new UriBuilder(RedirectPath) {
-                    Query = "path=" + path,
-                }.Uri;
-                Debug.Print(redirect.AbsoluteUri); // It has the query.
-                Shell.Execute(redirect.AbsoluteUri); // ShellExecute drops it.
-
-                // As expected, this is no better:
-                //Shell.Execute($"{new Uri(RedirectPath).AbsoluteUri}?path={path.Replace('\\', '/')}");
-
+                e.Url.AbsoluteUri.OpenLike(HelpPath);
                 break;
 
             // Open web links in the default browser.
@@ -80,8 +64,5 @@ namespace VidDraw {
 
         private static string HelpPath { get; } =
             Path.Combine(DocDir, "index.html");
-
-        private static string RedirectPath { get; } =
-            Path.Combine(DocDir, "redirect.html");
     }
 }
