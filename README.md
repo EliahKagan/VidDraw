@@ -34,7 +34,7 @@ bugs](#known-bugs).
 ## License
 
 Vid&shy;Draw is [free software](https://en.wikipedia.org/wiki/Free_software).
-The program [is itself licensed](COPYING.0BSD) under
+Its own code [is licensed](COPYING.0BSD) under
 [0BSD](https://spdx.org/licenses/0BSD.html) (&ldquo;Zero-Clause BSD
 License,&rdquo; also known as the [Free Public License
 1.0.0](https://opensource.org/licenses/0BSD)), which is a [&ldquo;public domain
@@ -71,13 +71,13 @@ Those commands build and run a &ldquo;debug&rdquo; build. If you want a
 `dotnet run -c Release`.
 
 Dependencies not included in this repository will be [downloaded
-automatically](https://www.nuget.org/). Running
-[`dotnet run`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run)
-without first running
-[`dotnet build`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build)
-also works, though if you do that the first time, it may appear to have frozen
-for a short while, as dependencies are downloaded. (In contrast, `dotnet build`
-is more verbose.)
+automatically](https://www.nuget.org/). Running [`dotnet
+run`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run) without
+first running [`dotnet
+build`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build) also
+works, though if you do that the first time, it may appear to have frozen for a
+short while as dependencies are downloaded. (In contrast, `dotnet build` is
+more verbose.)
 
 If you prefer to open the solution file `VidDraw.sln` in Visual Studio 2019 and
 build Vid&shy;Draw from there, that is also supported.
@@ -194,7 +194,7 @@ Note that while generating Vid&shy;Draw&rsquo;s documentation is supported on
 Unix-like systems, neither building nor running the program is supported on any
 non-Windows operating systems.
 
-On 64-bit Windows systems, if you don't have
+On 64-bit Windows systems, if you don&rsquo;t have
 [Pandoc](https://en.wikipedia.org/wiki/Pandoc), one way to install it is with
 [Scoop](https://scoop.sh/):
 
@@ -570,10 +570,10 @@ text. This doesn&rsquo;t seem to happen in landscape or profile at any viewport
 width on a variety of browsers and operating systems in a variety of screen
 resolutions and display scalings.
 
-As above, I don't expect this to affect the program&rsquo;s help viewer or most
-other browsing scenarios, but it should still be investigated and fixed. It
-suggests a design mistake on my part that, if left in place, may manifest in
-more situations after some seemingly unrelated future change.
+As above, I don&rsquo;t expect this to affect the program&rsquo;s help viewer
+or most other browsing scenarios, but it should still be investigated and
+fixed. It suggests a design mistake on my part that, if left in place, may
+manifest in more situations after some seemingly unrelated future change.
 
 ### Menu items are cumbersome to access while drawing.
 
@@ -746,10 +746,10 @@ consider that a serious bug.
 
 ## Notices
 
-Vid&shy;Draw, but not its dependencies, is licensed under [0BSD](COPYING.0BSD).
-Thus, everything in this repository *except* the contents of
-`doc/bower_components` and of the subdirectories of `doc/fonts` is offered
-under 0BSD:
+Vid&shy;Draw<!-- -->&rsquo;s own code, but not that of its dependencies, is
+licensed under [0BSD](COPYING.0BSD). Thus, everything in this repository
+*except* the contents of `doc/bower_components` and of the subdirectories of
+`doc/fonts` is offered under 0BSD:
 
 > Copyright (c) 2021 Eliah Kagan
 >
@@ -769,7 +769,7 @@ Licenses and accompanying information for each of Vid&shy;Draw&rsquo;s
 only some, not all, dependencies are themselves included in this repository).
 
 Some licenses contain copyright statements, which differ across projects that
-are licensed the same way. These licenses are short anyway, so I&rsquo;ve kept
+are licensed the same way. These licenses are short anyway, and I&rsquo;ve kept
 the full text of each.
 
 ### AnchorJS
@@ -885,9 +885,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ### kbd
 
-Auth0 Inc. has released
-[kbd](https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md) under the MIT
-license:
+Auth0 Inc. has released [kbd](https://github.com/auth0/kbd/tree/v0.0.1) under
+the MIT license:
 
 > The MIT License (MIT)
 >

@@ -58,7 +58,7 @@
 <p>This is <strong>Vid­Draw alpha 1</strong>. It still has <a href="#known-bugs" title="#known-bugs">some usability bugs</a>.</p>
 <section id="license" class="level2">
 <h2>License</h2>
-<p>Vid­Draw is <a href="https://en.wikipedia.org/wiki/Free_software" title="https://en.wikipedia.org/wiki/Free_software">free software</a>. The program <a href="../COPYING.0BSD" title="../COPYING.0BSD">is itself licensed</a> under <a href="https://spdx.org/licenses/0BSD.html" title="https://spdx.org/licenses/0BSD.html">0BSD</a> (“Zero-Clause BSD License,” also known as the <a href="https://opensource.org/licenses/0BSD" title="https://opensource.org/licenses/0BSD">Free Public License 1.0.0</a>), which is a <a href="https://en.wikipedia.org/wiki/Public-domain-equivalent_license" title="https://en.wikipedia.org/wiki/Public-domain-equivalent_license">“public domain equivalent”</a> license. Vid­Draw’s dependencies are also free, but they are offered under other licenses. See <a href="#dependencies" title="#dependencies">Dependencies</a> below for details.</p>
+<p>Vid­Draw is <a href="https://en.wikipedia.org/wiki/Free_software" title="https://en.wikipedia.org/wiki/Free_software">free software</a>. Its own code <a href="../COPYING.0BSD" title="../COPYING.0BSD">is licensed</a> under <a href="https://spdx.org/licenses/0BSD.html" title="https://spdx.org/licenses/0BSD.html">0BSD</a> (“Zero-Clause BSD License,” also known as the <a href="https://opensource.org/licenses/0BSD" title="https://opensource.org/licenses/0BSD">Free Public License 1.0.0</a>), which is a <a href="https://en.wikipedia.org/wiki/Public-domain-equivalent_license" title="https://en.wikipedia.org/wiki/Public-domain-equivalent_license">“public domain equivalent”</a> license. Vid­Draw’s dependencies are also free, but they are offered under other licenses. See <a href="#dependencies" title="#dependencies">Dependencies</a> below for details.</p>
 <p>Since some of Vid­Draw’s dependencies are included directly in this repository, some of the files in this repository have other authors and are licensed under terms other than 0BSD. See <a href="../LICENSE" title="../LICENSE"><code>LICENSE</code></a> and <a href="#notices" title="#notices">Notices</a>.</p>
 </section>
 <section id="setup" class="level2">
@@ -70,7 +70,7 @@
 <p>Then, to run the program:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dotnet run</span></code></pre></div>
 <p>Those commands build and run a “debug” build. If you want a “release” build instead, use <code>dotnet build -c Release</code> and <code>dotnet run -c Release</code>.</p>
-<p>Dependencies not included in this repository will be <a href="https://www.nuget.org/" title="https://www.nuget.org/">downloaded automatically</a>. Running <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run" title="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run"><code>dotnet run</code></a> without first running <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build" title="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build"><code>dotnet build</code></a> also works, though if you do that the first time, it may appear to have frozen for a short while, as dependencies are downloaded. (In contrast, <code>dotnet build</code> is more verbose.)</p>
+<p>Dependencies not included in this repository will be <a href="https://www.nuget.org/" title="https://www.nuget.org/">downloaded automatically</a>. Running <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run" title="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run"><code>dotnet run</code></a> without first running <a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build" title="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build"><code>dotnet build</code></a> also works, though if you do that the first time, it may appear to have frozen for a short while as dependencies are downloaded. (In contrast, <code>dotnet build</code> is more verbose.)</p>
 <p>If you prefer to open the solution file <code>VidDraw.sln</code> in Visual Studio 2019 and build Vid­Draw from there, that is also supported.</p>
 <p>That’s all you need. If you want to read about codec stuff… read on! Otherwise, you may want to skip to <a href="#usage-tips" title="#usage-tips">Usage Tips</a> or <a href="#the-menu" title="#the-menu">The Menu</a>, or just try out the program.</p>
 <section id="optional-get-x264vfw-for-h264-support" class="level3">
@@ -106,7 +106,7 @@
 <p>If you’re on a Unix-like operating system or otherwise using a Unix-style shell, such as Bash, use the <code>generate</code> shell script instead:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc/generate</span></span></code></pre></div>
 <p>Note that while generating Vid­Draw’s documentation is supported on Unix-like systems, neither building nor running the program is supported on any non-Windows operating systems.</p>
-<p>On 64-bit Windows systems, if you don't have <a href="https://en.wikipedia.org/wiki/Pandoc" title="https://en.wikipedia.org/wiki/Pandoc">Pandoc</a>, one way to install it is with <a href="https://scoop.sh/" title="https://scoop.sh/">Scoop</a>:</p>
+<p>On 64-bit Windows systems, if you don’t have <a href="https://en.wikipedia.org/wiki/Pandoc" title="https://en.wikipedia.org/wiki/Pandoc">Pandoc</a>, one way to install it is with <a href="https://scoop.sh/" title="https://scoop.sh/">Scoop</a>:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>scoop install pandoc</span></code></pre></div>
 <p>Modifications to files other than <code>README.md</code> and those in the <code>pandoc</code> directory do not require <code>doc\index.html</code> to be regenerated.</p>
 </section>
@@ -237,7 +237,7 @@
 <section id="rarely-it-overlaps-the-main-text" class="level4">
 <h4>Rarely, it overlaps the main text.</h4>
 <p>On an iPad I tested with, when oriented in profile, the sidenav neither fades nor disappears when there is insufficient space, causing it to overlap the main text. This doesn’t seem to happen in landscape or profile at any viewport width on a variety of browsers and operating systems in a variety of screen resolutions and display scalings.</p>
-<p>As above, I don't expect this to affect the program’s help viewer or most other browsing scenarios, but it should still be investigated and fixed. It suggests a design mistake on my part that, if left in place, may manifest in more situations after some seemingly unrelated future change.</p>
+<p>As above, I don’t expect this to affect the program’s help viewer or most other browsing scenarios, but it should still be investigated and fixed. It suggests a design mistake on my part that, if left in place, may manifest in more situations after some seemingly unrelated future change.</p>
 </section>
 </section>
 <section id="menu-items-are-cumbersome-to-access-while-drawing" class="level3">
@@ -307,14 +307,14 @@
 </section>
 <section id="notices" class="level2">
 <h2>Notices</h2>
-<p>Vid­Draw, but not its dependencies, is licensed under <a href="../COPYING.0BSD" title="../COPYING.0BSD">0BSD</a>. Thus, everything in this repository <em>except</em> the contents of <code>doc/bower_components</code> and of the subdirectories of <code>doc/fonts</code> is offered under 0BSD:</p>
+<p>Vid­Draw<!-- -->’s own code, but not that of its dependencies, is licensed under <a href="../COPYING.0BSD" title="../COPYING.0BSD">0BSD</a>. Thus, everything in this repository <em>except</em> the contents of <code>doc/bower_components</code> and of the subdirectories of <code>doc/fonts</code> is offered under 0BSD:</p>
 <blockquote>
 <p>Copyright (c) 2021 Eliah Kagan</p>
 <p>Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</p>
 </blockquote>
 <p>Licenses and accompanying information for each of Vid­Draw’s <a href="#dependencies" title="#dependencies">above-listed dependencies</a> are reproduced below in full (but only some, not all, dependencies are themselves included in this repository).</p>
-<p>Some licenses contain copyright statements, which differ across projects that are licensed the same way. These licenses are short anyway, so I’ve kept the full text of each.</p>
+<p>Some licenses contain copyright statements, which differ across projects that are licensed the same way. These licenses are short anyway, and I’ve kept the full text of each.</p>
 <section id="anchorjs" class="level3">
 <h3>AnchorJS</h3>
 <p>Bryan Braun has released <a href="https://github.com/bryanbraun/anchorjs/tree/4.3.1" title="https://github.com/bryanbraun/anchorjs/tree/4.3.1">AnchorJS</a> under the MIT license:</p>
@@ -361,7 +361,7 @@
 </section>
 <section id="kbd" class="level3">
 <h3>kbd</h3>
-<p>Auth0 Inc. has released <a href="https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md" title="https://github.com/auth0/kbd/blob/v0.0.1/LICENSE.md">kbd</a> under the MIT license:</p>
+<p>Auth0 Inc. has released <a href="https://github.com/auth0/kbd/tree/v0.0.1" title="https://github.com/auth0/kbd/tree/v0.0.1">kbd</a> under the MIT license:</p>
 <blockquote>
 <p>The MIT License (MIT)</p>
 <p>Copyright (c) 2014 Auth0 Inc.</p>
