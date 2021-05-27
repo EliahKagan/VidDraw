@@ -20,11 +20,33 @@ namespace VidDraw {
     /// Convenience methods for interacting with the Windows shell.
     /// </summary>
     internal static class Shell {
+        /// <summary>
+        /// Opens one item in whatever application would open another item.
+        /// </summary>
+        /// <param name="pathToOpen">The item to actually open.</param>
+        /// <param name="pathToConsult">
+        /// An item the shell would automatically open in the application one
+        /// wishes to open <c>pathToOpen</c>.
+        /// </param>
+        /// <remarks>
+        /// The items need not be actual paths in the filesystem, so long as
+        /// the shell knows how to open <c>pathToConsult</c> and the
+        /// application it would use for it also knows how to (try to) open or
+        /// create <c>pathToOpen</c>.
+        /// </remarks>
         internal static unsafe void OpenLike(this string pathToOpen,
                                              string pathToConsult)
             => Process.Start(fileName: FindExecutable(pathToConsult),
                              arguments: new[] { pathToOpen });
 
+        /// <summary>
+        /// Run or open a program or other file through the shell.
+        /// </summary>
+        /// <param name="path">A name of the item to open or run.</param>
+        /// <remarks>
+        /// Ultimately uses <c>ShellExecute</c> or <c>ShellExecuteEx</c>. See
+        /// <a href="https://docs.microsoft.com/en-us/windows/win32/shell/launch">Launching Applications</a>.
+        /// </remarks>
         internal static void Execute(string path)
             => Process.Start(new ProcessStartInfo() {
                 FileName = path,
