@@ -177,8 +177,8 @@ namespace VidDraw {
         }
 
         private static string GetDisplayPath(string path)
-            => path.GetDirectoryOrThrow()
-                   .Equals(MyVideos, StringComparison.Ordinal)
+            => Files.GetDirectoryOrThrow(path)
+                    .Equals(MyVideos, StringComparison.Ordinal)
                 ? Path.GetFileName(path)
                 : path;
 

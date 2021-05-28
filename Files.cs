@@ -20,7 +20,7 @@ using static System.Text.RegularExpressions.RegexOptions;
 namespace VidDraw {
     /// <summary>Methods for querying and accessing files.</summary>
     internal static class Files {
-        internal static string GetDirectoryOrThrow(this string path)
+        internal static string GetDirectoryOrThrow(string path)
             => Path.GetDirectoryName(path)
                 ?? throw new ArgumentException(
                     paramName: nameof(path),
@@ -55,7 +55,7 @@ namespace VidDraw {
         private sealed record DecomposedPath {
             internal DecomposedPath(string path)
             {
-                Directory = path.GetDirectoryOrThrow();
+                Directory = GetDirectoryOrThrow(path);
 
                 var match = MatchFilename(path);
 
