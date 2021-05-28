@@ -145,6 +145,15 @@ body {
   }
 }
 
+header>a.github-fork-ribbon {
+  /*
+    Re-specify the ribbon text size from px to rem so it scales with the page.
+    In Windows display scaling, browsers should scale px, too, and even IE (the
+    application) does, but WebBrowser doesn't do this, at least not by default.
+  */
+  font-size: 1.3rem;
+}
+
 @media (min-width: 57.5rem) {
   header>a.github-fork-ribbon {
     position: fixed;
