@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Eliah Kagan
+// Copyright (c) 2021 Eliah Kagan
 //
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted.
@@ -18,7 +18,15 @@ using System.Windows.Forms;
 
 namespace VidDraw {
     internal sealed class HelpBrowser : WebBrowser {
-        internal HelpBrowser() => Url = new(HelpPath);
+        /// <inheritdoc/>
+        /// <remarks>
+        /// This is public because making it internal triggers a Designer bug
+        /// where fields of this type are unassigned in generated C# code.
+        /// </remarks>
+        public HelpBrowser()
+        {
+            if (Program.IsRunning) Url = new(MyPaths.HelpFile);
+        }
 
         protected override void OnNavigating(WebBrowserNavigatingEventArgs e)
         {
@@ -38,12 +46,6 @@ namespace VidDraw {
             OpenOutside(e.Url);
         }
 
-        private static string DocDir { get; } =
-            Path.Combine(Files.ExecutableDirectory, "doc");
-
-        private static string HelpPath { get; } =
-            Path.Combine(DocDir, "index.html");
-
         private static void OpenOutside(Uri url)
         {
             switch (url.Scheme) {
@@ -54,7 +56,7 @@ namespace VidDraw {
 
             // Hackishly open all other local links in the default browser.
             case "file":
-                url.AbsoluteUri.OpenLike(HelpPath);
+                url.AbsoluteUri.OpenLike(MyPaths.HelpFile);
                 break;
 
             // Open web links in the default browser.

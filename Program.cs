@@ -16,9 +16,21 @@ using System.Windows.Forms;
 
 namespace VidDraw {
     internal static class Program {
+        /// <summary>
+        /// Hack to suppress behavior in custom controls that is needed at
+        /// runtime but cannot succeed at design time.
+        /// </summary>
+        /// <remarks>
+        /// See <a href="https://stackoverflow.com/a/7281838"/> by
+        /// <a href="https://stackoverflow.com/users/382783/boris-b"/>.
+        /// </remarks>
+        internal static bool IsRunning { get; private set; } = false;
+
         [STAThread]
         private static void Main()
         {
+            IsRunning = true;
+
             using var coordinator =
                 ToastCoordinator.TryCreate(e => Shell.Select(e.Argument));
 

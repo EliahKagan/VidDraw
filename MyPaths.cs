@@ -11,13 +11,21 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-using System.Windows.Forms;
+using System.IO;
+using System.Reflection;
 
 namespace VidDraw {
-    internal sealed partial class HelpWindow : Form {
-        internal HelpWindow()
-        {
-            InitializeComponent();
-        }
+    /// <summary>Paths specific to this program or an instance of it.</summary>
+    internal static class MyPaths {
+        /// <summary>The path to the help file shown in the About box.</summary>
+        internal static string HelpFile { get; } =
+            Path.Combine(DocDir, "index.html");
+
+        private static string DocDir => Path.Combine(ExeDir, "doc");
+
+        private static string ExeDir => Files.GetDirectoryOrThrow(ExeFile);
+
+        private static string ExeFile
+            => Assembly.GetExecutingAssembly().Location;
     }
 }
