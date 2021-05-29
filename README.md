@@ -15,7 +15,7 @@
 
 # VidDraw - record video as you draw
 
-*Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;*.
+*Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;.*
 
 **Vid&shy;Draw** is a Windows program that records a video of a canvas as you
 draw on it. Recording starts when you begin drawing and stops when you&rsquo;re
@@ -543,9 +543,7 @@ whether it is due to a bug in Sharp&shy;Avi. I can also produce it in the
 Sharp&shy;Avi sample application with [Xvid](https://www.xvid.com/) (but,
 likewise, this might turn out to be because of how I have Xvid configured).
 
-### The help&rsquo;s sidenav is brittle.
-
-#### It can be &ldquo;partially present&rdquo; without user intent.
+### The help&rsquo;s sidenav can be unexpectedly in &ldquo;mid-fade&rdquo;.
 
 Narrowing the viewport fades the navigational sidebar out; widening fades it
 in. Whether or not it is faded, and how faded, is determined solely by (scaled)
@@ -556,24 +554,11 @@ think either that the sidebar is meant to look this way (i.e., poorly designed)
 or that a bug causes it to appear this way (either always, or under limited but
 unclear circumstances).
 
-This isn&rsquo;t likely to happen in Vid&shy;Draw&rsquo;s own help viewer, but
-general-purpose web browsers don&rsquo;t start out with a predetermined
-(scaled) size selected to make this specific page look reasonable. The help
-file&mdash;and its sidenav&mdash;is meant to be fully usable on web browsers,
-too.
-
-#### Rarely, it overlaps the main text.
-
-On an iPad I tested with, when oriented in profile, the sidenav neither fades
-nor disappears when there is insufficient space, causing it to overlap the main
-text. This doesn&rsquo;t seem to happen in landscape or profile at any viewport
-width on a variety of browsers and operating systems in a variety of screen
-resolutions and display scalings.
-
-As above, I don&rsquo;t expect this to affect the program&rsquo;s help viewer
-or most other browsing scenarios, but it should still be investigated and
-fixed. It suggests a design mistake on my part that, if left in place, may
-manifest in more situations after some seemingly unrelated future change.
+This isn&rsquo;t all that likely to happen in Vid&shy;Draw&rsquo;s own help
+viewer. But general-purpose web browsers don&rsquo;t start out with a
+predetermined (scaled) size selected to make this specific page look
+reasonable. The help file&mdash;and its sidenav&mdash;is meant to be fully
+usable on web browsers, too.
 
 ### Menu items are cumbersome to access while drawing.
 

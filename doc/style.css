@@ -243,7 +243,10 @@ nav>ol>li>a.active {
   }
 }
 
-@media (max-width: 59rem) {
+@media (max-width: 59rem),
+       /* iPads (and nothing else) require an alternate query: */
+       (orientation: portrait) and (max-device-width: 1024px)
+                               and (min-device-width: 768px) {
   nav {
     visibility: hidden;
   }

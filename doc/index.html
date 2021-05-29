@@ -52,7 +52,7 @@
     <main>
 <section id="viddraw---record-video-as-you-draw" class="level1">
 <h1>VidDraw - record video as you draw</h1>
-<p><em>Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;</em>.</p>
+<p><em>Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;.</em></p>
 <p><strong>Vid­Draw</strong> is a Windows program that records a video of a canvas as you draw on it. Recording starts when you begin drawing and stops when you’re no longer holding down any mouse buttons.</p>
 <p>The main purpose of Vid­Draw is to demonstrate usage of <a href="https://github.com/baSSiLL/SharpAvi" title="https://github.com/baSSiLL/SharpAvi">Sharp­Avi</a> (which wraps <a href="https://docs.microsoft.com/en-us/windows/win32/api/vfw/" title="https://docs.microsoft.com/en-us/windows/win32/api/vfw/">VfW</a>) and <a href="https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp" title="https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp">toast notifications</a>. It started out as a prototype for the video recording feature of a larger program I’ve been working on. It is also kind of a fun toy.</p>
 <p>This is <strong>Vid­Draw alpha 1</strong>. It still has <a href="#known-bugs" title="#known-bugs">some usability bugs</a>.</p>
@@ -227,18 +227,10 @@
 <p><a href="#a-problem-with-h264-in-viddraw" title="#a-problem-with-h264-in-viddraw">As detailed above</a>, when H.264 encoding is selected and x264vfw has not been configured to make every frame a keyframe (which increases file size dramatically, albeit still less than the other encodings), VLC cannot play the file. This is even though VLC fully supports H.264 (and manages to play even most broken H.264 videos). It may be a problem with the way I’ve configured x264vfw. But <a href="https://ffmpeg.org/" title="https://ffmpeg.org/">FFmpeg</a> is able to repair the files, and it reports problems with them, so I think this is a bug.</p>
 <p>I can produce this problem (on the same system) with the Sharp­Avi sample application—both the <a href="https://github.com/baSSiLL/SharpAvi/tree/master/Sample" title="https://github.com/baSSiLL/SharpAvi/tree/master/Sample">upstream version</a> targeting the <a href="https://www.nuget.org/packages/SharpAvi/" title="https://www.nuget.org/packages/SharpAvi/">upstream Sharp­Avi</a> and <a href="https://github.com/EliahKagan/SharpAvi/tree/net5/Sample" title="https://github.com/EliahKagan/SharpAvi/tree/net5/Sample">my forked version</a> targeting <a href="https://www.nuget.org/packages/SharpAvi.Net5" title="https://www.nuget.org/packages/SharpAvi.Net5">the fork of Sharp­Avi</a> that Vid­Draw uses. But it remains unclear to me, due to its sensitivity to x264vfw settings, whether it is due to a bug in Sharp­Avi. I can also produce it in the Sharp­Avi sample application with <a href="https://www.xvid.com/" title="https://www.xvid.com/">Xvid</a> (but, likewise, this might turn out to be because of how I have Xvid configured).</p>
 </section>
-<section id="the-helps-sidenav-is-brittle" class="level3">
-<h3>The help’s sidenav is brittle.</h3>
-<section id="it-can-be-partially-present-without-user-intent" class="level4">
-<h4>It can be “partially present” without user intent.</h4>
+<section id="the-helps-sidenav-can-be-unexpectedly-in-mid-fade" class="level3">
+<h3>The help’s sidenav can be unexpectedly in “mid-fade”.</h3>
 <p>Narrowing the viewport fades the navigational sidebar out; widening fades it in. Whether or not it is faded, and how faded, is determined solely by (scaled) viewport width. This works okay when the user resizes the window. But it is possible for the viewport to <em>start</em> with a “transitional” width at which the sidebar is present but faded. In that case, the user is likely to think either that the sidebar is meant to look this way (i.e., poorly designed) or that a bug causes it to appear this way (either always, or under limited but unclear circumstances).</p>
-<p>This isn’t likely to happen in Vid­Draw’s own help viewer, but general-purpose web browsers don’t start out with a predetermined (scaled) size selected to make this specific page look reasonable. The help file—and its sidenav—is meant to be fully usable on web browsers, too.</p>
-</section>
-<section id="rarely-it-overlaps-the-main-text" class="level4">
-<h4>Rarely, it overlaps the main text.</h4>
-<p>On an iPad I tested with, when oriented in profile, the sidenav neither fades nor disappears when there is insufficient space, causing it to overlap the main text. This doesn’t seem to happen in landscape or profile at any viewport width on a variety of browsers and operating systems in a variety of screen resolutions and display scalings.</p>
-<p>As above, I don’t expect this to affect the program’s help viewer or most other browsing scenarios, but it should still be investigated and fixed. It suggests a design mistake on my part that, if left in place, may manifest in more situations after some seemingly unrelated future change.</p>
-</section>
+<p>This isn’t all that likely to happen in Vid­Draw’s own help viewer. But general-purpose web browsers don’t start out with a predetermined (scaled) size selected to make this specific page look reasonable. The help file—and its sidenav—is meant to be fully usable on web browsers, too.</p>
 </section>
 <section id="menu-items-are-cumbersome-to-access-while-drawing" class="level3">
 <h3>Menu items are cumbersome to access while drawing.</h3>
