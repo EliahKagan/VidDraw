@@ -18,7 +18,7 @@ using System.Windows.Forms;
 
 namespace VidDraw {
     internal sealed class HelpBrowser : WebBrowser {
-        /// <inheritdoc/>
+        /// <summary>Creates a browser that will open the help file.</summary>
         /// <remarks>
         /// This is public because making it internal triggers a Designer bug
         /// where fields of this type are unassigned in generated C# code.
@@ -44,20 +44,6 @@ namespace VidDraw {
             // Other links are opened (if at all) outside the help browser.
             e.Cancel = true;
             OpenOutside(e.Url);
-        }
-
-        protected override void
-        OnDocumentCompleted(WebBrowserDocumentCompletedEventArgs e)
-        {
-            base.OnDocumentCompleted(e);
-
-            Debug.Print($"Body width: {Document.Body.ScrollRectangle.Width}");
-            Debug.Print($"Control width: {Width}");
-            Debug.Print($"Client width: {ClientSize.Width}");
-
-            Debug.Print($"Body height: {Document.Body.ScrollRectangle.Height}");
-            Debug.Print($"Control height: {Height}");
-            Debug.Print($"Client height: {ClientSize.Height}");
         }
 
         private static void OpenOutside(Uri url)
