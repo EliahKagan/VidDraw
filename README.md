@@ -21,15 +21,18 @@
 draw on it. Recording starts when you begin drawing and stops when you&rsquo;re
 no longer holding down any mouse buttons.
 
-The main purpose of Vid&shy;Draw is to demonstrate usage of
+The main goal of Vid&shy;Draw is to demonstrate using
 [Sharp&shy;Avi](https://github.com/baSSiLL/SharpAvi) (which wraps
-[VfW](https://docs.microsoft.com/en-us/windows/win32/api/vfw/)) and [toast
-notifications](https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp).
-It started out as a prototype for the video recording feature of a larger
-program I&rsquo;ve been working on. It is also kind of a fun toy.
+[VfW](https://docs.microsoft.com/en-us/windows/win32/api/vfw/)) to record a
+canvas, [toast
+notifications](https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp),
+and [embedded
+browsing](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.webbrowser?view=net-5.0).
+It began as a prototype for the video-recording feature of a larger program
+I&rsquo;ve been working on. It&rsquo;s also kind of a fun toy.
 
-This is **Vid&shy;Draw alpha 1**. It still has [some usability
-bugs](#known-bugs).
+This is **Vid&shy;Draw alpha <del>1</del>&thinsp;<ins>0</ins>**. It still has
+[some usability bugs](#known-bugs).
 
 ## License
 
@@ -543,7 +546,7 @@ whether it is due to a bug in Sharp&shy;Avi. I can also produce it in the
 Sharp&shy;Avi sample application with [Xvid](https://www.xvid.com/) (but,
 likewise, this might turn out to be because of how I have Xvid configured).
 
-### The help&rsquo;s sidenav can be unexpectedly in &ldquo;mid-fade&rdquo;.
+### The help&rsquo;s sidenav can be unexpectedly in &ldquo;mid-fade.&rdquo;
 
 Narrowing the viewport fades the navigational sidebar out; widening fades it
 in. Whether or not it is faded, and how faded, is determined solely by (scaled)

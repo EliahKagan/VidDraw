@@ -17,10 +17,10 @@ using System.Windows.Forms;
 
 namespace VidDraw {
     internal sealed partial class HelpWindow : Form {
-        internal HelpWindow()
-        {
-            InitializeComponent();
-        }
+        /// <summary>
+        /// Creates a window with a browser that will open the help file.
+        /// </summary>
+        internal HelpWindow() => InitializeComponent();
 
         /// <summary>
         /// Scales and positions the window on initial page load, so it's wide
