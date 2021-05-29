@@ -42,9 +42,9 @@ namespace VidDraw {
             this._browser = new VidDraw.HelpBrowser();
             this._panel.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // _panel
-            //
+            // 
             this._panel.ColumnCount = 1;
             this._panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this._panel.Controls.Add(this._browser, 0, 0);
@@ -56,22 +56,24 @@ namespace VidDraw {
             this._panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this._panel.Size = new System.Drawing.Size(800, 450);
             this._panel.TabIndex = 0;
-            //
+            // 
             // _browser
-            //
+            // 
             this._browser.Dock = System.Windows.Forms.DockStyle.Fill;
             this._browser.Location = new System.Drawing.Point(0, 0);
             this._browser.Margin = new System.Windows.Forms.Padding(0);
             this._browser.Name = "_browser";
             this._browser.Size = new System.Drawing.Size(800, 450);
             this._browser.TabIndex = 0;
-            //
+            this._browser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.browser_DocumentCompleted);
+            // 
             // HelpWindow
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this._panel);
+            this.MaximizeBox = false;
             this.Name = "HelpWindow";
             this.Text = "About VidDraw";
             this._panel.ResumeLayout(false);

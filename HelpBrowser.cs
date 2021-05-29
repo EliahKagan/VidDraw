@@ -46,6 +46,20 @@ namespace VidDraw {
             OpenOutside(e.Url);
         }
 
+        protected override void
+        OnDocumentCompleted(WebBrowserDocumentCompletedEventArgs e)
+        {
+            base.OnDocumentCompleted(e);
+
+            Debug.Print($"Body width: {Document.Body.ScrollRectangle.Width}");
+            Debug.Print($"Control width: {Width}");
+            Debug.Print($"Client width: {ClientSize.Width}");
+
+            Debug.Print($"Body height: {Document.Body.ScrollRectangle.Height}");
+            Debug.Print($"Control height: {Height}");
+            Debug.Print($"Client height: {ClientSize.Height}");
+        }
+
         private static void OpenOutside(Uri url)
         {
             switch (url.Scheme) {
