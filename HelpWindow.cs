@@ -46,7 +46,11 @@ namespace VidDraw {
         /// <summary>Sets both width and height based on body width.</summary>
         private void SetSize()
         {
-            const float widthScaleFactor = 1.5f;
+            // Shows the sidenav with a comfortable gap, on most screens and
+            // configurations. This can go as low as 1.5 and still work okay.
+            const float widthScaleFactor = 1.52f;
+
+            // Comfortable size. Essential info is (usually) "above the fold."
             const float heightScaleFactor = 1.07f;
 
             var bodyWidth = _browser.Document.Body.ClientRectangle.Width;
