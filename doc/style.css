@@ -195,12 +195,12 @@ nav>ol {
 }
 
 nav>ol>li {
-  border: 2px dotted transparent;
+  border: .2rem dotted transparent;
 }
 
 nav>ol>li>a.active {
-  border-bottom: 3px solid;
-  text-shadow: 1px 0;
+  border-bottom: .3rem solid;
+  text-shadow: .1rem 0;
 }
 
 @media (max-width: 61rem) {
@@ -273,7 +273,7 @@ blockquote h1 {
 }
 
 h2 {
-  border-bottom: 1px solid #444;
+  border-bottom: .1rem solid #444;
   font-size: 3.6rem;
   font-weight: 400;
   letter-spacing: .06em;
@@ -302,7 +302,7 @@ blockquote, pre.text>code {
 
 blockquote, pre {
   border-left-color: #9b4dca;
-  border-left-width: 2px;
+  border-left-width: .2rem;
 }
 
 code, kbd {
@@ -311,7 +311,7 @@ code, kbd {
 
 code {
   background-color: #f0f0f0;
-  border-radius: 2px;
+  border-radius: .2rem;
 }
 
 pre.text, pre.text>code {
@@ -330,7 +330,7 @@ kbd {
 
 ul>li {
   -ms-hyphens: none;
-  border: 1px dotted transparent;
+  border: .1rem dotted transparent;
   hyphens: none;
   list-style-position: outside;
   list-style-type: square;
@@ -348,11 +348,11 @@ a:focus, a:hover {
 }
 
 a:focus {
-  border-bottom: 1px dotted;
+  border-bottom: .1rem dotted;
 }
 
 a:focus:hover, a:hover {
-  border-bottom: 2px solid;
+  border-bottom: .2rem solid;
 }
 
 a.anchorjs-link {
