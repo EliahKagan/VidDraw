@@ -244,7 +244,10 @@ nav>ol>li>a.active {
 }
 
 @media (max-width: 59rem),
-       /* iPads (and nothing else) require an alternate query: */
+       /*
+        iPads (and nothing else) require an alternate query. This works, not
+        just on 1024x768 iPads but even on new iPads with 2160x1620 resolution:
+       */
        (orientation: portrait) and (max-device-width: 1024px)
                                and (min-device-width: 768px) {
   nav {
