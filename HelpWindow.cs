@@ -48,7 +48,7 @@ namespace VidDraw {
         {
             // Shows the sidenav with a comfortable gap, on most screens and
             // configurations. This can go as low as 1.5 and still work okay.
-            const float widthScaleFactor = 1.52f;
+            const float widthScaleFactor = 1.53f;
 
             // Comfortable size. Essential info is (usually) "above the fold."
             const float heightScaleFactor = 1.07f;
