@@ -711,8 +711,8 @@ Vid&shy;Draw does not depend on
 [x264vfw](https://sourceforge.net/projects/x264vfw/) but is capable of using it
 [if it is installed](#optional-get-x264vfw-for-h264-support). x264vfw is a
 [VfW](https://en.wikipedia.org/wiki/Video_for_Windows) codec for
-[H.264](https://en.wikipedia.org/wiki/Video_coding_format) by Anton Mitrofanov
-and other authors, derived from
+[H.264](https://en.wikipedia.org/wiki/Advanced_Video_Coding) by Anton
+Mitrofanov and other authors, derived from
 [x264](https://www.videolan.org/developers/x264.html). Since, when installed
 and selected in Vid&shy;Draw, it greatly reduces file size while preserving
 quality, I&rsquo;m thankful to all the developers of x264vfw and x264 for the
