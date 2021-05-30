@@ -572,10 +572,10 @@ usable on web browsers, too.
 
 Some operations that users are likely to want to do while
 recording&mdash;especially opening the dialog box to change the pen
-color&mdash;should have shortcut keys but do not. Some design choices have to
-be made to implement this correctly: if the user presses a shortcut key to open
-a modal dialog box, should recording automatically continue after the dialog
-box exits?
+color&mdash;should have keyboard shortcuts but do not. Some design choices have
+to be made to implement this correctly: if the user presses a key combination
+that opens a modal dialog box, should recording automatically continue after
+the dialog box exits?
 
 ### It might be useful to be able to pause.
 

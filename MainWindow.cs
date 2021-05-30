@@ -124,25 +124,27 @@ namespace VidDraw {
 
             builder.Add(new(Codec.Raw,
                             MyMenuItemId.Raw,
-                            "Raw (frame copy)"));
+                            "Ra&w (frame copy)"));
 
             builder.Add(new(Codec.Uncompressed,
                             MyMenuItemId.Uncompressed,
-                            "Uncompressed"));
+                            "&Uncompressed"));
 
             builder.Add(new(Codec.MotionJpeg,
                             MyMenuItemId.MotionJpeg,
-                            "Motion JPEG"));
+                            "Motion &JPEG"));
 
             builder.Add(new(Codec.H264,
                             MyMenuItemId.H264,
-                            "H.264 (MPEG-4 AVC)"));
+                            "&H.264 (MPEG-4 AVC)"));
 
             return builder.ToImmutable();
         }
 
         private static string GetLabel(Codec codec)
-            => CodecChoices.Single(choice => choice.Codec == codec).Label;
+            => CodecChoices.Single(choice => choice.Codec == codec)
+                           .Label
+                           .Replace(oldValue: "&", newValue: null);
 
         private static bool IsKnownCodec(Codec codec)
             => CodecChoices.Any(choice => choice.Codec == codec);
@@ -305,10 +307,11 @@ namespace VidDraw {
                     dwTypeData = new(p),
                 };
 
-                PInvoke.SetMenuItemInfo(hmenu: MenuHandle,
-                                        item: (uint)id,
-                                        fByPositon: false, // Misspelled in API.
-                                        &mii);
+                PInvoke.SetMenuItemInfo(
+                        hmenu: MenuHandle,
+                        item: (uint)id,
+                        fByPositon: false, // Misspelled in API.
+                        &mii);
             }
         }
 
@@ -318,13 +321,13 @@ namespace VidDraw {
             AddMenuCodecItems(initialCodec);
 
             AddMenuSeparator();
-            AddMenuItem(MyMenuItemId.ClearCanvas, "Clear Canvas");
-            AddMenuItem(MyMenuItemId.PickColor, $"Pick Color{Ch.Hellip}");
-            AddMenuItem(MyMenuItemId.OpenVideosFolder, "Open Videos Folder");
+            AddMenuItem(MyMenuItemId.ClearCanvas, "Clear Canva&s");
+            AddMenuItem(MyMenuItemId.PickColor, $"&Pick Color{Ch.Hellip}");
+            AddMenuItem(MyMenuItemId.OpenVideosFolder, "&Open Videos Folder");
             AddMenuItem(MyMenuItemId.DownloadOrConfigureX264vfw, "(error)");
 
             AddMenuSeparator();
-            AddMenuItem(MyMenuItemId.About, $"About VidDraw{Ch.Hellip}");
+            AddMenuItem(MyMenuItemId.About, $"&About VidDraw{Ch.Hellip}");
 
             UpdateMenuCodecs();
         }
@@ -348,7 +351,7 @@ namespace VidDraw {
             if (CanEncodeH264) {
                 SetEnabled(MyMenuItemId.H264, true);
                 SetText(MyMenuItemId.DownloadOrConfigureX264vfw,
-                        $"Configure x264vfw ({Platform.XStyleArch})");
+                        $"Configure x264&vfw ({Platform.XStyleArch})");
                 _downloadOrConfigureX264vfw = ConfigureX264vfw;
             } else {
                 if (CurrentCodec is Codec.H264)
@@ -356,7 +359,7 @@ namespace VidDraw {
 
                 SetEnabled(MyMenuItemId.H264, false);
                 SetText(MyMenuItemId.DownloadOrConfigureX264vfw,
-                        "Download x264vfw");
+                        "Download x264&vfw");
                 _downloadOrConfigureX264vfw = DownloadX264vfw;
             }
         }
