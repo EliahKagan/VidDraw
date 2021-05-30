@@ -28,7 +28,7 @@ namespace VidDraw {
         /// </summary>
         /// <remarks>
         /// Autoscaling doesn't take care of this, since the page is scaled
-        /// proprtionately, not by UI font dimensions or DPI. HelpBrowser (via
+        /// proportionately, not by UI font dimensions or DPI. HelpBrowser (via
         /// code its base classes) properly scales the page. So this method is
         /// just setting the window size and location (and the control size).
         /// </remarks>

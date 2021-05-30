@@ -230,6 +230,9 @@ turns bright red. As long as it is red, Vid&shy;Draw is recording. When it
 turns back to light gray, recording has stopped and the video file is fully
 saved.
 
+![Screenshot of a corner of the VidDraw window while recording, showing the red
+border](doc/recording.png)
+
 **To lift the pen while continuing to record**, press and hold another mouse
 button. So long as at least one button is pressed, recording continues. This
 lets you make an video of drawing a sketch with multiple disconnected strokes.
@@ -307,6 +310,8 @@ right-clicking anywhere on the title bar, or pressing
 &ldquo;Move&rdquo; and &ldquo;Close&rdquo;&mdash;with [encoding
 choices](#encoding-codec-choices) and some [other
 operations](#other-stuff-in-the-menu) specific to Vid&shy;Draw.
+
+![Screenshot of augmented system menu in VidDraw](doc/menu.png)
 
 Some menu items change settings. These changes are saved in a `VidDraw`
 subdirectory of your per-user application data (`%APPDATA%`) directory, which

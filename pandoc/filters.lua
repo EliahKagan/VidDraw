@@ -62,24 +62,25 @@ local function note_upward_traversal(target)
   end
 end
 
--- Adjust a link to account for different input and output directories.
-local function adjust_path(el)
-  assert(not (el.target:find('^/') or el.target:find('^file:')),
+-- Adjust a property (whose value consists of a path) to account for different
+-- input and output directories.
+local function adjust_path(el, property)
+  assert(not (el[property]:find('^/') or el[property]:find('^file:')),
          "Can't adjust absolute local href")
 
   -- hrefs to an id, or that point to a full URL, need no adjustment.
-  if el.target:find('^#') or el.target:find('^%w+:') then
+  if el[property]:find('^#') or el[property]:find('^%w+:') then
     return
   end
 
   -- We're in doc, so if the href points there, remove that path prefix.
   local count
-  el.target, count = el.target:gsub('^doc/', '')
+  el[property], count = el[property]:gsub('^doc/', '')
 
   -- But if the href doesn't point in doc, add a parent path prefix.
   if count == 0 then
-    note_upward_traversal(el.target)
-    el.target = '../' .. el.target
+    note_upward_traversal(el[property])
+    el[property] = '../' .. el[property]
   end
 end
 
@@ -92,7 +93,13 @@ end
 
 -- Adjust links' relative paths and add title text if missing.
 function Link(el)
-  adjust_path(el)
+  adjust_path(el, 'target')
   add_missing_title_text(el)
+  return el
+end
+
+-- Adjust images' relative paths.
+function Image(el)
+  adjust_path(el, 'src')
   return el
 end
