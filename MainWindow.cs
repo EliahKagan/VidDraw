@@ -415,6 +415,15 @@ namespace VidDraw {
             SetInitialTitle();
         }
 
+        private void aboutBox_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            Debug.Assert(_aboutBox is not null);
+            Debug.Assert(sender == _aboutBox);
+
+            _aboutBox.Dispose();
+            _aboutBox = null;
+        }
+
         private void SelectCodec(Codec codec)
         {
             CurrentCodec = codec;
@@ -459,7 +468,17 @@ namespace VidDraw {
             Shell.Execute(path);
         }
 
-        private void ShowAboutBox() => (_aboutBox ??= new()).ShowDialog(this);
+        private void ShowAboutBox()
+        {
+            if (_aboutBox is null) {
+                _aboutBox = new();
+                _aboutBox.FormClosed += aboutBox_FormClosed;
+                _aboutBox.Show();
+            } else {
+                _aboutBox.WindowState = FormWindowState.Normal;
+                _aboutBox.Activate();
+            }
+        }
 
         private static IReadOnlyList<CodecChoice> CodecChoices { get; } =
             BuildCodecChoices();
