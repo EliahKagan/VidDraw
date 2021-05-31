@@ -105,6 +105,21 @@ namespace VidDraw {
         private const string X264vfwDownloadUrl =
             "https://sourceforge.net/projects/x264vfw/files/latest/download";
 
+        private static IReadOnlyList<CodecChoice> CodecChoices { get; } =
+            ImmutableArray.Create<CodecChoice>(
+                new(Codec.Raw,
+                    MyMenuItemId.Raw,
+                    "Ra&w (frame copy)"),
+                new(Codec.Uncompressed,
+                    MyMenuItemId.Uncompressed,
+                    "&Uncompressed"),
+                new(Codec.MotionJpeg,
+                    MyMenuItemId.MotionJpeg,
+                    "Motion &JPEG"),
+                new(Codec.H264,
+                    MyMenuItemId.H264,
+                    "&H.264 (MPEG-4 AVC)"));
+
         private static string CurrentPreferredSavePath
             => Path.Combine(
                 Dirs.Videos,
@@ -114,29 +129,6 @@ namespace VidDraw {
             => Mpeg4VideoEncoderVcm.GetAvailableCodecs()
                 .Select(info => info.Codec)
                 .Contains(KnownFourCCs.Codecs.X264);
-
-        private static IReadOnlyList<CodecChoice> BuildCodecChoices()
-        {
-            var builder = ImmutableArray.CreateBuilder<CodecChoice>();
-
-            builder.Add(new(Codec.Raw,
-                            MyMenuItemId.Raw,
-                            "Ra&w (frame copy)"));
-
-            builder.Add(new(Codec.Uncompressed,
-                            MyMenuItemId.Uncompressed,
-                            "&Uncompressed"));
-
-            builder.Add(new(Codec.MotionJpeg,
-                            MyMenuItemId.MotionJpeg,
-                            "Motion &JPEG"));
-
-            builder.Add(new(Codec.H264,
-                            MyMenuItemId.H264,
-                            "&H.264 (MPEG-4 AVC)"));
-
-            return builder.ToImmutable();
-        }
 
         private static string GetLabel(Codec codec)
             => CodecChoices.Single(choice => choice.Codec == codec)
@@ -479,9 +471,6 @@ namespace VidDraw {
                 _aboutBox.Activate();
             }
         }
-
-        private static IReadOnlyList<CodecChoice> CodecChoices { get; } =
-            BuildCodecChoices();
 
         private readonly Rectangle _rectangle;
 
