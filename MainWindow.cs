@@ -105,12 +105,9 @@ namespace VidDraw {
         private const string X264vfwDownloadUrl =
             "https://sourceforge.net/projects/x264vfw/files/latest/download";
 
-        private static string MyVideos
-            => Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
-
         private static string CurrentPreferredSavePath
             => Path.Combine(
-                MyVideos,
+                Dirs.Videos,
                 $"VidDraw capture {DateTime.Now:yyyy-MM-dd HH-mm-ss}.avi");
 
         private static bool CanEncodeH264
@@ -180,7 +177,7 @@ namespace VidDraw {
 
         private static string GetDisplayPath(string path)
             => Files.GetDirectoryOrThrow(path)
-                    .Equals(MyVideos, StringComparison.Ordinal)
+                    .Equals(Dirs.Videos, StringComparison.Ordinal)
                 ? Path.GetFileName(path)
                 : path;
 
@@ -430,7 +427,7 @@ namespace VidDraw {
         private void SelectCodec(Codec codec)
         {
             CurrentCodec = codec;
-            new Config() { Codec = codec }.TrySave();
+            new Config { Codec = codec }.TrySave();
         }
 
         private void PickColor()
@@ -461,7 +458,7 @@ namespace VidDraw {
 
         private void OpenVideosFolder()
         {
-            var path = MyVideos;
+            var path = Dirs.Videos;
 
             if (!Directory.Exists(path)) {
                 throw new InvalidOperationException(
