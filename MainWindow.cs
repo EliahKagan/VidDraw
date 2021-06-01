@@ -96,14 +96,14 @@ namespace VidDraw {
             About,
         }
 
-        private sealed record CodecChoice(Codec Codec,
-                                          MyMenuItemId Id,
-                                          string Label);
+        private const string X264vfwDownloadUrl =
+            "https://sourceforge.net/projects/x264vfw/files/latest/download";
 
         private const Codec DefaultCodec = Codec.MotionJpeg;
 
-        private const string X264vfwDownloadUrl =
-            "https://sourceforge.net/projects/x264vfw/files/latest/download";
+        private sealed record CodecChoice(Codec Codec,
+                                          MyMenuItemId Id,
+                                          string Label);
 
         private static IReadOnlyList<CodecChoice> CodecChoices { get; } =
             ImmutableArray.Create<CodecChoice>(
