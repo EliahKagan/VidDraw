@@ -50,6 +50,8 @@
         return Object.freeze(pairs);
     })();
 
+    let oldSection = null;
+
     function forEachNavlinkWithSection(action) {
         navlinkSectionPairs.forEach(function (pair) {
             // IE apparently doesn't support unpacking here.
@@ -84,15 +86,18 @@
     }
 
     function updateActiveNavlink() {
-        const currentSection = getCurrentMajorSection();
+        const newSection = getCurrentMajorSection();
+        if (oldSection === newSection) return;
 
         forEachNavlinkWithSection(function (navlink, section) {
-            if (section === currentSection) {
-                navlink.classList.add('active');
-            } else {
+            if (section === oldSection) {
                 navlink.classList.remove('active');
+            } else if (section === newSection) {
+                navlink.classList.add('active');
             }
         });
+
+        oldSection = newSection;
     }
 
     function enableActiveNavlinkUpdates() {
