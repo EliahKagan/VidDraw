@@ -59,24 +59,31 @@ namespace VidDraw {
                 new(SectionId: "viddraw---record-video-as-you-draw",
                     MenuItemId: MenuItemId.About,
                     MenuItemLabel: "&About"),
+
                 new(SectionId: "license",
                     MenuItemId: MenuItemId.License,
                     MenuItemLabel: "&License"),
+
                 new(SectionId: "setup",
                     MenuItemId: MenuItemId.Setup,
                     MenuItemLabel: "S&etup"),
+
                 new(SectionId: "usage-tips",
                     MenuItemId: MenuItemId.UsageTips,
                     MenuItemLabel: "&Usage Tips"),
+
                 new(SectionId: "the-menu",
                     MenuItemId: MenuItemId.TheMenu,
                     MenuItemLabel: "&The Menu"),
+
                 new(SectionId: "known-bugs",
                     MenuItemId: MenuItemId.KnownBugs,
                     MenuItemLabel: "&Known Bugs"),
+
                 new(SectionId: "dependencies",
                     MenuItemId: MenuItemId.Dependencies,
                     MenuItemLabel: "&Dependencies"),
+
                 new(SectionId: "notices",
                     MenuItemId: MenuItemId.Notices,
                     MenuItemLabel: "N&otices"));

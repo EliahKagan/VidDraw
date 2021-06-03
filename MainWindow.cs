@@ -87,12 +87,15 @@ namespace VidDraw {
                 new(Codec.Raw,
                     MenuItemId.Raw,
                     "Ra&w (frame copy)"),
+
                 new(Codec.Uncompressed,
                     MenuItemId.Uncompressed,
                     "&Uncompressed"),
+
                 new(Codec.MotionJpeg,
                     MenuItemId.MotionJpeg,
                     "Motion &JPEG"),
+
                 new(Codec.H264,
                     MenuItemId.H264,
                     "&H.264 (MPEG-4 AVC)"));
