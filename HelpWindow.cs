@@ -12,15 +12,123 @@
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace VidDraw {
-    internal sealed partial class HelpWindow : Form {
+    internal sealed partial class HelpWindow : HookForm {
         /// <summary>
         /// Creates a window with a browser that will open the help file.
         /// </summary>
-        internal HelpWindow() => InitializeComponent();
+        internal HelpWindow()
+        {
+            InitializeComponent();
+            _menu = new(this);
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            BuildMenu();
+        }
+
+        private enum MenuItemId : uint {
+            UnusedId, // For clarity, pass this when the ID will be ignored.
+
+            About,
+            License,
+            Setup,
+            UsageTips,
+            TheMenu,
+            KnownBugs,
+            Dependencies,
+            Notices,
+
+            OpenInWebBrowser,
+            VisitGitHubRepository,
+        }
+
+        private sealed record Section(string SectionId,
+                                      MenuItemId MenuItemId,
+                                      string MenuItemLabel);
+
+        private static IReadOnlyList<Section> Sections { get; } =
+            ImmutableArray.Create<Section>(
+                new(SectionId: "viddraw---record-video-as-you-draw",
+                    MenuItemId: MenuItemId.About,
+                    MenuItemLabel: "&About"),
+                new(SectionId: "license",
+                    MenuItemId: MenuItemId.License,
+                    MenuItemLabel: "&License"),
+                new(SectionId: "setup",
+                    MenuItemId: MenuItemId.Setup,
+                    MenuItemLabel: "S&etup"),
+                new(SectionId: "usage-tips",
+                    MenuItemId: MenuItemId.UsageTips,
+                    MenuItemLabel: "&Usage Tips"),
+                new(SectionId: "the-menu",
+                    MenuItemId: MenuItemId.TheMenu,
+                    MenuItemLabel: "&The Menu"),
+                new(SectionId: "known-bugs",
+                    MenuItemId: MenuItemId.KnownBugs,
+                    MenuItemLabel: "&Known Bugs"),
+                new(SectionId: "dependencies",
+                    MenuItemId: MenuItemId.Dependencies,
+                    MenuItemLabel: "&Dependencies"),
+                new(SectionId: "notices",
+                    MenuItemId: MenuItemId.Notices,
+                    MenuItemLabel: "N&otices"));
+
+        private void BuildMenu()
+        {
+            BuildMenuHelpSectionsSection();
+            BuildMenuExternalPagesSection();
+        }
+
+        private void BuildMenuHelpSectionsSection()
+        {
+            _menu.AddSeparator();
+
+            foreach (var section in Sections) {
+                _menu.AddItem(section.MenuItemId,
+                              section.MenuItemLabel,
+                              () => ScrollTo(section.SectionId));
+
+                _menu.SetEnabled(section.MenuItemId, false);
+            }
+        }
+
+        private void BuildMenuExternalPagesSection()
+        {
+            _menu.AddSeparator();
+
+            _menu.AddItem(MenuItemId.OpenInWebBrowser,
+                          "Open in Web &Browser",
+                          OpenInWebBrowser);
+
+            _menu.AddItem(MenuItemId.VisitGitHubRepository,
+                          "Visit &GitHub Repository",
+                          VisitGitHubRepository);
+        }
+
+        private void browser_Navigating(object sender,
+                                        WebBrowserNavigatingEventArgs e)
+        {
+            if (e.Cancel) return;
+
+            // FIXME: These don't always get re-enabled as needed.
+            foreach (var section in Sections)
+                _menu.SetEnabled(section.MenuItemId, false);
+        }
+
+        private void browser_Navigated(object sender,
+                                       WebBrowserNavigatedEventArgs e)
+        {
+            foreach (var section in Sections)
+                _menu.SetEnabled(section.MenuItemId, true);
+        }
 
         /// <summary>
         /// Scales and positions the window on initial page load, so it's wide
@@ -82,5 +190,17 @@ namespace VidDraw {
             if (Bottom > limits.Bottom)
                 Top = Math.Max(limits.Top, limits.Bottom - Height);
         }
+
+        private void ScrollTo(string sectionId)
+            => _browser.Document.InvokeScript("smoothScrollIntoViewById",
+                                              new object[] { sectionId });
+
+        private void OpenInWebBrowser()
+            => Shell.Execute(new Uri(MyPaths.HelpFile).AbsoluteUri);
+
+        private void VisitGitHubRepository()
+            => Shell.Execute("https://github.com/EliahKagan/VidDraw");
+
+        private readonly SystemMenu<MenuItemId> _menu;
     }
 }

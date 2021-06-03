@@ -14,6 +14,17 @@
 (function () {
     'use strict';
 
+    function smoothScrollIntoView(element) {
+        element.scrollIntoView({
+            alignToTop: true,
+            behavior: 'smooth',
+        });
+    }
+
+    window.smoothScrollIntoViewById = function (id) {
+        smoothScrollIntoView(document.getElementById(id));
+    };
+
     function getPxPerRem() {
         // Inspired by https://stackoverflow.com/a/42769683
         // (by https://stackoverflow.com/users/806286/etham).
@@ -52,11 +63,7 @@
             // just scroll (and not also follow the link) by returning false.
             // This doesn't impede opening the link in a new tab/window.
             navlink.onclick = function () {
-                section.scrollIntoView({
-                    alignToTop: true,
-                    behavior: 'smooth',
-                });
-
+                smoothScrollIntoView(section);
                 return false;
             };
         });

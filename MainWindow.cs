@@ -195,6 +195,7 @@ namespace VidDraw {
             BuildMenuCodecsSection(initialCodec);
             BuildMenuCommandsSection();
             BuildMenuAboutSection();
+
             UpdateMenuCodecs();
         }
 
