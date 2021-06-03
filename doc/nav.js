@@ -14,6 +14,16 @@
 (function () {
     'use strict';
 
+    const VIDDRAW_BRIDGE_UUID = 'c4454b65-66c1-408f-bca0-19c0c51bc4ba';
+
+    function trySendViaBridge(message) {
+        const bridge = window.external;
+
+        if (bridge !== undefined && bridge.Uuid === VIDDRAW_BRIDGE_UUID) {
+            bridge.Send(message);
+        }
+    }
+
     function smoothScrollIntoView(element) {
         element.scrollIntoView({
             alignToTop: true,
@@ -98,6 +108,8 @@
         });
 
         oldSection = newSection;
+
+        trySendViaBridge(newSection.id);
     }
 
     function enableActiveNavlinkUpdates() {

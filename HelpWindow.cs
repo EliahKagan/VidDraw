@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace VidDraw {
@@ -25,7 +26,11 @@ namespace VidDraw {
         internal HelpWindow()
         {
             InitializeComponent();
+
             _menu = new(this);
+
+            _browser.ObjectForScripting =
+                new Bridge(sectionId => CurrentSectionId = sectionId);
         }
 
         protected override void OnHandleCreated(EventArgs e)
@@ -87,6 +92,24 @@ namespace VidDraw {
                 new(SectionId: "notices",
                     MenuItemId: MenuItemId.Notices,
                     MenuItemLabel: "N&otices"));
+
+        private string CurrentSectionId
+        {
+            get => Sections
+                    .Single(section => _menu.HasCheck(section.MenuItemId))
+                    .SectionId;
+
+            set {
+                foreach (var section in Sections) {
+                    _menu.SetCheck(
+                        section.MenuItemId,
+                        section.SectionId.Equals(value,
+                                                 StringComparison.Ordinal));
+                }
+
+                Debug.Assert(CurrentSectionId == value);
+            }
+        }
 
         private void BuildMenu()
         {
