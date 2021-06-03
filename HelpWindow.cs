@@ -116,23 +116,24 @@ namespace VidDraw {
         private void browser_Navigating(object sender,
                                         WebBrowserNavigatingEventArgs e)
         {
-            if (e.Cancel) return;
-
-            // FIXME: These don't always get re-enabled as needed.
-            foreach (var section in Sections)
-                _menu.SetEnabled(section.MenuItemId, false);
+            if (!e.Cancel) SetMenuHelpSectionsEnabled(false);
         }
 
-        private void browser_Navigated(object sender,
-                                       WebBrowserNavigatedEventArgs e)
+        private void
+        browser_DocumentCompleted(object sender,
+                                  WebBrowserDocumentCompletedEventArgs e)
         {
-            foreach (var section in Sections)
-                _menu.SetEnabled(section.MenuItemId, true);
+            if (!_loaded) {
+                _loaded = true;
+                SetGeometry();
+            }
+
+            SetMenuHelpSectionsEnabled(true);
         }
 
         /// <summary>
-        /// Scales and positions the window on initial page load, so it's wide
-        /// enough to show the sidenav when possible, without being off-screen.
+        /// Scales and positions the window so it's wide enough to show the
+        /// sidenav when possible, without being off-screen.
         /// </summary>
         /// <remarks>
         /// Autoscaling doesn't take care of this, since the page is scaled
@@ -140,13 +141,8 @@ namespace VidDraw {
         /// its base classes) properly scales the page. So this method is just
         /// setting the window size and location (and the control size).
         /// </remarks>
-        private void
-        browser_DocumentCompleted(object sender,
-                                  WebBrowserDocumentCompletedEventArgs e)
+        private void SetGeometry()
         {
-            // Only resize the browser the first time the page is loaded.
-            _browser.DocumentCompleted -= browser_DocumentCompleted;
-
             SetSize();
             ApplyLimits();
         }
@@ -191,6 +187,12 @@ namespace VidDraw {
                 Top = Math.Max(limits.Top, limits.Bottom - Height);
         }
 
+        private void SetMenuHelpSectionsEnabled(bool enabled)
+        {
+            foreach (var section in Sections)
+                _menu.SetEnabled(section.MenuItemId, enabled);
+        }
+
         private void ScrollTo(string sectionId)
             => _browser.Document.InvokeScript("smoothScrollIntoViewById",
                                               new object[] { sectionId });
@@ -202,5 +204,7 @@ namespace VidDraw {
             => Shell.Execute("https://github.com/EliahKagan/VidDraw");
 
         private readonly SystemMenu<MenuItemId> _menu;
+
+        private bool _loaded = false;
     }
 }
