@@ -12,8 +12,6 @@
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 using System;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 namespace VidDraw {
     /// <summary>
@@ -22,9 +20,9 @@ namespace VidDraw {
     /// than necessary to the script.
     /// </summary>
     /// <remarks>
-    /// Intended for use as an <see cref="WebBrowser.ObjectForScripting"/>.
+    /// Intended for use as an
+    /// <see cref="System.Windows.Forms.WebBrowser.ObjectForScripting"/>.
     /// </remarks>
-    [ComVisible(true)]
     public sealed class Bridge {
         /// <summary>
         /// Universally unique identifier so scripts can check if the object
