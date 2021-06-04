@@ -125,9 +125,9 @@ namespace VidDraw {
                 _menu.AddItem(section.MenuItemId,
                               section.MenuItemLabel,
                               () => ScrollTo(section.SectionId));
-
-                _menu.SetEnabled(section.MenuItemId, false);
             }
+
+            SetMenuHelpSectionsEnabled(false);
         }
 
         private void BuildMenuExternalPagesSection()
