@@ -14,6 +14,9 @@
 namespace VidDraw {
     /// <summary>Named aliases for some Unicode characters.</summary>
     internal static class Ch {
+        /// <summary>Right single quotation mark.</summary>
+        internal const char Rsquo = '\u2019';
+
         /// <summary>Horizontal ellipsis.</summary>
         internal const char Hellip = '\u2026';
     }

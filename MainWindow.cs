@@ -307,9 +307,9 @@ namespace VidDraw {
 
             SetTitle($"Recording{Ch.Hellip}");
             BackColor = Color.Red;
-
             _recorder.Start(Files.CreateWithoutClash(CurrentPreferredSavePath),
                             CurrentCodec);
+            _warnOnCodecChange = true;
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
@@ -317,8 +317,8 @@ namespace VidDraw {
             if (!(MouseButtons is MouseButtons.None && _recorder.IsRunning))
                 return;
 
+            _warnOnCodecChange = false;
             _recorder.Finish();
-
             BackColor = DefaultBackColor;
             SetInitialTitle();
         }
@@ -334,8 +334,29 @@ namespace VidDraw {
 
         private void SelectCodec(Codec codec)
         {
+            var warn = _warnOnCodecChange && codec != CurrentCodec;
+
             CurrentCodec = codec;
             new Config { Codec = codec }.TrySave();
+
+            if (warn) WarnAboutCodecChange();
+        }
+
+        private void WarnAboutCodecChange()
+        {
+            // Don't re-warn during the recording of *this* video.
+            _warnOnCodecChange = false;
+
+            MessageBox.Show(
+                owner: this,
+                text: "You are currently recording."
+                    + Environment.NewLine + Environment.NewLine
+                    + "Codec selection changes will be used for subsequent "
+                    + $"videos, but they won{Ch.Rsquo}t affect the video being"
+                    + " made now.",
+                caption: "VidDraw - Warning",
+                buttons: MessageBoxButtons.OK,
+                icon: MessageBoxIcon.Warning);
         }
 
         private void PickColor()
@@ -403,6 +424,8 @@ namespace VidDraw {
         private bool _drawn = false;
 
         private readonly Recorder _recorder;
+
+        private bool _warnOnCodecChange = false;
 
         private Action _downloadOrConfigureX264vfw =
             () => throw new InvalidOperationException(
