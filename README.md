@@ -744,6 +744,11 @@ licensed under [0BSD](COPYING.0BSD). Thus, everything in this repository
 *except* the contents of `doc/bower_components` and of the subdirectories of
 `doc/fonts` is offered under 0BSD:
 
+<details>
+<summary><strong>View 0BSD</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2021 Eliah Kagan &hellip;&rdquo;</em>
+</summary>
+
 > Copyright (c) 2021 Eliah Kagan
 >
 > Permission to use, copy, modify, and/or distribute this software for any
@@ -756,20 +761,27 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
 LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
+</details>
 
 Licenses and accompanying information for each of Vid&shy;Draw&rsquo;s
 [above-listed dependencies](#dependencies) are reproduced below in full (but
 only some, not all, dependencies are themselves included in this repository).
 
 Some licenses contain copyright statements, which differ across projects that
-are licensed the same way. These licenses are short anyway, and I&rsquo;ve kept
-the full text of each.
+may otherwise be licensed the same way. I&rsquo;ve preserved each license in
+full.
 
 ### AnchorJS
 
 Bryan Braun has released
 [AnchorJS](https://github.com/bryanbraun/anchorjs/tree/4.3.1) under the MIT
 license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2021 Bryan Braun &hellip;&rdquo;</em>
+</summary>
 
 > MIT License
 >
@@ -792,12 +804,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+</details>
 
 ### CsWin32
 
 Microsoft Corporation has released
 [CsWin32](https://github.com/microsoft/CsWin32/tree/v0.1.422-beta) under the
 MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) Microsoft Corporation &hellip;&rdquo;</em>
+</summary>
 
 > The MIT License (MIT)
 >
@@ -820,12 +839,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+</details>
 
 ### *Fork me on GitHub* CSS Ribbon
 
 Simon Whitaker has released [*Fork me on GitHub* CSS
 Ribbon](https://github.com/simonwhitaker/github-fork-ribbon-css/tree/0.2.3)
 under the MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2013 Simon Whitaker &hellip;&rdquo;</em>
+</summary>
 
 > The MIT License (MIT)
 >
@@ -849,11 +875,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+</details>
+
 ### Json<!-- -->.NET
 
 James Newton-King has released
 [Json.NET](https://github.com/JamesNK/Newtonsoft.Json/tree/13.0.1) under the
 MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2007 James Newton-King &hellip;&rdquo;</em>
+</summary>
 
 > The MIT License (MIT)
 >
@@ -875,11 +909,18 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</details>
 
 ### kbd
 
 Auth0 Inc. has released [kbd](https://github.com/auth0/kbd/tree/v0.0.1) under
 the MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2014 Auth0 Inc. &hellip;&rdquo;</em>
+</summary>
 
 > The MIT License (MIT)
 >
@@ -902,12 +943,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+</details>
 
 ### Milligram
 
 CJ Patoilo has released
 [Milligram](https://github.com/milligram/milligram/tree/v1.4.1) under the MIT
 license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) CJ Patoilo &lt;cjpatoilo<!-- -->@gmail.com&gt; &hellip;&rdquo;</em>
+</summary>
 
 > The MIT License (MIT)
 >
@@ -930,12 +978,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+</details>
 
 ### normalize.css
 
 Nicolas Gallagher and Jonathan Neal have released
 [normalize.css](https://github.com/necolas/normalize.css/tree/v2.1.3) under the
 MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright © Nicolas Gallagher and Jonathan Neal &hellip;&rdquo;</em>
+</summary>
 
 > # The MIT License (MIT)
 >
@@ -959,6 +1014,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+</details>
+
 ### Open Sans<br> Open Sans Condensed
 
 Google Corporation has released [Open
@@ -974,6 +1031,12 @@ compressed them to produce the `.woff` files found here using
 This is lossless; the exact, byte-for-byte original `.ttf` files can be
 recovered by decompressing them with
 [`woff2sfnt`](https://manpages.ubuntu.com/manpages/hirsute/en/man1/woff2sfnt.1.html).
+
+<details>
+<summary>
+<strong>View Apache License, Version 2.0</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;TERMS AND CONDITIONS FOR USE&hellip;&rdquo;</em>
+</summary>
 
 ```text
                               Apache License
@@ -1178,6 +1241,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+</details>
 
 ### SharpAvi
 
@@ -1190,6 +1254,12 @@ retains its [license
 file](https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md)
 without modification:
 
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2013-2018 Vasili Maslov &hellip;&rdquo;</em>
+</summary>
+
 > Copyright (c) 2013-2018 Vasili Maslov
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -1197,6 +1267,7 @@ without modification:
 > The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 >
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</details>
 
 ### Smooth Scroll behavior polyfill
 
@@ -1204,6 +1275,12 @@ without modification:
 polyfill](https://github.com/iamdustan/smoothscroll/tree/v0.4.4), which is also
 sometimes called smoothscroll and smoothscroll-polyfill, has been released
 under the MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2013 Dustan Kasten &hellip;&rdquo;</em>
+</summary>
 
 >The MIT License (MIT)
 >
@@ -1225,6 +1302,7 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</details>
 
 Regarding authorship, [the software&rsquo;s
 website](https://iamdustan.github.io/smoothscroll) mentions:
@@ -1236,6 +1314,12 @@ website](https://iamdustan.github.io/smoothscroll) mentions:
 The .NET Foundation and Contributors have released the [Windows Community
 Toolkit](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/v7.0.2)
 under the MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) .NET Foundation and Contributors &hellip;&rdquo;</em>
+</summary>
 
 > # Windows Community Toolkit
 >
@@ -1250,3 +1334,4 @@ under the MIT license:
 > The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 >
 > THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</details>
