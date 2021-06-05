@@ -49,7 +49,7 @@ end
 -- Detects raw HTML blocks that begin with the opening or closing tag of a
 -- details element, with no attributes and no excess whitespace. Under the
 -- convention adhered to in README.md, this is always either an opening tag
--- followed by a complete summary element, or a closing tag by tiself.
+-- followed by a complete summary element, or a closing tag by itself.
 local function is_details_markup(el)
   assert(el.t == 'RawBlock',
          "Can't search for details markup outside of RawBlock")

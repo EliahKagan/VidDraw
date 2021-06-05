@@ -11,9 +11,10 @@
 // OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+using System;
 using System.Diagnostics;
 using System.IO;
-using Microsoft.Windows.Sdk;
+using System.Text;
 
 namespace VidDraw {
     /// <summary>
@@ -34,8 +35,8 @@ namespace VidDraw {
         /// application it would use for it also knows how to (try to) open or
         /// create <c>pathToOpen</c>.
         /// </remarks>
-        internal static unsafe void OpenLike(this string pathToOpen,
-                                             string pathToConsult)
+        internal static void OpenLike(this string pathToOpen,
+                                      string pathToConsult)
             => Process.Start(fileName: FindExecutable(pathToConsult),
                              arguments: new[] { pathToOpen });
 
@@ -65,11 +66,21 @@ namespace VidDraw {
                 fileName: Path.Combine(Dirs.Windows, "explorer.exe"),
                 arguments: $"/select,\"{path}\"");
 
-        private static unsafe string FindExecutable(string path)
+        private static string FindExecutable(string path)
         {
-            var buffer = stackalloc char[Native.MAX_PATH];
-            PInvoke.FindExecutable(path, null, buffer);
-            return new string(buffer);
+            var buffer = new StringBuilder(capacity: Native.MAX_PATH + 1);
+
+            var hInstance = Native.FindExecutable(lpFile: path,
+                                                  lpDirectory: null,
+                                                  lpResult: buffer);
+
+            if (hInstance <= 32) {
+                throw new IOException(
+                    $"Can't find executable that would open \"{path}\"; "
+                    + $"error code {hInstance}");
+            }
+
+            return buffer.ToString();
         }
     }
 }

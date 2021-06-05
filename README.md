@@ -235,7 +235,7 @@ border](doc/recording.png)
 
 **To lift the pen while continuing to record**, press and hold another mouse
 button. So long as at least one button is pressed, recording continues. This
-lets you make an video of drawing a sketch with multiple disconnected strokes.
+lets you make a video of drawing a sketch with multiple disconnected strokes.
 
 If you ever want to continue recording while no mouse buttons are pressed,
 place the mouse cursor on the canvas, press and hold any mouse button, drag the
@@ -488,28 +488,6 @@ Vid&shy;Draw&rsquo;s built-in help browser.
 
 ## Known Bugs
 
-### An indirect dependency has confusing licensing.
-
-Vid&shy;Draw has [win32metadata](https://github.com/microsoft/win32metadata) as
-an indirect dependency, via [CsWin32](https://github.com/microsoft/CsWin32).
-win32metadata&rsquo;s [GitHub
-repository](https://github.com/microsoft/win32metadata) is [MIT
-licensed](https://github.com/microsoft/win32metadata/blob/master/LICENSE), but
-its [NuGet
-package](https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Metadata)
-shows the [Windows SDK license](https://aka.ms/WinSDKLicenseURL). This [is
-intentional](https://github.com/microsoft/win32metadata/issues/387).
-
-I&rsquo;m unclear on what, if any, actual restrictions this imposes on how the
-source code, or a compiled binary, of Vid&shy;Draw, can be used. I intend that
-Vid&shy;Draw be both permissively licensed and GPL-compatible. Adding the
-CsWin32 package prompted for win32metadata license acceptance. Even if this
-doesn&rsquo;t conflict with those goals, I fear it may chill reuse and
-adaptation of Vid&shy;Draw, unless clarified. So this should either be
-clarified, or the CsWin32 dependency removed (which would actually not be too
-hard). This should be done before the release of alpha 2 and preferably before
-the release of alpha 1.
-
 ### Sometimes there is an initial lag on the first recording.
 
 This seems to happen mainly while debugging&mdash;even a debug build that is
@@ -629,12 +607,6 @@ the second line.
   \[[included](doc/bower_components/anchor-js/)\]\
   [MIT license](https://github.com/bryanbraun/anchorjs/blob/4.3.1/LICENSE)
   ([local](doc/bower_components/anchor-js/LICENSE), [inline](#anchorjs))
-- [CsWin32](https://github.com/microsoft/CsWin32) 0.1.422-beta by Andrew Arnott
-  / Microsoft
-  \[[nuget](https://www.nuget.org/packages/Microsoft.Windows.CsWin32)\]\
-  [MIT
-  license](https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE)
-  ([inline](#cswin32))
 - [*Fork me on GitHub* CSS
   ribbon](https://simonwhitaker.github.io/github-fork-ribbon-css/) 0.2.3 by
   Simon Whitaker \[[included](doc/bower_components/github-fork-ribbon-css/)\]\
@@ -734,8 +706,7 @@ Vid&shy;Draw uses be offered under the GPL or have a GPL-compatible license.
 
 Please note that, for practical and ideological reasons unrelated to x264vfw, I
 still intend Vid&shy;Draw to be GPL-compatible! If it is not, or even if it
-[appears not to be](#an-indirect-dependency-has-confusing-licensing), I&rsquo;d
-consider that a serious bug.
+appears not to be, I&rsquo;d consider that a serious bug.
 
 ## Notices
 
@@ -786,41 +757,6 @@ license:
 > MIT License
 >
 > Copyright (c) 2021 Bryan Braun
->
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-</details>
-
-### CsWin32
-
-Microsoft Corporation has released
-[CsWin32](https://github.com/microsoft/CsWin32/tree/v0.1.422-beta) under the
-MIT license:
-
-<details>
-<summary>
-<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
-<em>&ldquo;Copyright (c) Microsoft Corporation &hellip;&rdquo;</em>
-</summary>
-
-> The MIT License (MIT)
->
-> Copyright (c) Microsoft Corporation
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

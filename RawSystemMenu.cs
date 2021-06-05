@@ -13,9 +13,10 @@
 
 using System;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Microsoft.Windows.Sdk;
 
 namespace VidDraw {
     /// <summary>Augmentable system menu wrapper.</summary>
@@ -48,84 +49,78 @@ namespace VidDraw {
         internal event EventHandler<ItemClickEventArgs>? ItemClick;
 
         internal void AddSeparator()
-            => PInvoke.AppendMenu(hMenu: MenuHandle,
-                                  uFlags: MENU_FLAGS.MF_SEPARATOR,
-                                  uIDNewItem: Convert.ToUInt32(UnusedId),
-                                  lpNewItem: null);
+            => DoAppendMenu(Native.MF.SEPARATOR, UnusedId, null);
 
-        internal unsafe void AddItem(TMenuItemId uIDNewItem, string lpNewItem)
+        internal void AddItem(TMenuItemId uIDNewItem, string lpNewItem)
         {
             EnsureUsedId(uIDNewItem, nameof(uIDNewItem));
-
-            fixed (char* p = lpNewItem) {
-                PInvoke.AppendMenu(hMenu: MenuHandle,
-                                   uFlags: MENU_FLAGS.MF_STRING,
-                                   uIDNewItem: Convert.ToUInt32(uIDNewItem),
-                                   lpNewItem: new(p));
-            }
+            DoAppendMenu(Native.MF.STRING, uIDNewItem, lpNewItem);
         }
 
-        internal unsafe bool HasCheck(TMenuItemId id)
+        internal bool HasCheck(TMenuItemId item)
         {
-            EnsureUsedId(id, nameof(id));
+            EnsureUsedId(item, nameof(item));
 
-            var mii = new MENUITEMINFOW {
-                cbSize = (uint)sizeof(MENUITEMINFOW),
-                fMask = MENUITEMINFOA_fMask.MIIM_STATE,
+            var mii = new Native.MENUITEMINFO {
+                cbSize = (uint)Marshal.SizeOf<Native.MENUITEMINFO>(),
+                fMask = Native.MIIM.STATE,
             };
 
-            PInvoke.GetMenuItemInfo(hmenu: MenuHandle,
-                                    item: Convert.ToUInt32(id),
-                                    fByPosition: false,
-                                    &mii);
+            if (!Native.GetMenuItemInfo(hmenu: MenuHandle,
+                                        item: Convert.ToUInt32(item),
+                                        fByPosition: false,
+                                        ref mii))
+                Native.ThrowLastError();
 
-            return (mii.fState & (uint)MENU_FLAGS.MF_CHECKED) != 0;
+            return (mii.fState & Native.MF.CHECKED) != 0;
         }
 
-        internal unsafe void SetCheck(TMenuItemId id, bool @checked)
+        internal void SetCheck(TMenuItemId item, bool @checked)
         {
-            EnsureUsedId(id, nameof(id));
+            EnsureUsedId(item, nameof(item));
 
-            var mii = new MENUITEMINFOW {
-                cbSize = (uint)sizeof(MENUITEMINFOW),
-                fMask = MENUITEMINFOA_fMask.MIIM_STATE,
-                fState = (uint)(@checked ? MENU_FLAGS.MF_CHECKED
-                                         : MENU_FLAGS.MF_UNCHECKED),
+            var mii = new Native.MENUITEMINFO {
+                cbSize = (uint)Marshal.SizeOf<Native.MENUITEMINFO>(),
+                fMask = Native.MIIM.STATE,
+                fState = (@checked ? Native.MF.CHECKED : Native.MF.UNCHECKED),
             };
 
-            PInvoke.SetMenuItemInfo(hmenu: MenuHandle,
-                                    item: Convert.ToUInt32(id),
-                                    fByPositon: false, // Misspelled in API.
-                                    &mii);
+            if (!Native.SetMenuItemInfo(hmenu: MenuHandle,
+                                        item: Convert.ToUInt32(item),
+                                        fByPosition: false,
+                                        ref mii))
+                Native.ThrowLastError();
         }
 
-        internal void SetEnabled(TMenuItemId id, bool enabled)
+        internal void SetEnabled(TMenuItemId uIDEnableItem, bool enabled)
         {
-            EnsureUsedId(id, nameof(id));
+            EnsureUsedId(uIDEnableItem, nameof(uIDEnableItem));
 
-            PInvoke.EnableMenuItem(hMenu: MenuHandle,
-                                   uIDEnableItem: Convert.ToUInt32(id),
-                                   uEnable: (enabled ? MENU_FLAGS.MF_ENABLED
-                                                     : MENU_FLAGS.MF_GRAYED));
+            var oldState = Native.EnableMenuItem(
+                                hMenu: MenuHandle,
+                                uIDEnableItem: Convert.ToUInt32(uIDEnableItem),
+                                uEnable: (enabled ? Native.MF.ENABLED
+                                                  : Native.MF.GRAYED));
+
+            Debug.Assert(oldState != -1, "Menu item to enable is missing");
         }
 
-        internal unsafe void SetText(TMenuItemId id, string text)
+        internal void SetText(TMenuItemId item, string text)
         {
-            EnsureUsedId(id, nameof(id));
+            EnsureUsedId(item, nameof(item));
 
-            fixed (char* p = text) {
-                var mii = new MENUITEMINFOW {
-                    cbSize = (uint)sizeof(MENUITEMINFOW),
-                    fMask = MENUITEMINFOA_fMask.MIIM_STRING,
-                    dwTypeData = new(p),
-                };
 
-                PInvoke.SetMenuItemInfo(
-                        hmenu: MenuHandle,
-                        item: Convert.ToUInt32(id),
-                        fByPositon: false, // Misspelled in API.
-                        &mii);
-            }
+            var mii = new Native.MENUITEMINFO {
+                cbSize = (uint)Marshal.SizeOf<Native.MENUITEMINFO>(),
+                fMask = Native.MIIM.STRING,
+                dwTypeData = text,
+            };
+
+            if (!Native.SetMenuItemInfo(hmenu: MenuHandle,
+                                        item: Convert.ToUInt32(item),
+                                        fByPosition: false,
+                                        ref mii))
+                Native.ThrowLastError();
         }
 
         // Note: Renaming this is a breaking change.
@@ -164,8 +159,15 @@ namespace VidDraw {
             return UsedIds.Contains(id) ? id : null;
         }
 
-        private HMENU MenuHandle
-            => PInvoke.GetSystemMenu(hWnd: new(_form.Handle), bRevert: false);
+        private nint MenuHandle
+        {
+            get {
+                var hMenu = Native.GetSystemMenu(hWnd: _form.Handle,
+                                                 bRevert: false);
+                Debug.Assert(hMenu != 0, "Failed to get system menu handle");
+                return hMenu;
+            }
+        }
 
         private void WndProcHook(ref Message m, ref bool handled)
         {
@@ -186,6 +188,17 @@ namespace VidDraw {
             }
 
             handled = true;
+        }
+
+        private void DoAppendMenu(Native.MF uFlags,
+                                  TMenuItemId uIDNewItem,
+                                  string? lpNewItem)
+        {
+            if (!Native.AppendMenu(hMenu: MenuHandle,
+                                   uFlags: uFlags,
+                                   uIDNewItem: Convert.ToUInt32(uIDNewItem),
+                                   lpNewItem: lpNewItem))
+                Native.ThrowLastError();
         }
 
         private readonly Form _form;
