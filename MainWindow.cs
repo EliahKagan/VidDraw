@@ -254,19 +254,33 @@ namespace VidDraw {
         private void UpdateMenuCodecs()
         {
             if (CanEncodeH264) {
-                _menu.SetEnabled(MenuItemId.H264, true);
-                _menu.SetText(MenuItemId.DownloadOrConfigureX264vfw,
-                              $"Configure x264&vfw ({Platform.XStyleArch})");
-                _downloadOrConfigureX264vfw = ConfigureX264vfw;
+                UpdateMenuH264ItemsForInstalled();
             } else {
                 if (CurrentCodec is Codec.H264)
                     CurrentCodec = GetH264FallbackCodec();
 
-                _menu.SetEnabled(MenuItemId.H264, false);
-                _menu.SetText(MenuItemId.DownloadOrConfigureX264vfw,
-                              "Download x264&vfw");
-                _downloadOrConfigureX264vfw = DownloadX264vfw;
+                UpdateMenuH264ItemsForUninstalled();
             }
+        }
+
+        private void UpdateMenuH264ItemsForInstalled()
+        {
+            _menu.SetEnabled(MenuItemId.H264, true);
+
+            _menu.SetText(MenuItemId.DownloadOrConfigureX264vfw,
+                          $"Configure x264&vfw ({Platform.XStyleArch})");
+
+            _downloadOrConfigureX264vfw = ConfigureX264vfw;
+        }
+
+        private void UpdateMenuH264ItemsForUninstalled()
+        {
+            _menu.SetEnabled(MenuItemId.H264, false);
+
+            _menu.SetText(MenuItemId.DownloadOrConfigureX264vfw,
+                          "Download x264&vfw");
+
+            _downloadOrConfigureX264vfw = DownloadX264vfw;
         }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
