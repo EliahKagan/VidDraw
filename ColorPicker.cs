@@ -22,8 +22,9 @@ namespace VidDraw {
         HookProc(nint hWnd, int msg, nint wparam, nint lparam)
         {
             if ((Native.WM)msg is Native.WM.INITDIALOG
-                    && !Native.SetWindowText(hWnd, "Choose a pen color"))
+                    && !Native.SetWindowText(hWnd, "Choose a pen color")) {
                 Native.ThrowLastError();
+            }
 
             return base.HookProc(hWnd, msg, wparam, lparam);
         }

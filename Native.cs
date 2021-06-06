@@ -50,30 +50,42 @@ namespace VidDraw {
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         internal struct MENUITEMINFO {
-            public uint cbSize;
+            internal MENUITEMINFO(MIIM fMask)
+            {
+                // Most fields will start with their types' default values.
+                this = default;
 
-            public MIIM fMask;
+                // There is only one correct value for the size, so set it.
+                cbSize = (uint)Marshal.SizeOf<MENUITEMINFO>();
 
-            public uint fType;
+                // Set the mask that determines which fields to use and how.
+                this.fMask = fMask;
+            }
 
-            public MF fState;
+            internal readonly uint cbSize;
 
-            public uint wID;
+            internal readonly MIIM fMask;
 
-            public nint hSubMenu;
+            internal uint fType;
 
-            public nint hbmpChecked;
+            internal MF fState;
 
-            public nint hbmpUnchecked;
+            internal uint wID;
 
-            public nuint dwItemData;
+            internal nint hSubMenu;
+
+            internal nint hbmpChecked;
+
+            internal nint hbmpUnchecked;
+
+            internal nuint dwItemData;
 
             [MarshalAs(UnmanagedType.LPWStr)]
-            public string dwTypeData;
+            internal string? dwTypeData;
 
-            public uint cch;
+            internal uint cch;
 
-            public nint hbmpItem;
+            internal nint hbmpItem;
         }
 
         [DllImport("shell32", CharSet = CharSet.Unicode)]

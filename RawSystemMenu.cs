@@ -59,37 +59,18 @@ namespace VidDraw {
 
         internal bool HasCheck(TMenuItemId item)
         {
-            EnsureUsedId(item, nameof(item));
-
-            var mii = new Native.MENUITEMINFO {
-                cbSize = (uint)Marshal.SizeOf<Native.MENUITEMINFO>(),
-                fMask = Native.MIIM.STATE,
-            };
-
-            if (!Native.GetMenuItemInfo(hmenu: MenuHandle,
-                                        item: Convert.ToUInt32(item),
-                                        fByPosition: false,
-                                        ref mii))
-                Native.ThrowLastError();
-
-            return (mii.fState & Native.MF.CHECKED) != 0;
+            var mii = new Native.MENUITEMINFO(fMask: Native.MIIM.STATE);
+            DoGetMenuItemInfo(item, ref mii);
+            return mii.fState.HasFlag(Native.MF.CHECKED);
         }
 
         internal void SetCheck(TMenuItemId item, bool @checked)
         {
-            EnsureUsedId(item, nameof(item));
-
-            var mii = new Native.MENUITEMINFO {
-                cbSize = (uint)Marshal.SizeOf<Native.MENUITEMINFO>(),
-                fMask = Native.MIIM.STATE,
+            var mii = new Native.MENUITEMINFO(fMask: Native.MIIM.STATE) {
                 fState = (@checked ? Native.MF.CHECKED : Native.MF.UNCHECKED),
             };
 
-            if (!Native.SetMenuItemInfo(hmenu: MenuHandle,
-                                        item: Convert.ToUInt32(item),
-                                        fByPosition: false,
-                                        ref mii))
-                Native.ThrowLastError();
+            DoSetMenuItemInfo(item, ref mii);
         }
 
         internal void SetEnabled(TMenuItemId uIDEnableItem, bool enabled)
@@ -107,20 +88,11 @@ namespace VidDraw {
 
         internal void SetText(TMenuItemId item, string text)
         {
-            EnsureUsedId(item, nameof(item));
-
-
-            var mii = new Native.MENUITEMINFO {
-                cbSize = (uint)Marshal.SizeOf<Native.MENUITEMINFO>(),
-                fMask = Native.MIIM.STRING,
+            var mii = new Native.MENUITEMINFO(fMask: Native.MIIM.STRING) {
                 dwTypeData = text,
             };
 
-            if (!Native.SetMenuItemInfo(hmenu: MenuHandle,
-                                        item: Convert.ToUInt32(item),
-                                        fByPosition: false,
-                                        ref mii))
-                Native.ThrowLastError();
+            DoSetMenuItemInfo(item, ref mii);
         }
 
         // Note: Renaming this is a breaking change.
@@ -197,8 +169,35 @@ namespace VidDraw {
             if (!Native.AppendMenu(hMenu: MenuHandle,
                                    uFlags: uFlags,
                                    uIDNewItem: Convert.ToUInt32(uIDNewItem),
-                                   lpNewItem: lpNewItem))
+                                   lpNewItem: lpNewItem)) {
                 Native.ThrowLastError();
+            }
+        }
+
+        private void DoGetMenuItemInfo(TMenuItemId item,
+                                       ref Native.MENUITEMINFO mii)
+        {
+            EnsureUsedId(item, nameof(item));
+
+            if (!Native.GetMenuItemInfo(hmenu: MenuHandle,
+                                        item: Convert.ToUInt32(item),
+                                        fByPosition: false,
+                                        lpmii: ref mii)) {
+                Native.ThrowLastError();
+            }
+        }
+
+        private void DoSetMenuItemInfo(TMenuItemId item,
+                                       ref Native.MENUITEMINFO mii)
+        {
+            EnsureUsedId(item, nameof(item));
+
+            if (!Native.SetMenuItemInfo(hmenu: MenuHandle,
+                                        item: Convert.ToUInt32(item),
+                                        fByPosition: false,
+                                        ref mii)) {
+                Native.ThrowLastError();
+            }
         }
 
         private readonly Form _form;

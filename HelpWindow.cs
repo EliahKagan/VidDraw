@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -198,23 +199,30 @@ namespace VidDraw {
         /// </summary>
         private void ApplyLimits()
         {
-            const int widthLimitMargin = 10;
+            var limits = GetLimits();
 
-            var limits = Screen.FromHandle(Handle).WorkingArea;
-            Debug.Assert(!limits.IsEmpty);
-
-            if (Width > limits.Width + widthLimitMargin * 2)
-                Width = limits.Width + widthLimitMargin * 2;
+            if (Width > limits.Width) Width = limits.Width;
 
             if (Height > limits.Height) Height = limits.Height;
 
-            if (Right > limits.Right + widthLimitMargin) {
-                Left = Math.Max(limits.Left - widthLimitMargin,
-                                limits.Right + widthLimitMargin - Width);
-            }
+            if (Right > limits.Right)
+                Left = Math.Max(limits.Left, limits.Right - Width);
 
             if (Bottom > limits.Bottom)
                 Top = Math.Max(limits.Top, limits.Bottom - Height);
+        }
+
+        private Rectangle GetLimits()
+        {
+            const int widthLimitMargin = 10;
+
+            var workingArea = Screen.FromHandle(Handle).WorkingArea;
+            Debug.Assert(!workingArea.IsEmpty);
+
+            return new(x: workingArea.Left - widthLimitMargin,
+                       y: workingArea.Y,
+                       width: workingArea.Width + widthLimitMargin * 2,
+                       height: workingArea.Height);
         }
 
         private void SetMenuHelpSectionsEnabled(bool enabled)

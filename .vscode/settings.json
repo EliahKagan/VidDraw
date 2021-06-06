@@ -1,12 +1,9 @@
 {
     "cSpell.words": [
         "ARGB",
-        "Arnott",
         "Eliah",
         "Gyan",
         "Kagan",
-        "MENUITEMINFOA",
-        "MENUITEMINFOW",
         "MIIM",
         "Maslov",
         "Matteson",
@@ -26,15 +23,19 @@
         "filesystems",
         "gmail",
         "hackishly",
+        "hbmp",
         "hmenu",
         "jsonnet",
         "kasten",
         "keyint",
+        "lparam",
+        "lpmii",
         "menichelli",
         "msdata",
         "navlink",
         "navlinks",
         "newtonsoft",
+        "nint",
         "normalizecss",
         "nuget",
         "nuint",
@@ -50,14 +51,17 @@
         "unintuitively",
         "unpause",
         "userprofile",
-        "viddraw"
+        "viddraw",
+        "wparam"
     ],
     "cSpell.ignoreWords": [
+        "canva",
         "couldn",
         "cswin",
         "didn",
         "doesn",
-        "fByPositon",
+        "etup",
+        "otices",
         "sfnt"
     ]
 }
