@@ -65,26 +65,10 @@ namespace VidDraw {
         }
 
         internal void SetCheck(TMenuItemId item, bool @checked)
-        {
-            var mii = new Native.MENUITEMINFO(fMask: Native.MIIM.STATE) {
-                fState = (@checked ? Native.MF.CHECKED : Native.MF.UNCHECKED),
-            };
+            => SetStateFlag(item, Native.MF.CHECKED, @checked);
 
-            DoSetMenuItemInfo(item, ref mii);
-        }
-
-        internal void SetEnabled(TMenuItemId uIDEnableItem, bool enabled)
-        {
-            EnsureUsedId(uIDEnableItem, nameof(uIDEnableItem));
-
-            var oldState = Native.EnableMenuItem(
-                                hMenu: MenuHandle,
-                                uIDEnableItem: Convert.ToUInt32(uIDEnableItem),
-                                uEnable: (enabled ? Native.MF.ENABLED
-                                                  : Native.MF.GRAYED));
-
-            Debug.Assert(oldState != -1, "Menu item to enable is missing");
-        }
+        internal void SetEnabled(TMenuItemId item, bool enabled)
+            => SetStateFlag(item, Native.MF.GRAYED, !enabled);
 
         internal void SetText(TMenuItemId item, string text)
         {
@@ -160,6 +144,19 @@ namespace VidDraw {
             }
 
             handled = true;
+        }
+
+        private void SetStateFlag(TMenuItemId item, Native.MF flag, bool on)
+        {
+            var mii = new Native.MENUITEMINFO(fMask: Native.MIIM.STATE);
+            DoGetMenuItemInfo(item, ref mii);
+
+            if (on)
+                mii.fState |= flag;
+            else
+                mii.fState &= ~flag;
+
+            DoSetMenuItemInfo(item, ref mii);
         }
 
         private void DoAppendMenu(Native.MF uFlags,

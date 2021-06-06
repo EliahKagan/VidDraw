@@ -17,19 +17,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 namespace VidDraw {
-    /// <summary>Mative methods (via P/Invoke) and supporting types.</summary>
+    /// <summary>Native methods (via P/Invoke) and supporting types.</summary>
     internal static class Native {
         internal const int MAX_PATH = 260;
 
         /// <summary>Menu flags ("MF_") constants.</summary>
         [Flags]
         internal enum MF : uint {
-            ENABLED   = 0x0000,
             GRAYED    = 0x0001,
-
-            UNCHECKED = 0x0000,
             CHECKED   = 0x0008,
-
             STRING    = 0x0000,
             SEPARATOR = 0x0800,
         }
@@ -98,11 +94,6 @@ namespace VidDraw {
                                                MF uFlags,
                                                nuint uIDNewItem,
                                                string? lpNewItem);
-
-        [DllImport("user32", CharSet = CharSet.Unicode, SetLastError = true)]
-        internal static extern int EnableMenuItem(nint hMenu,
-                                                  uint uIDEnableItem,
-                                                  Native.MF uEnable);
 
         [DllImport("user32", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern bool GetMenuItemInfo(nint hmenu,
