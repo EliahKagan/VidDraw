@@ -29,9 +29,12 @@ namespace VidDraw {
         /// they have is (or claims to be) an instance of this bridge.
         /// </summary>
         /// <remarks>
-        /// This doesn't, can't, and isn't intended to provide security.
+        /// This property does not, cannot, and is not intended to provide
+        /// security.
         /// </remarks>
+    #pragma warning disable CA1822 // Needs to be accessible via instances.
         public string Uuid => "c4454b65-66c1-408f-bca0-19c0c51bc4ba";
+    #pragma warning restore CA1822
 
         /// <summary>
         /// Sends a string message through the bridge to a preset receiver.

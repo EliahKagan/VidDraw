@@ -22,20 +22,24 @@ namespace VidDraw {
         internal const int MAX_PATH = 260;
 
         /// <summary>Menu flags ("MF_") constants.</summary>
+#pragma warning disable RCS1154 // Semantic order is clearer here.
         [Flags]
         internal enum MF : uint {
-            GRAYED    = 0x0001,
-            CHECKED   = 0x0008,
             STRING    = 0x0000,
             SEPARATOR = 0x0800,
+            GRAYED    = 0x0001,
+            CHECKED   = 0x0008,
         }
+#pragma warning restore RCS1154
 
         /// <summary>Menu item info member ("MIIM_") constants.</summary>
+#pragma warning disable RCS1135 // API type has no (documented) 0 enumerator.
         [Flags]
         internal enum MIIM : uint {
             STATE  = 0x0001,
             STRING = 0x0040,
         }
+#pragma warning restore RCS1135
 
         /// <summary>Window message ("WM_") constants.</summary>
         internal enum WM : uint {
