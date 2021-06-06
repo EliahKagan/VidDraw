@@ -31,8 +31,8 @@ browsing](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.webbr
 It began as a prototype for the video-recording feature of a larger program
 I&rsquo;ve been working on. It&rsquo;s also kind of a fun toy.
 
-This is **Vid&shy;Draw alpha <del>1</del>&thinsp;<ins>0</ins>**. It still has
-[some usability bugs](#known-bugs).
+This is **Vid&shy;Draw alpha 1**. It still has [some usability
+bugs](#known-bugs).
 
 ## License
 
@@ -485,6 +485,10 @@ separately.
 
 Clicking &ldquo;About Vid&shy;Draw&hellip;&rdquo; displays this README in
 Vid&shy;Draw&rsquo;s built-in help browser.
+
+This help browser&rsquo;s own system menu contains items for opening the README
+externally in your default web browser, for visiting the repository on GitHub,
+and for navigation (equivalent to the page's own left sidenav).
 
 ## Known Bugs
 
@@ -1271,3 +1275,10 @@ under the MIT license:
 >
 > THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </details>
+
+---
+
+*This README can be viewed [in Vid&shy;Draw&rsquo;s built-in help
+browser](#about-viddraw), or [online with the same
+styling](https://eliahkagan.github.io/VidDraw), or [on the repository
+page](https://github.com/EliahKagan/VidDraw#readme).*
