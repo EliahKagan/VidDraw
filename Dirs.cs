@@ -23,6 +23,9 @@ namespace VidDraw {
             => GetFolderPath(Is64BitProcess ? SpecialFolder.System
                                             : SpecialFolder.SystemX86);
 
+        internal static string Videos
+            => GetFolderPath(SpecialFolder.MyVideos);
+
         internal static string Windows
             => GetFolderPath(SpecialFolder.Windows);
     }

@@ -14,6 +14,27 @@
 (function () {
     'use strict';
 
+    const VIDDRAW_BRIDGE_UUID = 'c4454b65-66c1-408f-bca0-19c0c51bc4ba';
+
+    function trySendViaBridge(message) {
+        const bridge = window.external;
+
+        if (bridge !== undefined && bridge.Uuid === VIDDRAW_BRIDGE_UUID) {
+            bridge.Send(message);
+        }
+    }
+
+    function smoothScrollIntoView(element) {
+        element.scrollIntoView({
+            alignToTop: true,
+            behavior: 'smooth',
+        });
+    }
+
+    window.smoothScrollIntoViewById = function (id) {
+        smoothScrollIntoView(document.getElementById(id));
+    };
+
     function getPxPerRem() {
         // Inspired by https://stackoverflow.com/a/42769683
         // (by https://stackoverflow.com/users/806286/etham).
@@ -39,6 +60,8 @@
         return Object.freeze(pairs);
     })();
 
+    let oldSection = null;
+
     function forEachNavlinkWithSection(action) {
         navlinkSectionPairs.forEach(function (pair) {
             // IE apparently doesn't support unpacking here.
@@ -52,11 +75,7 @@
             // just scroll (and not also follow the link) by returning false.
             // This doesn't impede opening the link in a new tab/window.
             navlink.onclick = function () {
-                section.scrollIntoView({
-                    alignToTop: true,
-                    behavior: 'smooth',
-                });
-
+                smoothScrollIntoView(section);
                 return false;
             };
         });
@@ -77,15 +96,20 @@
     }
 
     function updateActiveNavlink() {
-        const currentSection = getCurrentMajorSection();
+        const newSection = getCurrentMajorSection();
+        if (oldSection === newSection) return;
 
         forEachNavlinkWithSection(function (navlink, section) {
-            if (section === currentSection) {
-                navlink.classList.add('active');
-            } else {
+            if (section === oldSection) {
                 navlink.classList.remove('active');
+            } else if (section === newSection) {
+                navlink.classList.add('active');
             }
         });
+
+        oldSection = newSection;
+
+        trySendViaBridge(newSection.id);
     }
 
     function enableActiveNavlinkUpdates() {

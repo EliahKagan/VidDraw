@@ -27,7 +27,7 @@
     <script src="bower_components/smoothscroll/src/smoothscroll.js" defer></script>
     <script src="bower_components/anchor-js/anchor.min.js" defer></script>
     <script src="polyfills.js" defer></script>
-    <script src="navlinks.js" defer></script>
+    <script src="nav.js" defer></script>
     <script src="headings.js" defer></script>
   </head>
   <body>
@@ -55,7 +55,7 @@
 <p><em>Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;.</em></p>
 <p><strong>Vid­Draw</strong> is a Windows program that records a video of a canvas as you draw on it. Recording starts when you begin drawing and stops when you’re no longer holding down any mouse buttons.</p>
 <p>The main goal of Vid­Draw is to demonstrate using <a href="https://github.com/baSSiLL/SharpAvi" title="https://github.com/baSSiLL/SharpAvi">Sharp­Avi</a> (which wraps <a href="https://docs.microsoft.com/en-us/windows/win32/api/vfw/" title="https://docs.microsoft.com/en-us/windows/win32/api/vfw/">VfW</a>) to record a canvas, <a href="https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp" title="https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp">toast notifications</a>, and <a href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.webbrowser?view=net-5.0" title="https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.webbrowser?view=net-5.0">embedded browsing</a>. It began as a prototype for the video-recording feature of a larger program I’ve been working on. It’s also kind of a fun toy.</p>
-<p>This is <strong>Vid­Draw alpha <del>1</del> <ins>0</ins></strong>. It still has <a href="#known-bugs" title="#known-bugs">some usability bugs</a>.</p>
+<p>This is <strong>Vid­Draw alpha 1</strong>. It still has <a href="#known-bugs" title="#known-bugs">some usability bugs</a>.</p>
 <section id="license" class="level2">
 <h2>License</h2>
 <p>Vid­Draw is <a href="https://en.wikipedia.org/wiki/Free_software" title="https://en.wikipedia.org/wiki/Free_software">free software</a>. Its own code <a href="../COPYING.0BSD" title="../COPYING.0BSD">is licensed</a> under <a href="https://spdx.org/licenses/0BSD.html" title="https://spdx.org/licenses/0BSD.html">0BSD</a> (“Zero-Clause BSD License,” also known as the <a href="https://opensource.org/licenses/0BSD" title="https://opensource.org/licenses/0BSD">Free Public License 1.0.0</a>), which is a <a href="https://en.wikipedia.org/wiki/Public-domain-equivalent_license" title="https://en.wikipedia.org/wiki/Public-domain-equivalent_license">“public domain equivalent”</a> license. Vid­Draw’s dependencies are also free, but they are offered under other licenses. See <a href="#dependencies" title="#dependencies">Dependencies</a> below for details.</p>
@@ -121,7 +121,7 @@
 <p>Even pressing the primary mouse button for a very short time records a video. A single short click is sufficient, though the video may consist of only one frame.</p>
 <p>You will know Vid­Draw is recording because the border around the canvas turns bright red. As long as it is red, Vid­Draw is recording. When it turns back to light gray, recording has stopped and the video file is fully saved.</p>
 <p><img src="recording.png" alt="Screenshot of a corner of the VidDraw window while recording, showing the red border" /></p>
-<p><strong>To lift the pen while continuing to record</strong>, press and hold another mouse button. So long as at least one button is pressed, recording continues. This lets you make an video of drawing a sketch with multiple disconnected strokes.</p>
+<p><strong>To lift the pen while continuing to record</strong>, press and hold another mouse button. So long as at least one button is pressed, recording continues. This lets you make a video of drawing a sketch with multiple disconnected strokes.</p>
 <p>If you ever want to continue recording while no mouse buttons are pressed, place the mouse cursor on the canvas, press and hold any mouse button, drag the cursor out of the canvas, press any other mouse button, then release both buttons (in either order). This effect, of keeping recording on even though you’re not holding down any mouse button, persists until your next interaction with the canvas. So, to stop recording, click the canvas. (If you don’t want to draw anything, click it with some button other than the primary mouse button.) Or you can resume drawing, and the next time you release all mouse buttons, recording will stop.</p>
 <p>When recording has stopped and the border has turned back from red to gray, the file is fully saved and should be playable, whether Vid­Draw is still running or not. Conversely, it is fine to quit while still recording. Vid­Draw stops recording and cleanly saves the file on exit.</p>
 <p>The pen color can be changed using <a href="#pick-color" title="#pick-color">the color picker</a>, available in <a href="#the-menu" title="#the-menu">the menu</a>.</p>
@@ -207,16 +207,12 @@
 <section id="about-viddraw" class="level4">
 <h4>About VidDraw…</h4>
 <p>Clicking “About Vid­Draw…” displays this README in Vid­Draw’s built-in help browser.</p>
+<p>This help browser’s own system menu contains items for opening the README externally in your default web browser, for visiting the repository on GitHub, and for navigation (equivalent to the page's own left sidenav).</p>
 </section>
 </section>
 </section>
 <section id="known-bugs" class="level2">
 <h2>Known Bugs</h2>
-<section id="an-indirect-dependency-has-confusing-licensing" class="level3">
-<h3>An indirect dependency has confusing licensing.</h3>
-<p>Vid­Draw has <a href="https://github.com/microsoft/win32metadata" title="https://github.com/microsoft/win32metadata">win32metadata</a> as an indirect dependency, via <a href="https://github.com/microsoft/CsWin32" title="https://github.com/microsoft/CsWin32">CsWin32</a>. win32metadata’s <a href="https://github.com/microsoft/win32metadata" title="https://github.com/microsoft/win32metadata">GitHub repository</a> is <a href="https://github.com/microsoft/win32metadata/blob/master/LICENSE" title="https://github.com/microsoft/win32metadata/blob/master/LICENSE">MIT licensed</a>, but its <a href="https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Metadata" title="https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Metadata">NuGet package</a> shows the <a href="https://aka.ms/WinSDKLicenseURL" title="https://aka.ms/WinSDKLicenseURL">Windows SDK license</a>. This <a href="https://github.com/microsoft/win32metadata/issues/387" title="https://github.com/microsoft/win32metadata/issues/387">is intentional</a>.</p>
-<p>I’m unclear on what, if any, actual restrictions this imposes on how the source code, or a compiled binary, of Vid­Draw, can be used. I intend that Vid­Draw be both permissively licensed and GPL-compatible. Adding the CsWin32 package prompted for win32metadata license acceptance. Even if this doesn’t conflict with those goals, I fear it may chill reuse and adaptation of Vid­Draw, unless clarified. So this should either be clarified, or the CsWin32 dependency removed (which would actually not be too hard). This should be done before the release of alpha 2 and preferably before the release of alpha 1.</p>
-</section>
 <section id="sometimes-there-is-an-initial-lag-on-the-first-recording" class="level3">
 <h3>Sometimes there is an initial lag on the first recording.</h3>
 <p>This seems to happen mainly while debugging—even a debug build that is being run (via <code>dotnet run</code> or by directly running the compiled executable) is most often free of it. But it seems to happen occasionally even outside of debugging.</p>
@@ -267,8 +263,6 @@
 <ul>
 <li><a href="https://www.bryanbraun.com/anchorjs/" title="https://www.bryanbraun.com/anchorjs/">AnchorJS</a> 4.3.1 by Bryan Braun [<a href="bower_components/anchor-js/" title="bower_components/anchor-js/">included</a>]<br />
 <a href="https://github.com/bryanbraun/anchorjs/blob/4.3.1/LICENSE" title="https://github.com/bryanbraun/anchorjs/blob/4.3.1/LICENSE">MIT license</a> (<a href="bower_components/anchor-js/LICENSE" title="bower_components/anchor-js/LICENSE">local</a>, <a href="#anchorjs" title="#anchorjs">inline</a>)</li>
-<li><a href="https://github.com/microsoft/CsWin32" title="https://github.com/microsoft/CsWin32">CsWin32</a> 0.1.422-beta by Andrew Arnott / Microsoft [<a href="https://www.nuget.org/packages/Microsoft.Windows.CsWin32" title="https://www.nuget.org/packages/Microsoft.Windows.CsWin32">nuget</a>]<br />
-<a href="https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE" title="https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE">MIT license</a> (<a href="#cswin32" title="#cswin32">inline</a>)</li>
 <li><a href="https://simonwhitaker.github.io/github-fork-ribbon-css/" title="https://simonwhitaker.github.io/github-fork-ribbon-css/"><em>Fork me on GitHub</em> CSS ribbon</a> 0.2.3 by Simon Whitaker [<a href="bower_components/github-fork-ribbon-css/" title="bower_components/github-fork-ribbon-css/">included</a>]<br />
 <a href="https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE" title="https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE">MIT license</a> (<a href="bower_components/github-fork-ribbon-css/LICENSE" title="bower_components/github-fork-ribbon-css/LICENSE">local</a>, <a href="#fork-me-on-github-css-ribbon" title="#fork-me-on-github-css-ribbon">inline</a>)</li>
 <li><a href="https://www.newtonsoft.com/json" title="https://www.newtonsoft.com/json">Json.NET</a> (Newtonsoft.Json) 13.0.1 by James Newton-King [<a href="https://www.nuget.org/packages/Newtonsoft.Json" title="https://www.nuget.org/packages/Newtonsoft.Json">nuget</a>]<br />
@@ -296,7 +290,7 @@
 <h3>VidDraw and x264vfw</h3>
 <p>Vid­Draw does not depend on <a href="https://sourceforge.net/projects/x264vfw/" title="https://sourceforge.net/projects/x264vfw/">x264vfw</a> but is capable of using it <a href="#optional-get-x264vfw-for-h264-support" title="#optional-get-x264vfw-for-h264-support">if it is installed</a>. x264vfw is a <a href="https://en.wikipedia.org/wiki/Video_for_Windows" title="https://en.wikipedia.org/wiki/Video_for_Windows">VfW</a> codec for <a href="https://en.wikipedia.org/wiki/Advanced_Video_Coding" title="https://en.wikipedia.org/wiki/Advanced_Video_Coding">H.264</a> by Anton Mitrofanov and other authors, derived from <a href="https://www.videolan.org/developers/x264.html" title="https://www.videolan.org/developers/x264.html">x264</a>. Since, when installed and selected in Vid­Draw, it greatly reduces file size while preserving quality, I’m thankful to all the developers of x264vfw and x264 for the work they’ve done. Per its <a href="https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/COPYING" title="https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/COPYING">COPYING</a> file and license headers in most of <a href="https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/" title="https://sourceforge.net/p/x264vfw/code/HEAD/tree/trunk/">its source code files</a>, x264vfw is licensed under <a href="https://spdx.org/licenses/GPL-2.0-or-later.html" title="https://spdx.org/licenses/GPL-2.0-or-later.html">the GNU GPL v2 or later</a>.</p>
 <p>Vid­Draw uses x264vfw via Sharp­Avi in a manner analogous to how any VfW codec may be used, doesn’t itself include the codec, and interacts with it <a href="https://www.gnu.org/licenses/gpl-faq.en.html#MereAggregation" title="https://www.gnu.org/licenses/gpl-faq.en.html#MereAggregation">at arm’s length</a> (VfW codecs are shared libraries, but as I understand it, programs that use them don’t link to them or directly call API functions that they define). So I believe the GPL does not require that Vid­Draw or any of the libraries Vid­Draw uses be offered under the GPL or have a GPL-compatible license.</p>
-<p>Please note that, for practical and ideological reasons unrelated to x264vfw, I still intend Vid­Draw to be GPL-compatible! If it is not, or even if it <a href="#an-indirect-dependency-has-confusing-licensing" title="#an-indirect-dependency-has-confusing-licensing">appears not to be</a>, I’d consider that a serious bug.</p>
+<p>Please note that, for practical and ideological reasons unrelated to x264vfw, I still intend Vid­Draw to be GPL-compatible! If it is not, or even if it appears not to be, I’d consider that a serious bug.</p>
 </section>
 </section>
 <section id="notices" class="level2">
@@ -308,24 +302,13 @@
 <p>THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</p>
 </blockquote>
 <p>Licenses and accompanying information for each of Vid­Draw’s <a href="#dependencies" title="#dependencies">above-listed dependencies</a> are reproduced below in full (but only some, not all, dependencies are themselves included in this repository).</p>
-<p>Some licenses contain copyright statements, which differ across projects that are licensed the same way. These licenses are short anyway, and I’ve kept the full text of each.</p>
+<p>Some licenses contain copyright statements, which differ across projects that may otherwise be licensed the same way. I’ve preserved each license in full.</p>
 <section id="anchorjs" class="level3">
 <h3>AnchorJS</h3>
 <p>Bryan Braun has released <a href="https://github.com/bryanbraun/anchorjs/tree/4.3.1" title="https://github.com/bryanbraun/anchorjs/tree/4.3.1">AnchorJS</a> under the MIT license:</p>
 <blockquote>
 <p>MIT License</p>
 <p>Copyright (c) 2021 Bryan Braun</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
-<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
-</blockquote>
-</section>
-<section id="cswin32" class="level3">
-<h3>CsWin32</h3>
-<p>Microsoft Corporation has released <a href="https://github.com/microsoft/CsWin32/tree/v0.1.422-beta" title="https://github.com/microsoft/CsWin32/tree/v0.1.422-beta">CsWin32</a> under the MIT license:</p>
-<blockquote>
-<p>The MIT License (MIT)</p>
-<p>Copyright (c) Microsoft Corporation</p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
@@ -629,6 +612,8 @@ limitations under the License.</code></pre>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED <em>AS IS</em>, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </blockquote>
+<hr />
+<p><em>This README can be viewed <a href="#about-viddraw" title="#about-viddraw">in Vid­Draw’s built-in help browser</a>, or <a href="https://eliahkagan.github.io/VidDraw" title="https://eliahkagan.github.io/VidDraw">online with the same styling</a>, or <a href="https://github.com/EliahKagan/VidDraw#readme" title="https://github.com/EliahKagan/VidDraw#readme">on the repository page</a>.</em></p>
 </section>
 </section>
 </section>

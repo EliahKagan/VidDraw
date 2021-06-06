@@ -12,33 +12,168 @@
 // CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace VidDraw {
-    internal sealed partial class HelpWindow : Form {
+    internal sealed partial class HelpWindow : HookForm {
         /// <summary>
         /// Creates a window with a browser that will open the help file.
         /// </summary>
-        internal HelpWindow() => InitializeComponent();
+        internal HelpWindow()
+        {
+            InitializeComponent();
 
-        /// <summary>
-        /// Scales and positions the window on initial page load, so it's wide
-        /// enough to show the sidenav when possible, without being off-screen.
-        /// </summary>
-        /// <remarks>
-        /// Autoscaling doesn't take care of this, since the page is scaled
-        /// proportionately, not by UI font dimensions or DPI. HelpBrowser (via
-        /// code its base classes) properly scales the page. So this method is
-        /// just setting the window size and location (and the control size).
-        /// </remarks>
+            _menu = new(this);
+
+            _browser.ObjectForScripting =
+                new Bridge(sectionId => CurrentSectionId = sectionId);
+        }
+
+        protected override void OnHandleCreated(EventArgs e)
+        {
+            base.OnHandleCreated(e);
+            BuildMenu();
+        }
+
+        private enum MenuItemId : uint {
+            UnusedId, // For clarity, pass this when the ID will be ignored.
+
+            About,
+            License,
+            Setup,
+            UsageTips,
+            TheMenu,
+            KnownBugs,
+            Dependencies,
+            Notices,
+
+            OpenInWebBrowser,
+            VisitGitHubRepository,
+        }
+
+        private sealed record Section(string SectionId,
+                                      MenuItemId MenuItemId,
+                                      string MenuItemLabel);
+
+        private static IReadOnlyList<Section> Sections { get; } =
+            ImmutableArray.Create<Section>(
+                new(SectionId: "viddraw---record-video-as-you-draw",
+                    MenuItemId: MenuItemId.About,
+                    MenuItemLabel: "&About"),
+
+                new(SectionId: "license",
+                    MenuItemId: MenuItemId.License,
+                    MenuItemLabel: "&License"),
+
+                new(SectionId: "setup",
+                    MenuItemId: MenuItemId.Setup,
+                    MenuItemLabel: "S&etup"),
+
+                new(SectionId: "usage-tips",
+                    MenuItemId: MenuItemId.UsageTips,
+                    MenuItemLabel: "&Usage Tips"),
+
+                new(SectionId: "the-menu",
+                    MenuItemId: MenuItemId.TheMenu,
+                    MenuItemLabel: "&The Menu"),
+
+                new(SectionId: "known-bugs",
+                    MenuItemId: MenuItemId.KnownBugs,
+                    MenuItemLabel: "&Known Bugs"),
+
+                new(SectionId: "dependencies",
+                    MenuItemId: MenuItemId.Dependencies,
+                    MenuItemLabel: "&Dependencies"),
+
+                new(SectionId: "notices",
+                    MenuItemId: MenuItemId.Notices,
+                    MenuItemLabel: "N&otices"));
+
+        private string CurrentSectionId
+        {
+            get => Sections
+                    .Single(section => _menu.HasCheck(section.MenuItemId))
+                    .SectionId;
+
+            set {
+                foreach (var section in Sections) {
+                    _menu.SetCheck(
+                        section.MenuItemId,
+                        section.SectionId.Equals(value,
+                                                 StringComparison.Ordinal));
+                }
+
+                Debug.Assert(CurrentSectionId == value);
+            }
+        }
+
+        private void BuildMenu()
+        {
+            BuildMenuHelpSectionsSection();
+            BuildMenuExternalPagesSection();
+        }
+
+        private void BuildMenuHelpSectionsSection()
+        {
+            _menu.AddSeparator();
+
+            foreach (var section in Sections) {
+                _menu.AddItem(section.MenuItemId,
+                              section.MenuItemLabel,
+                              () => ScrollTo(section.SectionId));
+            }
+
+            SetMenuHelpSectionsEnabled(false);
+        }
+
+        private void BuildMenuExternalPagesSection()
+        {
+            _menu.AddSeparator();
+
+            _menu.AddItem(MenuItemId.OpenInWebBrowser,
+                          "Open in Web &Browser",
+                          OpenInWebBrowser);
+
+            _menu.AddItem(MenuItemId.VisitGitHubRepository,
+                          "Visit &GitHub Repository",
+                          VisitGitHubRepository);
+        }
+
+        private void browser_Navigating(object sender,
+                                        WebBrowserNavigatingEventArgs e)
+        {
+            if (!e.Cancel) SetMenuHelpSectionsEnabled(false);
+        }
+
         private void
         browser_DocumentCompleted(object sender,
                                   WebBrowserDocumentCompletedEventArgs e)
         {
-            // Only resize the browser the first time the page is loaded.
-            _browser.DocumentCompleted -= browser_DocumentCompleted;
+            if (!_loaded) {
+                _loaded = true;
+                SetGeometry();
+            }
 
+            SetMenuHelpSectionsEnabled(true);
+        }
+
+        /// <summary>
+        /// Scales and positions the window so it's wide enough to show the
+        /// sidenav when possible, without being off-screen.
+        /// </summary>
+        /// <remarks>
+        /// Autoscaling doesn't take care of this, since the page is scaled
+        /// proportionately, not by UI font dimensions or DPI. HelpBrowser (via
+        /// its base classes) properly scales the page. So this method is just
+        /// setting the window size and location (and the control size).
+        /// </remarks>
+        private void SetGeometry()
+        {
             SetSize();
             ApplyLimits();
         }
@@ -64,23 +199,50 @@ namespace VidDraw {
         /// </summary>
         private void ApplyLimits()
         {
-            const int widthLimitMargin = 10;
+            var limits = GetLimits();
 
-            var limits = Screen.FromHandle(Handle).WorkingArea;
-            Debug.Assert(!limits.IsEmpty);
-
-            if (Width > limits.Width + widthLimitMargin * 2)
-                Width = limits.Width + widthLimitMargin * 2;
+            if (Width > limits.Width) Width = limits.Width;
 
             if (Height > limits.Height) Height = limits.Height;
 
-            if (Right > limits.Right + widthLimitMargin) {
-                Left = Math.Max(limits.Left - widthLimitMargin,
-                                limits.Right + widthLimitMargin - Width);
-            }
+            if (Right > limits.Right)
+                Left = Math.Max(limits.Left, limits.Right - Width);
 
             if (Bottom > limits.Bottom)
                 Top = Math.Max(limits.Top, limits.Bottom - Height);
         }
+
+        private Rectangle GetLimits()
+        {
+            const int widthLimitMargin = 10;
+
+            var workingArea = Screen.FromHandle(Handle).WorkingArea;
+            Debug.Assert(!workingArea.IsEmpty);
+
+            return new(x: workingArea.Left - widthLimitMargin,
+                       y: workingArea.Y,
+                       width: workingArea.Width + widthLimitMargin * 2,
+                       height: workingArea.Height);
+        }
+
+        private void SetMenuHelpSectionsEnabled(bool enabled)
+        {
+            foreach (var section in Sections)
+                _menu.SetEnabled(section.MenuItemId, enabled);
+        }
+
+        private void ScrollTo(string sectionId)
+            => _browser.Document.InvokeScript("smoothScrollIntoViewById",
+                                              new object[] { sectionId });
+
+        private void OpenInWebBrowser()
+            => Shell.Execute(new Uri(MyPaths.HelpFile).AbsoluteUri);
+
+        private void VisitGitHubRepository()
+            => Shell.Execute("https://github.com/EliahKagan/VidDraw");
+
+        private readonly SystemMenu<MenuItemId> _menu;
+
+        private bool _loaded = false;
     }
 }

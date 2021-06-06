@@ -66,6 +66,7 @@ namespace VidDraw {
             this._browser.Size = new System.Drawing.Size(800, 450);
             this._browser.TabIndex = 0;
             this._browser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.browser_DocumentCompleted);
+            this._browser.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.browser_Navigating);
             // 
             // HelpWindow
             // 

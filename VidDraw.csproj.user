@@ -10,6 +10,9 @@
     <Compile Update="HelpWindow.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="HookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,7 +1,0 @@
-AppendMenu
-EnableMenuItem
-FindExecutable
-GetMenuItemInfo
-GetSystemMenu
-SetMenuItemInfo
-SetWindowText

@@ -15,10 +15,13 @@
 
 local INDENT = 2
 
+-- Returns the given string but without any trailing whitespace.
 local function trim_right(text)
   return text:gsub('%s+$', '')
 end
 
+-- Reads the contents of a text file at the given path and formats it as an
+-- HTML block comment with an inner indent specified by INDENT.
 local function format_block_comment(path)
   local margin = string.rep(' ', INDENT)
 
@@ -31,12 +34,32 @@ local function format_block_comment(path)
   return trim_right(table.concat(out, '\n')) .. '\n'
 end
 
+-- VidDraw's 0BSD license text, presented as an HTML block comment.
 local COMMENTED_0BSD = format_block_comment('../COPYING.0BSD')
 
--- Remove block comments that are exactly the text of the accompanying license.
--- This is to avoid repetition. The template file puts the license at the top.
+-- Detects block comments with exactly the text of the accompanying license.
+-- Such text is redundant, as the template file puts the license at the top.
+local function is_license_comment(el)
+  assert(el.t == 'RawBlock',
+         "Can't search for license comment outside of RawBlock")
+
+  return el.format == 'html' and el.text == COMMENTED_0BSD
+end
+
+-- Detects raw HTML blocks that begin with the opening or closing tag of a
+-- details element, with no attributes and no excess whitespace. Under the
+-- convention adhered to in README.md, this is always either an opening tag
+-- followed by a complete summary element, or a closing tag by itself.
+local function is_details_markup(el)
+  assert(el.t == 'RawBlock',
+         "Can't search for details markup outside of RawBlock")
+
+  return el.format == 'html' and el.text:find('^</?details>')
+end
+
+-- Erase license comments and introductions and closings of details elements.
 function RawBlock(el)
-  if el.format == 'html' and el.text == COMMENTED_0BSD then
+  if is_license_comment(el) or is_details_markup(el) then
     return {}
   end
 end

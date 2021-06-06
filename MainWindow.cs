@@ -20,24 +20,23 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.Toolkit.Uwp.Notifications;
-using Microsoft.Windows.Sdk;
 using SharpAvi;
 using SharpAvi.Codecs;
 
 namespace VidDraw {
     /// <summary>The application window, containing a drawing canvas.</summary>
-    internal sealed partial class MainWindow : Form {
+    internal sealed partial class MainWindow : HookForm {
         internal MainWindow()
         {
             InitializeComponent();
 
+            _menu = new(this, UpdateMenu);
             _rectangle = new(Point.Empty, _canvas.Size);
             _bitmap = new(width: _rectangle.Width, height: _rectangle.Height);
             _graphics = Graphics.FromImage(_bitmap);
             _canvas.Image = _bitmap;
             _pen = new(_colorPicker.Color);
             _recorder = new(_bitmap, this);
-            _menuActions = BuildMenuActions();
 
             SetInitialTitle();
             _recorder.Recorded += recorder_Recorded;
@@ -58,29 +57,12 @@ namespace VidDraw {
             TryApplyCustomColors(config.CustomColors);
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            switch ((Native.WM)m.Msg) {
-            case Native.WM.SYSCOMMAND:
-                if (_menuActions.TryGetValue((MyMenuItemId)m.WParam,
-                                             out var action)) {
-                    action();
-                    return;
-                }
-                break; // We'll pass other IDs (e.g., for "Close") upward.
+        private const string X264vfwDownloadUrl =
+            "https://sourceforge.net/projects/x264vfw/files/latest/download";
 
-            case Native.WM.INITMENU:
-                UpdateMenu();
-                return;
+        private const Codec DefaultCodec = Codec.MotionJpeg;
 
-            default:
-                break; // Other message types must always be passed upward.
-            }
-
-            base.WndProc(ref m);
-        }
-
-        private enum MyMenuItemId : uint {
+        private enum MenuItemId : uint {
             UnusedId, // For clarity, pass this when the ID will be ignored.
 
             Raw,
@@ -97,49 +79,36 @@ namespace VidDraw {
         }
 
         private sealed record CodecChoice(Codec Codec,
-                                          MyMenuItemId Id,
+                                          MenuItemId Id,
                                           string Label);
 
-        private const Codec DefaultCodec = Codec.MotionJpeg;
+        private static IReadOnlyList<CodecChoice> CodecChoices { get; } =
+            ImmutableArray.Create<CodecChoice>(
+                new(Codec.Raw,
+                    MenuItemId.Raw,
+                    "Ra&w (frame copy)"),
 
-        private const string X264vfwDownloadUrl =
-            "https://sourceforge.net/projects/x264vfw/files/latest/download";
+                new(Codec.Uncompressed,
+                    MenuItemId.Uncompressed,
+                    "&Uncompressed"),
 
-        private static string MyVideos
-            => Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+                new(Codec.MotionJpeg,
+                    MenuItemId.MotionJpeg,
+                    "Motion &JPEG"),
+
+                new(Codec.H264,
+                    MenuItemId.H264,
+                    "&H.264 (MPEG-4 AVC)"));
 
         private static string CurrentPreferredSavePath
             => Path.Combine(
-                MyVideos,
+                Dirs.Videos,
                 $"VidDraw capture {DateTime.Now:yyyy-MM-dd HH-mm-ss}.avi");
 
         private static bool CanEncodeH264
             => Mpeg4VideoEncoderVcm.GetAvailableCodecs()
                 .Select(info => info.Codec)
                 .Contains(KnownFourCCs.Codecs.X264);
-
-        private static IReadOnlyList<CodecChoice> BuildCodecChoices()
-        {
-            var builder = ImmutableArray.CreateBuilder<CodecChoice>();
-
-            builder.Add(new(Codec.Raw,
-                            MyMenuItemId.Raw,
-                            "Ra&w (frame copy)"));
-
-            builder.Add(new(Codec.Uncompressed,
-                            MyMenuItemId.Uncompressed,
-                            "&Uncompressed"));
-
-            builder.Add(new(Codec.MotionJpeg,
-                            MyMenuItemId.MotionJpeg,
-                            "Motion &JPEG"));
-
-            builder.Add(new(Codec.H264,
-                            MyMenuItemId.H264,
-                            "&H.264 (MPEG-4 AVC)"));
-
-            return builder.ToImmutable();
-        }
 
         private static string GetLabel(Codec codec)
             => CodecChoices.Single(choice => choice.Codec == codec)
@@ -180,7 +149,7 @@ namespace VidDraw {
 
         private static string GetDisplayPath(string path)
             => Files.GetDirectoryOrThrow(path)
-                    .Equals(MyVideos, StringComparison.Ordinal)
+                    .Equals(Dirs.Videos, StringComparison.Ordinal)
                 ? Path.GetFileName(path)
                 : path;
 
@@ -206,22 +175,17 @@ namespace VidDraw {
             }
         }
 
-        private IReadOnlyDictionary<MyMenuItemId, Action> BuildMenuActions()
+        private Codec CurrentCodec
         {
-            var builder =
-                ImmutableDictionary.CreateBuilder<MyMenuItemId, Action>();
+            get => CodecChoices.Single(choice => _menu.HasCheck(choice.Id))
+                               .Codec;
 
-            builder.Add(MyMenuItemId.ClearCanvas, ClearCanvas);
-            builder.Add(MyMenuItemId.PickColor, PickColor);
-            builder.Add(MyMenuItemId.OpenVideosFolder, OpenVideosFolder);
-            builder.Add(MyMenuItemId.DownloadOrConfigureX264vfw,
-                        () => _downloadOrConfigureX264vfw());
-            builder.Add(MyMenuItemId.About, ShowAboutBox);
+            set {
+                foreach (var choice in CodecChoices)
+                    _menu.SetCheck(choice.Id, choice.Codec == value);
 
-            foreach (var choice in CodecChoices)
-                builder.Add(choice.Id, () => SelectCodec(choice.Codec));
-
-            return builder.ToImmutable();
+                Debug.Assert(CurrentCodec == value);
+            }
         }
 
         private void SetTitle(string message)
@@ -229,139 +193,94 @@ namespace VidDraw {
 
         private void SetInitialTitle() => SetTitle("Draw to record video");
 
-        private HMENU MenuHandle
-            => PInvoke.GetSystemMenu(hWnd: new(Handle), bRevert: false);
-
-        private Codec CurrentCodec
-        {
-            get => CodecChoices.Single(choice => HasCheck(choice.Id)).Codec;
-
-            set {
-                foreach (var choice in CodecChoices)
-                    SetCheck(choice.Id, choice.Codec == value);
-
-                Debug.Assert(CurrentCodec == value);
-            }
-        }
-
-        private void AddMenuSeparator()
-            => PInvoke.AppendMenu(hMenu: MenuHandle,
-                                  uFlags: MENU_FLAGS.MF_SEPARATOR,
-                                  uIDNewItem: (nuint)MyMenuItemId.UnusedId,
-                                  lpNewItem: null);
-
-        private unsafe void AddMenuItem(MyMenuItemId uIDNewItem,
-                                        string lpNewItem)
-        {
-            fixed (char* p = lpNewItem) {
-                PInvoke.AppendMenu(hMenu: MenuHandle,
-                                   uFlags: MENU_FLAGS.MF_STRING,
-                                   uIDNewItem: (nuint)uIDNewItem,
-                                   lpNewItem: new(p));
-            }
-        }
-
-        private unsafe bool HasCheck(MyMenuItemId id)
-        {
-            var mii = new MENUITEMINFOW {
-                cbSize = (uint)sizeof(MENUITEMINFOW),
-                fMask = MENUITEMINFOA_fMask.MIIM_STATE,
-            };
-
-            PInvoke.GetMenuItemInfo(hmenu: MenuHandle,
-                                    item: (uint)id,
-                                    fByPosition: false,
-                                    &mii);
-
-            return (mii.fState & (uint)MENU_FLAGS.MF_CHECKED) != 0;
-        }
-
-        private unsafe void SetCheck(MyMenuItemId id, bool @checked)
-        {
-            var mii = new MENUITEMINFOW {
-                cbSize = (uint)sizeof(MENUITEMINFOW),
-                fMask = MENUITEMINFOA_fMask.MIIM_STATE,
-                fState = (uint)(@checked ? MENU_FLAGS.MF_CHECKED
-                                         : MENU_FLAGS.MF_UNCHECKED),
-            };
-
-            PInvoke.SetMenuItemInfo(hmenu: MenuHandle,
-                                    item: (uint)id,
-                                    fByPositon: false, // Misspelled in API.
-                                    &mii);
-        }
-
-        private void SetEnabled(MyMenuItemId id, bool enabled)
-            => PInvoke.EnableMenuItem(
-                    hMenu: MenuHandle,
-                    uIDEnableItem: (uint)id,
-                    uEnable: (enabled ? MENU_FLAGS.MF_ENABLED
-                                      : MENU_FLAGS.MF_GRAYED));
-
-        private unsafe void SetText(MyMenuItemId id, string text)
-        {
-            fixed (char* p = text) {
-                var mii = new MENUITEMINFOW {
-                    cbSize = (uint)sizeof(MENUITEMINFOW),
-                    fMask = MENUITEMINFOA_fMask.MIIM_STRING,
-                    dwTypeData = new(p),
-                };
-
-                PInvoke.SetMenuItemInfo(
-                        hmenu: MenuHandle,
-                        item: (uint)id,
-                        fByPositon: false, // Misspelled in API.
-                        &mii);
-            }
-        }
-
         private void BuildMenu(Codec initialCodec)
         {
-            AddMenuSeparator();
-            AddMenuCodecItems(initialCodec);
-
-            AddMenuSeparator();
-            AddMenuItem(MyMenuItemId.ClearCanvas, "Clear Canva&s");
-            AddMenuItem(MyMenuItemId.PickColor, $"&Pick Color{Ch.Hellip}");
-            AddMenuItem(MyMenuItemId.OpenVideosFolder, "&Open Videos Folder");
-            AddMenuItem(MyMenuItemId.DownloadOrConfigureX264vfw, "(error)");
-
-            AddMenuSeparator();
-            AddMenuItem(MyMenuItemId.About, $"&About VidDraw{Ch.Hellip}");
+            BuildMenuCodecsSection(initialCodec);
+            BuildMenuCommandsSection();
+            BuildMenuAboutSection();
 
             UpdateMenuCodecs();
         }
 
-        private void AddMenuCodecItems(Codec initialCodec)
+        private void BuildMenuCodecsSection(Codec initialCodec)
         {
-            foreach (var choice in CodecChoices)
-                AddMenuItem(choice.Id, choice.Label);
+            _menu.AddSeparator();
+
+            foreach (var choice in CodecChoices) {
+                _menu.AddItem(choice.Id,
+                              choice.Label,
+                              () => SelectCodec(choice.Codec));
+            }
 
             CurrentCodec = initialCodec;
+        }
+
+        private void BuildMenuCommandsSection()
+        {
+            _menu.AddSeparator();
+
+            _menu.AddItem(MenuItemId.ClearCanvas,
+                          "Clear Canva&s",
+                          ClearCanvas);
+
+            _menu.AddItem(MenuItemId.PickColor,
+                          $"&Pick Color{Ch.Hellip}",
+                          PickColor);
+
+            _menu.AddItem(MenuItemId.OpenVideosFolder,
+                          "&Open Videos Folder",
+                          OpenVideosFolder);
+
+            _menu.AddItem(MenuItemId.DownloadOrConfigureX264vfw,
+                          "(error)",
+                          () => _downloadOrConfigureX264vfw());
+        }
+
+        private void BuildMenuAboutSection()
+        {
+            _menu.AddSeparator();
+
+            _menu.AddItem(MenuItemId.About,
+                          $"&About VidDraw{Ch.Hellip}",
+                          ShowAboutBox);
         }
 
         private void UpdateMenu()
         {
             UpdateMenuCodecs();
-            SetEnabled(MyMenuItemId.ClearCanvas, _drawn);
+            _menu.SetEnabled(MenuItemId.ClearCanvas, _drawn);
         }
 
         private void UpdateMenuCodecs()
         {
             if (CanEncodeH264) {
-                SetEnabled(MyMenuItemId.H264, true);
-                SetText(MyMenuItemId.DownloadOrConfigureX264vfw,
-                        $"Configure x264&vfw ({Platform.XStyleArch})");
-                _downloadOrConfigureX264vfw = ConfigureX264vfw;
+                UpdateMenuH264ItemsForInstalled();
             } else {
                 if (CurrentCodec is Codec.H264)
                     CurrentCodec = GetH264FallbackCodec();
 
-                SetEnabled(MyMenuItemId.H264, false);
-                SetText(MyMenuItemId.DownloadOrConfigureX264vfw,
-                        "Download x264&vfw");
-                _downloadOrConfigureX264vfw = DownloadX264vfw;
+                UpdateMenuH264ItemsForUninstalled();
             }
+        }
+
+        private void UpdateMenuH264ItemsForInstalled()
+        {
+            _menu.SetEnabled(MenuItemId.H264, true);
+
+            _menu.SetText(MenuItemId.DownloadOrConfigureX264vfw,
+                          $"Configure x264&vfw ({Platform.XStyleArch})");
+
+            _downloadOrConfigureX264vfw = ConfigureX264vfw;
+        }
+
+        private void UpdateMenuH264ItemsForUninstalled()
+        {
+            _menu.SetEnabled(MenuItemId.H264, false);
+
+            _menu.SetText(MenuItemId.DownloadOrConfigureX264vfw,
+                          "Download x264&vfw");
+
+            _downloadOrConfigureX264vfw = DownloadX264vfw;
         }
 
         private void canvas_MouseClick(object sender, MouseEventArgs e)
@@ -402,9 +321,9 @@ namespace VidDraw {
 
             SetTitle($"Recording{Ch.Hellip}");
             BackColor = Color.Red;
-
             _recorder.Start(Files.CreateWithoutClash(CurrentPreferredSavePath),
                             CurrentCodec);
+            _warnOnCodecChange = true;
         }
 
         private void canvas_MouseUp(object sender, MouseEventArgs e)
@@ -412,8 +331,8 @@ namespace VidDraw {
             if (!(MouseButtons is MouseButtons.None && _recorder.IsRunning))
                 return;
 
+            _warnOnCodecChange = false;
             _recorder.Finish();
-
             BackColor = DefaultBackColor;
             SetInitialTitle();
         }
@@ -429,8 +348,29 @@ namespace VidDraw {
 
         private void SelectCodec(Codec codec)
         {
+            var warn = _warnOnCodecChange && codec != CurrentCodec;
+
             CurrentCodec = codec;
-            new Config() { Codec = codec }.TrySave();
+            new Config { Codec = codec }.TrySave();
+
+            if (warn) WarnAboutCodecChange();
+        }
+
+        private void WarnAboutCodecChange()
+        {
+            // Don't re-warn during the recording of *this* video.
+            _warnOnCodecChange = false;
+
+            MessageBox.Show(
+                owner: this,
+                text: "You are currently recording."
+                    + Environment.NewLine + Environment.NewLine
+                    + "Codec selection changes will be used for subsequent "
+                    + $"videos, but they won{Ch.Rsquo}t affect the video being"
+                    + " made now.",
+                caption: "VidDraw - Warning",
+                buttons: MessageBoxButtons.OK,
+                icon: MessageBoxIcon.Warning);
         }
 
         private void PickColor()
@@ -461,7 +401,7 @@ namespace VidDraw {
 
         private void OpenVideosFolder()
         {
-            var path = MyVideos;
+            var path = Dirs.Videos;
 
             if (!Directory.Exists(path)) {
                 throw new InvalidOperationException(
@@ -483,8 +423,7 @@ namespace VidDraw {
             }
         }
 
-        private static IReadOnlyList<CodecChoice> CodecChoices { get; } =
-            BuildCodecChoices();
+        private readonly SystemMenu<MenuItemId> _menu;
 
         private readonly Rectangle _rectangle;
 
@@ -500,12 +439,11 @@ namespace VidDraw {
 
         private readonly Recorder _recorder;
 
+        private bool _warnOnCodecChange = false;
+
         private Action _downloadOrConfigureX264vfw =
             () => throw new InvalidOperationException(
                 "Bug: Don't know whether to download or configure x264vfw.");
-
-        private readonly IReadOnlyDictionary<MyMenuItemId, Action>
-        _menuActions;
 
         private HelpWindow? _aboutBox = null;
     }

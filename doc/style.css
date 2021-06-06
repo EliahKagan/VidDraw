@@ -387,14 +387,3 @@ img {
   font-style: italic;
   margin: 0 auto;
 }
-
-del {
-  background-color: #fbb;
-  font-weight: 400;
-  text-decoration: black line-through;
-}
-
-ins {
-  background-color: #d4fcbc;
-  text-decoration: none;
-}

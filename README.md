@@ -31,8 +31,8 @@ browsing](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.webbr
 It began as a prototype for the video-recording feature of a larger program
 I&rsquo;ve been working on. It&rsquo;s also kind of a fun toy.
 
-This is **Vid&shy;Draw alpha <del>1</del>&thinsp;<ins>0</ins>**. It still has
-[some usability bugs](#known-bugs).
+This is **Vid&shy;Draw alpha 1**. It still has [some usability
+bugs](#known-bugs).
 
 ## License
 
@@ -235,7 +235,7 @@ border](doc/recording.png)
 
 **To lift the pen while continuing to record**, press and hold another mouse
 button. So long as at least one button is pressed, recording continues. This
-lets you make an video of drawing a sketch with multiple disconnected strokes.
+lets you make a video of drawing a sketch with multiple disconnected strokes.
 
 If you ever want to continue recording while no mouse buttons are pressed,
 place the mouse cursor on the canvas, press and hold any mouse button, drag the
@@ -486,29 +486,11 @@ separately.
 Clicking &ldquo;About Vid&shy;Draw&hellip;&rdquo; displays this README in
 Vid&shy;Draw&rsquo;s built-in help browser.
 
+This help browser&rsquo;s own system menu contains items for opening the README
+externally in your default web browser, for visiting the repository on GitHub,
+and for navigation (equivalent to the page's own left sidenav).
+
 ## Known Bugs
-
-### An indirect dependency has confusing licensing.
-
-Vid&shy;Draw has [win32metadata](https://github.com/microsoft/win32metadata) as
-an indirect dependency, via [CsWin32](https://github.com/microsoft/CsWin32).
-win32metadata&rsquo;s [GitHub
-repository](https://github.com/microsoft/win32metadata) is [MIT
-licensed](https://github.com/microsoft/win32metadata/blob/master/LICENSE), but
-its [NuGet
-package](https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Metadata)
-shows the [Windows SDK license](https://aka.ms/WinSDKLicenseURL). This [is
-intentional](https://github.com/microsoft/win32metadata/issues/387).
-
-I&rsquo;m unclear on what, if any, actual restrictions this imposes on how the
-source code, or a compiled binary, of Vid&shy;Draw, can be used. I intend that
-Vid&shy;Draw be both permissively licensed and GPL-compatible. Adding the
-CsWin32 package prompted for win32metadata license acceptance. Even if this
-doesn&rsquo;t conflict with those goals, I fear it may chill reuse and
-adaptation of Vid&shy;Draw, unless clarified. So this should either be
-clarified, or the CsWin32 dependency removed (which would actually not be too
-hard). This should be done before the release of alpha 2 and preferably before
-the release of alpha 1.
 
 ### Sometimes there is an initial lag on the first recording.
 
@@ -629,12 +611,6 @@ the second line.
   \[[included](doc/bower_components/anchor-js/)\]\
   [MIT license](https://github.com/bryanbraun/anchorjs/blob/4.3.1/LICENSE)
   ([local](doc/bower_components/anchor-js/LICENSE), [inline](#anchorjs))
-- [CsWin32](https://github.com/microsoft/CsWin32) 0.1.422-beta by Andrew Arnott
-  / Microsoft
-  \[[nuget](https://www.nuget.org/packages/Microsoft.Windows.CsWin32)\]\
-  [MIT
-  license](https://github.com/microsoft/CsWin32/blob/v0.1.422-beta/LICENSE)
-  ([inline](#cswin32))
 - [*Fork me on GitHub* CSS
   ribbon](https://simonwhitaker.github.io/github-fork-ribbon-css/) 0.2.3 by
   Simon Whitaker \[[included](doc/bower_components/github-fork-ribbon-css/)\]\
@@ -734,8 +710,7 @@ Vid&shy;Draw uses be offered under the GPL or have a GPL-compatible license.
 
 Please note that, for practical and ideological reasons unrelated to x264vfw, I
 still intend Vid&shy;Draw to be GPL-compatible! If it is not, or even if it
-[appears not to be](#an-indirect-dependency-has-confusing-licensing), I&rsquo;d
-consider that a serious bug.
+appears not to be, I&rsquo;d consider that a serious bug.
 
 ## Notices
 
@@ -743,6 +718,11 @@ Vid&shy;Draw<!-- -->&rsquo;s own code, but not that of its dependencies, is
 licensed under [0BSD](COPYING.0BSD). Thus, everything in this repository
 *except* the contents of `doc/bower_components` and of the subdirectories of
 `doc/fonts` is offered under 0BSD:
+
+<details>
+<summary><strong>View 0BSD</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2021 Eliah Kagan &hellip;&rdquo;</em>
+</summary>
 
 > Copyright (c) 2021 Eliah Kagan
 >
@@ -756,20 +736,27 @@ INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
 LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
+</details>
 
 Licenses and accompanying information for each of Vid&shy;Draw&rsquo;s
 [above-listed dependencies](#dependencies) are reproduced below in full (but
 only some, not all, dependencies are themselves included in this repository).
 
 Some licenses contain copyright statements, which differ across projects that
-are licensed the same way. These licenses are short anyway, and I&rsquo;ve kept
-the full text of each.
+may otherwise be licensed the same way. I&rsquo;ve preserved each license in
+full.
 
 ### AnchorJS
 
 Bryan Braun has released
 [AnchorJS](https://github.com/bryanbraun/anchorjs/tree/4.3.1) under the MIT
 license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2021 Bryan Braun &hellip;&rdquo;</em>
+</summary>
 
 > MIT License
 >
@@ -792,40 +779,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-### CsWin32
-
-Microsoft Corporation has released
-[CsWin32](https://github.com/microsoft/CsWin32/tree/v0.1.422-beta) under the
-MIT license:
-
-> The MIT License (MIT)
->
-> Copyright (c) Microsoft Corporation
->
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+</details>
 
 ### *Fork me on GitHub* CSS Ribbon
 
 Simon Whitaker has released [*Fork me on GitHub* CSS
 Ribbon](https://github.com/simonwhitaker/github-fork-ribbon-css/tree/0.2.3)
 under the MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2013 Simon Whitaker &hellip;&rdquo;</em>
+</summary>
 
 > The MIT License (MIT)
 >
@@ -849,11 +815,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+</details>
+
 ### Json<!-- -->.NET
 
 James Newton-King has released
 [Json.NET](https://github.com/JamesNK/Newtonsoft.Json/tree/13.0.1) under the
 MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2007 James Newton-King &hellip;&rdquo;</em>
+</summary>
 
 > The MIT License (MIT)
 >
@@ -875,11 +849,18 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</details>
 
 ### kbd
 
 Auth0 Inc. has released [kbd](https://github.com/auth0/kbd/tree/v0.0.1) under
 the MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2014 Auth0 Inc. &hellip;&rdquo;</em>
+</summary>
 
 > The MIT License (MIT)
 >
@@ -902,12 +883,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+</details>
 
 ### Milligram
 
 CJ Patoilo has released
 [Milligram](https://github.com/milligram/milligram/tree/v1.4.1) under the MIT
 license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) CJ Patoilo &lt;cjpatoilo<!-- -->@gmail.com&gt; &hellip;&rdquo;</em>
+</summary>
 
 > The MIT License (MIT)
 >
@@ -930,12 +918,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+</details>
 
 ### normalize.css
 
 Nicolas Gallagher and Jonathan Neal have released
 [normalize.css](https://github.com/necolas/normalize.css/tree/v2.1.3) under the
 MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright © Nicolas Gallagher and Jonathan Neal &hellip;&rdquo;</em>
+</summary>
 
 > # The MIT License (MIT)
 >
@@ -959,6 +954,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+</details>
+
 ### Open Sans<br> Open Sans Condensed
 
 Google Corporation has released [Open
@@ -974,6 +971,12 @@ compressed them to produce the `.woff` files found here using
 This is lossless; the exact, byte-for-byte original `.ttf` files can be
 recovered by decompressing them with
 [`woff2sfnt`](https://manpages.ubuntu.com/manpages/hirsute/en/man1/woff2sfnt.1.html).
+
+<details>
+<summary>
+<strong>View Apache License, Version 2.0</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;TERMS AND CONDITIONS FOR USE&hellip;&rdquo;</em>
+</summary>
 
 ```text
                               Apache License
@@ -1178,6 +1181,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+</details>
 
 ### SharpAvi
 
@@ -1190,6 +1194,12 @@ retains its [license
 file](https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5-rc/LICENSE.md)
 without modification:
 
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2013-2018 Vasili Maslov &hellip;&rdquo;</em>
+</summary>
+
 > Copyright (c) 2013-2018 Vasili Maslov
 >
 > Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -1197,6 +1207,7 @@ without modification:
 > The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 >
 > THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</details>
 
 ### Smooth Scroll behavior polyfill
 
@@ -1204,6 +1215,12 @@ without modification:
 polyfill](https://github.com/iamdustan/smoothscroll/tree/v0.4.4), which is also
 sometimes called smoothscroll and smoothscroll-polyfill, has been released
 under the MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) 2013 Dustan Kasten &hellip;&rdquo;</em>
+</summary>
 
 >The MIT License (MIT)
 >
@@ -1225,6 +1242,7 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</details>
 
 Regarding authorship, [the software&rsquo;s
 website](https://iamdustan.github.io/smoothscroll) mentions:
@@ -1236,6 +1254,12 @@ website](https://iamdustan.github.io/smoothscroll) mentions:
 The .NET Foundation and Contributors have released the [Windows Community
 Toolkit](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/v7.0.2)
 under the MIT license:
+
+<details>
+<summary>
+<strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
+<em>&ldquo;Copyright (c) .NET Foundation and Contributors &hellip;&rdquo;</em>
+</summary>
 
 > # Windows Community Toolkit
 >
@@ -1250,3 +1274,11 @@ under the MIT license:
 > The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 >
 > THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</details>
+
+---
+
+*This README can be viewed [in Vid&shy;Draw&rsquo;s built-in help
+browser](#about-viddraw), or [online with the same
+styling](https://eliahkagan.github.io/VidDraw), or [on the repository
+page](https://github.com/EliahKagan/VidDraw#readme).*

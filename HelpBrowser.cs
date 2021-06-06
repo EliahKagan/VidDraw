@@ -30,20 +30,16 @@ namespace VidDraw {
 
         protected override void OnNavigating(WebBrowserNavigatingEventArgs e)
         {
-            base.OnNavigating(e);
-            if (e.Cancel) return;
+            Debug.Assert(!e.Cancel); // Any cancellation would come later.
 
-            // Allow the initial page load.
-            if (Url is null) return;
-
-            // Unintuitively, Uri.Equals doesn't compare hash fragments. So
-            // equality comparison of old and new Uri objects checks if a
-            // navigation would (at most) change sections on the same page.
-            if (e.Url.Equals(Url)) return;
-
-            // Other links are opened (if at all) outside the help browser.
-            e.Cancel = true;
-            OpenOutside(e.Url);
+            if (Url is null || IsCurrentPage(e.Url)) {
+                // Allow initial page load and navigation within the page.
+                base.OnNavigating(e);
+            } else {
+                // Other links are opened (if at all) outside the help browser.
+                e.Cancel = true;
+                OpenOutside(e.Url);
+            }
         }
 
         private static void OpenOutside(Uri url)
@@ -71,5 +67,13 @@ namespace VidDraw {
                 break;
             }
         }
+
+        /// <summary>Checks if a given URI is on the current page.</summary>
+        /// <remarks>
+        /// Unintuitively, Uri.Equals doesn't compare hash fragments. So
+        /// equality comparison of old and new Uri objects checks if a
+        /// navigation would (at most) change sections on the same page.
+        /// </remarks>
+        private bool IsCurrentPage(Uri uri) => uri.Equals(Url);
     }
 }

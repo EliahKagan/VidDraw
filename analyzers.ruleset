@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RuleSet Name="Cutom Suppressions" ToolsVersion="15.0">
+
+  <Rules AnalyzerId="Roslynator.CSharp.Analyzers"
+         RuleNamespace="Roslynator.CSharp.Analyzers">
+    <!-- Upper-case rule complains about thing_Event event handlers. -->
+    <Rule Id="IDE1006" Action="None" />
+
+    <!-- HasFlag is optimized now; explicit bitwise is no longer preferred. -->
+    <Rule Id="RCS1096" Action="None" />
+
+    <!-- Warns on code using even well-known precedence rules (a + x * b). -->
+    <Rule Id="RCS1123" Action="None" />
+
+    <!-- Throwing ArgumentException, I deliberately pass paramName first. -->
+    <Rule Id="RCS1205" Action="None" />
+  </Rules>
+
+</RuleSet>
