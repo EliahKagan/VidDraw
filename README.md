@@ -488,7 +488,7 @@ Vid&shy;Draw&rsquo;s built-in help browser.
 
 This help browser&rsquo;s own system menu contains items for opening the README
 externally in your default web browser, for visiting the repository on GitHub,
-and for navigation (equivalent to the page's own left sidenav).
+and for navigation (equivalent to the page&rsquo;s own left sidenav).
 
 ## Known Bugs
 
