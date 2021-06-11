@@ -124,7 +124,7 @@
 }
 
 body, pre.text>code {
-  font-family: 'Open Sans', 'Segoe UI', 'Ubuntu', 'Roboto', '-apple-system', 'Nimbus Sans L', 'system-ui', 'BlinkMacSystemFont', 'Noto Sans', 'Helvetica Neue', 'Liberation Sans', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Open Sans', 'Segoe UI', 'Ubuntu', 'Roboto', -apple-system, 'Nimbus Sans L', system-ui, BlinkMacSystemFont, 'Noto Sans', 'Helvetica Neue', 'Liberation Sans', 'Helvetica', 'Arial', sans-serif;
 }
 
 body {
