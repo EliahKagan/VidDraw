@@ -15,7 +15,8 @@
 
 # VidDraw - record video as you draw
 
-*Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;.*
+*Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;.
+(Minor update in 2022.)*
 
 **Vid&shy;Draw** is a Windows program that records a video of a canvas as you
 draw on it. Recording starts when you begin drawing and stops when you&rsquo;re
@@ -31,7 +32,7 @@ browsing](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.webbr
 It began as a prototype for the video-recording feature of a larger program
 I&rsquo;ve been working on. It&rsquo;s also kind of a fun toy.
 
-This is **Vid&shy;Draw alpha 1**. It still has [some usability
+This is **Vid&shy;Draw alpha 2**. It still has [some usability
 bugs](#known-bugs).
 
 ## License
@@ -210,8 +211,9 @@ directory do not require `doc\index.html` to be regenerated.
 
 ## Usage Tips
 
-Vid&shy;Draw&rsquo;s interface is clean and simple&hellip; yet remarkably
-confusing to use. Sorry. Maybe some of the following information will help.
+Vid&shy;Draw&rsquo;s interface is meant to be clean and simple, but in some
+ways it is confusing. It may be improved in the future. For now, maybe some of
+the following information will help.
 
 ### Drawing and Recording
 
