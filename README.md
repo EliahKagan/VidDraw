@@ -32,7 +32,7 @@ browsing](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.webbr
 It began as a prototype for the video-recording feature of a larger program
 I&rsquo;ve been working on. It&rsquo;s also kind of a fun toy.
 
-This is **Vid&shy;Draw alpha 3**. It still has [some usability
+This is **Vid&shy;Draw alpha 3+**. It still has [some usability
 bugs](#known-bugs).
 
 ## License
@@ -651,11 +651,11 @@ the second line.
   2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
   ([local](doc/fonts/Open_Sans_Condensed/LICENSE.txt),
   [inline](#open-sans-open-sans-condensed))
-- [SharpAvi.Net5](https://github.com/EliahKagan/SharpAvi) 2.1.2, my fork of
-  [SharpAvi](https://github.com/baSSiLL/SharpAvi) 2.1.2 by Vasili Maslov
+- [SharpAvi.Net5](https://github.com/EliahKagan/SharpAvi) 2.2.1-rc, my fork of
+  [SharpAvi](https://github.com/baSSiLL/SharpAvi) 2.2.1 by Vasili Maslov
   \[[nuget](https://www.nuget.org/packages/SharpAvi.Net5)\]\
   [MIT
-  license](https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5/LICENSE.md)
+  license](https://github.com/EliahKagan/SharpAvi/blob/v2.2.1-net5-rc/LICENSE.md)
   ([inline](#sharpavi))
 - [Smooth Scroll behavior polyfill](https://iamdustan.github.io/smoothscroll)
   0.4.4 by Dustan Kasten and Jeremias Menichelli
@@ -1188,12 +1188,12 @@ limitations under the License.
 ### SharpAvi
 
 Vasili Maslov has released
-[SharpAvi](https://github.com/baSSiLL/SharpAvi/tree/v2.1.2) under the [MIT
-license](https://github.com/baSSiLL/SharpAvi/blob/v2.1.2/LICENSE.md). My fork
+[SharpAvi](https://github.com/baSSiLL/SharpAvi/tree/v2.2.1) under the [MIT
+license](https://github.com/baSSiLL/SharpAvi/blob/v2.2.1/LICENSE.md). My fork
 of SharpAvi,
-[SharpAvi.Net5](https://github.com/EliahKagan/SharpAvi/tree/v2.1.2-net5),
+[SharpAvi.Net5](https://github.com/EliahKagan/SharpAvi/tree/v2.2.1-net5-rc),
 retains its [license
-file](https://github.com/EliahKagan/SharpAvi/blob/v2.1.2-net5/LICENSE.md)
+file](https://github.com/EliahKagan/SharpAvi/blob/v2.2.1-net5-rc/LICENSE.md)
 without modification:
 
 <details>
