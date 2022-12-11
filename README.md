@@ -620,10 +620,10 @@ the second line.
   license](https://github.com/simonwhitaker/github-fork-ribbon-css/blob/0.2.3/LICENSE)
   ([local](doc/bower_components/github-fork-ribbon-css/LICENSE),
   [inline](#fork-me-on-github-css-ribbon))
-- [Json.NET](https://www.newtonsoft.com/json) (Newtonsoft.Json) 13.0.1 by James
+- [Json.NET](https://www.newtonsoft.com/json) (Newtonsoft.Json) 13.0.2 by James
   Newton-King \[[nuget](https://www.nuget.org/packages/Newtonsoft.Json)\]\
   [MIT
-  license](https://github.com/JamesNK/Newtonsoft.Json/blob/13.0.1/LICENSE.md)
+  license](https://github.com/JamesNK/Newtonsoft.Json/blob/13.0.2/LICENSE.md)
   ([inline](#jsonnet))
 - [kbd](https://auth0.github.io/kbd/) 0.0.1 by Auth0
   \[[included](doc/bower_components/kbd/)\]\
@@ -822,7 +822,7 @@ SOFTWARE.
 ### Json<!-- -->.NET
 
 James Newton-King has released
-[Json.NET](https://github.com/JamesNK/Newtonsoft.Json/tree/13.0.1) under the
+[Json.NET](https://github.com/JamesNK/Newtonsoft.Json/tree/13.0.2) under the
 MIT license:
 
 <details>
