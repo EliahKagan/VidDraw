@@ -53,7 +53,7 @@
 <section id="viddraw---record-video-as-you-draw" class="level1">
 <h1>VidDraw - record video as you draw</h1>
 <p><em>Written in 2021 by Eliah Kagan
-&lt;degeneracypressure<!-- -->@gmail.com&gt;. (Minor update in
+&lt;degeneracypressure<!-- -->@gmail.com&gt;. (Minor updates in
 2022.)</em></p>
 <p><strong>Vid­Draw</strong> is a Windows program that records a video of
 a canvas as you draw on it. Recording starts when you begin drawing and
@@ -61,17 +61,17 @@ stops when you’re no longer holding down any mouse buttons.</p>
 <p>The main goal of Vid­Draw is to demonstrate using <a
 href="https://github.com/baSSiLL/SharpAvi"
 title="https://github.com/baSSiLL/SharpAvi">Sharp­Avi</a> (which wraps <a
-href="https://docs.microsoft.com/en-us/windows/win32/api/vfw/"
-title="https://docs.microsoft.com/en-us/windows/win32/api/vfw/">VfW</a>)
+href="https://learn.microsoft.com/en-us/windows/win32/api/vfw/"
+title="https://learn.microsoft.com/en-us/windows/win32/api/vfw/">VfW</a>)
 to record a canvas, <a
-href="https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp"
-title="https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp">toast
+href="https://learn.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp"
+title="https://learn.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp">toast
 notifications</a>, and <a
-href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.webbrowser?view=net-5.0"
-title="https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.webbrowser?view=net-5.0">embedded
+href="https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.webbrowser?view=windowsdesktop-6.0"
+title="https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.webbrowser?view=windowsdesktop-6.0">embedded
 browsing</a>. It began as a prototype for the video-recording feature of
 a larger program I’ve been working on. It’s also kind of a fun toy.</p>
-<p>This is <strong>Vid­Draw alpha 4</strong>. It still has <a
+<p>This is <strong>Vid­Draw alpha 5</strong>. It still has <a
 href="#known-bugs" title="#known-bugs">some usability bugs</a>.</p>
 <section id="license" class="level2">
 <h2>License</h2>
@@ -99,8 +99,8 @@ title="#notices">Notices</a>.</p>
 <h2>Setup</h2>
 <p>This alpha version of Vid­Draw doesn’t have binary downloads, so it
 must be built from source. You’ll need the <a
-href="https://dotnet.microsoft.com/download/dotnet/5.0"
-title="https://dotnet.microsoft.com/download/dotnet/5.0">.NET 5</a> SDK.
+href="https://dotnet.microsoft.com/download/dotnet/6.0"
+title="https://dotnet.microsoft.com/download/dotnet/6.0">.NET 6</a> SDK.
 To clone the repository and build Vid­Draw, run:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone https<span class="op">://</span>github<span class="op">.</span><span class="fu">com</span><span class="op">/</span>EliahKagan<span class="op">/</span>VidDraw<span class="op">.</span><span class="fu">git</span></span>
@@ -115,11 +115,11 @@ build instead, use <code>dotnet build -c Release</code> and
 <p>Dependencies not included in this repository will be <a
 href="https://www.nuget.org/" title="https://www.nuget.org/">downloaded
 automatically</a>. Running <a
-href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run"
-title="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run"><code>dotnet run</code></a>
+href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-run"
+title="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-run"><code>dotnet run</code></a>
 without first running <a
-href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build"
-title="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build"><code>dotnet build</code></a>
+href="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-build"
+title="https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-build"><code>dotnet build</code></a>
 also works, though if you do that the first time, it may appear to have
 frozen for a short while as dependencies are downloaded. (In contrast,
 <code>dotnet build</code> is more verbose.)</p>
@@ -489,11 +489,11 @@ This clears the canvas, making all pixels white, as they started.</p>
 <h4>Pick Color…</h4>
 <p>The pen color is black by default. “Pick Color…” opens a color picker
 in which you can choose another color. The color picker is based on <a
-href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.colordialog?view=net-5.0"
-title="https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.colordialog?view=net-5.0"><code>ColorDialog</code></a>,
+href="https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.colordialog?view=windowsdesktop-6.0"
+title="https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.colordialog?view=windowsdesktop-6.0"><code>ColorDialog</code></a>,
 which wraps the <a
-href="https://docs.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box"
-title="https://docs.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box">standard
+href="https://learn.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box"
+title="https://learn.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box">standard
 Windows color dialog box</a> and, as such, allows you to define custom
 color presets. Vid­Draw saves your custom colors, so they are available
 if you quit Vid­Draw and run it again. Your custom Vid­Draw colors do not
@@ -749,9 +749,10 @@ Version 2.0</a> (<a href="fonts/Open_Sans/LICENSE.txt"
 title="fonts/Open_Sans/LICENSE.txt">local</a>, <a
 href="#open-sans-open-sans-condensed"
 title="#open-sans-open-sans-condensed">inline</a>)</li>
-<li><a href="https://fonts.google.com/specimen/Open+Sans+Condensed"
-title="https://fonts.google.com/specimen/Open+Sans+Condensed">Open Sans
-Condensed</a> 1.10 (font) by Steve Matteson [<a
+<li><a
+href="https://github.com/google/fonts/tree/09fe88e80988f324709ccf93cf3e29bc3dd90652/apache/opensanscondensed"
+title="https://github.com/google/fonts/tree/09fe88e80988f324709ccf93cf3e29bc3dd90652/apache/opensanscondensed">Open
+Sans Condensed</a> 1.10 (font) by Steve Matteson [<a
 href="fonts/Open_Sans_Condensed/"
 title="fonts/Open_Sans_Condensed/">included</a>]<br />
 <a href="https://www.apache.org/licenses/LICENSE-2.0.html"
@@ -781,23 +782,24 @@ license</a> (<a href="bower_components/smoothscroll/LICENSE"
 title="bower_components/smoothscroll/LICENSE">local</a>, <a
 href="#smooth-scroll-behavior-polyfill"
 title="#smooth-scroll-behavior-polyfill">inline</a>)</li>
-<li><a href="https://docs.microsoft.com/en-us/windows/communitytoolkit/"
-title="https://docs.microsoft.com/en-us/windows/communitytoolkit/">Windows
+<li><a
+href="https://learn.microsoft.com/en-us/windows/communitytoolkit/"
+title="https://learn.microsoft.com/en-us/windows/communitytoolkit/">Windows
 Community Toolkit</a> – <a
-href="https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications"
-title="https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications">Notifications</a>
-7.0.2 by .NET Foundation and Contributors [<a
+href="https://github.com/CommunityToolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications"
+title="https://github.com/CommunityToolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications">Notifications</a>
+7.1.3 by .NET Foundation and Contributors [<a
 href="https://www.nuget.org/packages/Microsoft.Toolkit.Uwp.Notifications"
 title="https://www.nuget.org/packages/Microsoft.Toolkit.Uwp.Notifications">nuget</a>]<br />
 <a
-href="https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/v7.0.2/license.md"
-title="https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/v7.0.2/license.md">MIT
+href="https://github.com/CommunityToolkit/WindowsCommunityToolkit/blob/v7.1.3/License.md"
+title="https://github.com/CommunityToolkit/WindowsCommunityToolkit/blob/v7.1.3/License.md">MIT
 license</a> (<a href="#windows-community-toolkit"
 title="#windows-community-toolkit">inline</a>)</li>
 </ul>
 <p>Vid­Draw is a C# program targeting <a
 href="https://dotnet.microsoft.com/"
-title="https://dotnet.microsoft.com/">.NET</a> 5 on Windows. It uses <a
+title="https://dotnet.microsoft.com/">.NET</a> 6 on Windows. It uses <a
 href="https://github.com/dotnet/winforms"
 title="https://github.com/dotnet/winforms">Windows Forms</a>, and it
 makes calls to the <a href="https://en.wikipedia.org/wiki/Windows_API"
@@ -1043,11 +1045,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 <p>Google Corporation has released <a
 href="https://fonts.google.com/specimen/Open+Sans"
 title="https://fonts.google.com/specimen/Open+Sans">Open Sans</a> and <a
-href="https://fonts.google.com/specimen/Open+Sans+Condensed"
-title="https://fonts.google.com/specimen/Open+Sans+Condensed">Open Sans
-Condensed</a>, fonts designed by Steve Matteson of Ascender Corporation
-and © 2011 Google Corporation, under the Apache License, Version
-2.0.</p>
+href="https://github.com/google/fonts/tree/09fe88e80988f324709ccf93cf3e29bc3dd90652/apache/opensanscondensed"
+title="https://github.com/google/fonts/tree/09fe88e80988f324709ccf93cf3e29bc3dd90652/apache/opensanscondensed">Open
+Sans Condensed</a>, fonts designed by Steve Matteson of Ascender
+Corporation and © 2011 Google Corporation, under the Apache License,
+Version 2.0.</p>
 <p>Please note that the <code>.woff</code> files in this repository are
 not the same files as downloaded from Google Fonts, which provided the
 fonts as <code>.ttf</code> files. I compressed them to produce the
@@ -1333,17 +1335,17 @@ website</a> mentions:</p>
 <section id="windows-community-toolkit" class="level3">
 <h3>Windows Community Toolkit</h3>
 <p>The .NET Foundation and Contributors have released the <a
-href="https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/v7.0.2"
-title="https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/v7.0.2">Windows
+href="https://github.com/CommunityToolkit/WindowsCommunityToolkit/tree/v7.1.3"
+title="https://github.com/CommunityToolkit/WindowsCommunityToolkit/tree/v7.1.3">Windows
 Community Toolkit</a> under the MIT license:</p>
 <blockquote>
 <h1 id="windows-community-toolkit-1">Windows Community Toolkit</h1>
-<p>Copyright (c) .NET Foundation and Contributors</p>
+<p>Copyright © .NET Foundation and Contributors</p>
 <p>All rights reserved.</p>
-<h1 id="mit-license-mit">MIT License (MIT)</h1>
+<h2 id="mit-license-mit">MIT License (MIT)</h2>
 <p>Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
+“Software”), to deal in the Software without restriction, including
 without limitation the rights to use, copy, modify, merge, publish,
 distribute, sublicense, and/or sell copies of the Software, and to
 permit persons to whom the Software is furnished to do so, subject to
@@ -1352,7 +1354,7 @@ the following conditions:</p>
 included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED <em>AS IS</em>, WITHOUT WARRANTY OF ANY
 KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
 IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE

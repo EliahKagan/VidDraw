@@ -16,7 +16,7 @@
 # VidDraw - record video as you draw
 
 *Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;.
-(Minor update in 2022.)*
+(Minor updates in 2022.)*
 
 **Vid&shy;Draw** is a Windows program that records a video of a canvas as you
 draw on it. Recording starts when you begin drawing and stops when you&rsquo;re
@@ -24,15 +24,15 @@ no longer holding down any mouse buttons.
 
 The main goal of Vid&shy;Draw is to demonstrate using
 [Sharp&shy;Avi](https://github.com/baSSiLL/SharpAvi) (which wraps
-[VfW](https://docs.microsoft.com/en-us/windows/win32/api/vfw/)) to record a
+[VfW](https://learn.microsoft.com/en-us/windows/win32/api/vfw/)) to record a
 canvas, [toast
-notifications](https://docs.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp),
+notifications](https://learn.microsoft.com/en-us/windows/uwp/design/shell/tiles-and-notifications/send-local-toast?tabs=uwp),
 and [embedded
-browsing](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.webbrowser?view=net-5.0).
+browsing](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.webbrowser?view=windowsdesktop-6.0).
 It began as a prototype for the video-recording feature of a larger program
 I&rsquo;ve been working on. It&rsquo;s also kind of a fun toy.
 
-This is **Vid&shy;Draw alpha 4**. It still has [some usability
+This is **Vid&shy;Draw alpha 5**. It still has [some usability
 bugs](#known-bugs).
 
 ## License
@@ -55,7 +55,7 @@ licensed under terms other than 0BSD. See [`LICENSE`](LICENSE) and
 
 This alpha version of Vid&shy;Draw doesn&rsquo;t have binary downloads, so it
 must be built from source. You&rsquo;ll need the [.NET
-5](https://dotnet.microsoft.com/download/dotnet/5.0) SDK. To clone the
+6](https://dotnet.microsoft.com/download/dotnet/6.0) SDK. To clone the
 repository and build Vid&shy;Draw, run:
 
 ```powershell
@@ -76,9 +76,9 @@ Those commands build and run a &ldquo;debug&rdquo; build. If you want a
 
 Dependencies not included in this repository will be [downloaded
 automatically](https://www.nuget.org/). Running [`dotnet
-run`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-run) without
+run`](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-run) without
 first running [`dotnet
-build`](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-build) also
+build`](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-build) also
 works, though if you do that the first time, it may appear to have frozen for a
 short while as dependencies are downloaded. (In contrast, `dotnet build` is
 more verbose.)
@@ -435,9 +435,9 @@ unfaded. This clears the canvas, making all pixels white, as they started.
 The pen color is black by default. &ldquo;Pick Color&hellip;&rdquo; opens a
 color picker in which you can choose another color. The color picker is based
 on
-[`ColorDialog`](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.colordialog?view=net-5.0),
+[`ColorDialog`](https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.colordialog?view=windowsdesktop-6.0),
 which wraps the [standard Windows color dialog
-box](https://docs.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box)
+box](https://learn.microsoft.com/en-us/windows/win32/dlgbox/color-dialog-box)
 and, as such, allows you to define custom color presets. Vid&shy;Draw saves
 your custom colors, so they are available if you quit Vid&shy;Draw and run it
 again. Your custom Vid&shy;Draw colors do not appear in any other
@@ -645,7 +645,8 @@ the second line.
   2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
   ([local](doc/fonts/Open_Sans/LICENSE.txt),
   [inline](#open-sans-open-sans-condensed))
-- [Open Sans Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed)
+- [Open Sans
+  Condensed](https://github.com/google/fonts/tree/09fe88e80988f324709ccf93cf3e29bc3dd90652/apache/opensanscondensed)
   1.10 (font) by Steve Matteson \[[included](doc/fonts/Open_Sans_Condensed/)\]\
   [Apache License, Version
   2.0](https://www.apache.org/licenses/LICENSE-2.0.html)
@@ -664,15 +665,15 @@ the second line.
   ([local](doc/bower_components/smoothscroll/LICENSE),
   [inline](#smooth-scroll-behavior-polyfill))
 - [Windows Community
-  Toolkit](https://docs.microsoft.com/en-us/windows/communitytoolkit/) &ndash;
-  [Notifications](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications)
-  7.0.2 by .NET Foundation and Contributors
+  Toolkit](https://learn.microsoft.com/en-us/windows/communitytoolkit/) &ndash;
+  [Notifications](https://github.com/CommunityToolkit/WindowsCommunityToolkit/tree/main/Microsoft.Toolkit.Uwp.Notifications)
+  7.1.3 by .NET Foundation and Contributors
   \[[nuget](https://www.nuget.org/packages/Microsoft.Toolkit.Uwp.Notifications)\]\
   [MIT
-  license](https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/v7.0.2/license.md)
+  license](https://github.com/CommunityToolkit/WindowsCommunityToolkit/blob/v7.1.3/License.md)
   ([inline](#windows-community-toolkit))
 
-Vid&shy;Draw is a C# program targeting [.NET](https://dotnet.microsoft.com/) 5
+Vid&shy;Draw is a C# program targeting [.NET](https://dotnet.microsoft.com/) 6
 on Windows. It uses [Windows Forms](https://github.com/dotnet/winforms), and it
 makes calls to the [Windows API](https://en.wikipedia.org/wiki/Windows_API) via
 libraries such as Sharp&shy;Avi and Windows Forms as well as directly.
@@ -962,8 +963,8 @@ SOFTWARE.
 
 Google Corporation has released [Open
 Sans](https://fonts.google.com/specimen/Open+Sans) and [Open Sans
-Condensed](https://fonts.google.com/specimen/Open+Sans+Condensed), fonts
-designed by Steve Matteson of Ascender Corporation and &copy; 2011 Google
+Condensed](https://github.com/google/fonts/tree/09fe88e80988f324709ccf93cf3e29bc3dd90652/apache/opensanscondensed),
+fonts designed by Steve Matteson of Ascender Corporation and &copy; 2011 Google
 Corporation, under the Apache License, Version 2.0.
 
 Please note that the `.woff` files in this repository are not the same files as
@@ -1254,28 +1255,28 @@ website](https://iamdustan.github.io/smoothscroll) mentions:
 ### Windows Community Toolkit
 
 The .NET Foundation and Contributors have released the [Windows Community
-Toolkit](https://github.com/windows-toolkit/WindowsCommunityToolkit/tree/v7.0.2)
+Toolkit](https://github.com/CommunityToolkit/WindowsCommunityToolkit/tree/v7.1.3)
 under the MIT license:
 
 <details>
 <summary>
 <strong>View MIT license</strong>&nbsp;&nbsp;&nbsp;
-<em>&ldquo;Copyright (c) .NET Foundation and Contributors &hellip;&rdquo;</em>
+<em>&ldquo;Copyright © .NET Foundation and Contributors &hellip;&rdquo;</em>
 </summary>
 
 > # Windows Community Toolkit
 >
-> Copyright (c) .NET Foundation and Contributors
+> Copyright © .NET Foundation and Contributors
 >
 > All rights reserved.
 >
-> # MIT License (MIT)
+> ## MIT License (MIT)
 >
-> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+> Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 >
 > The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 >
-> THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+> THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </details>
 
 ---
