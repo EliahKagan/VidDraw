@@ -1,0 +1,19 @@
+name: Check Markdown links
+
+on:
+  push:
+    branches:
+      - master
+      - gh-pages
+  pull_request:
+  schedule:
+    - cron: '15 0,12 * * *'
+
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: EliahKagan/github-action-markdown-link-check@exclude-dir-experimental
+      with:
+        exclude-dirs: ./doc/bower_components
