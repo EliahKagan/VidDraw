@@ -10,6 +10,8 @@ each directory).
 Please note that the font files given here are not the same files that were
 downloaded from the Google Fonts pages linked above. Those were `.ttf` files,
 while the `.woff` files here were produced by converting them to WOFF format
-using [`sfnt2woff`](https://manpages.ubuntu.com/sfnt2woff). This is a form of
-lossless compression; the exact, byte-for-byte original files can be produced
-using [`woff2sfnt`](https://manpages.ubuntu.com/woff2sfnt).
+using
+[`sfnt2woff`](https://manpages.ubuntu.com/manpages/jammy/en/man1/sfnt2woff.1.html).
+This is a form of lossless compression; the exact, byte-for-byte original files
+can be produced using
+[`woff2sfnt`](https://manpages.ubuntu.com/manpages/jammy/en/man1/woff2sfnt.1.html).
