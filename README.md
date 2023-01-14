@@ -16,7 +16,7 @@
 # VidDraw - record video as you draw
 
 *Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;.
-(Minor updates in 2022.)*
+(Minor updates in 2022, 2023.)*
 
 **Vid&shy;Draw** is a Windows program that records a video of a canvas as you
 draw on it. Recording starts when you begin drawing and stops when you&rsquo;re
