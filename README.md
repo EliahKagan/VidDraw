@@ -100,7 +100,7 @@ Vid&shy;Draw&rsquo;s menu.
 
 In the x264vfw configuration, you should check the box for &ldquo;Zero
 Latency&rdquo; [to avoid picture
-freezes](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder)
+freezes](https://bassill.github.io/SharpAvi/using-video-encoders.html#mpeg-4)
 while encoding video in real time. Note that the 32-bit and 64-bit x264vfw
 codecs are configured separately; changing the configuration for one
 doesn&rsquo;t affect the other.
@@ -343,9 +343,9 @@ pixels) is stored, so this order is reversed; otherwise, it is a raw
 
 The only reason I put this in Vid&shy;Draw was to demonstrate how to write
 video frames in Sharp&shy;Avi without an
-[encoder](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders). But
-you should use an encoder. If you want uncompressed video, I recommend using
-[Uncompressed](#uncompressed) instead, which leaves out the unused alpha
+[encoder](https://bassill.github.io/SharpAvi/using-video-encoders.html#using-video-encoders).
+But you should use an encoder. If you want uncompressed video, I recommend
+using [Uncompressed](#uncompressed) instead, which leaves out the unused alpha
 channel.
 
 #### Uncompressed
@@ -353,13 +353,12 @@ channel.
 If you want uncompressed video (where each frame is a bitmap), you should use
 this. It uses Sharp&shy;Avi&rsquo;s `UncompressedVideoEncoder`. As the
 [Sharp&shy;Avi
-wiki](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder)
-says:
+docs](https://bassill.github.io/SharpAvi/using-video-encoders.html#uncompressed)
+say:
 
-> The simplest \[encoder\] is
-[UncompressedVideoEncoder](https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/UncompressedVideoEncoder.cs).
-It does no real encoding, just flips image vertically and converts BGR32 data
-to BGR24 data to reduce the size.
+> The simplest \[encoder\] is the `UncompressedVideoEncoder`. It does no real
+> encoding, just flips image vertically and converts BGR32 data to BGR24 data
+> to reduce the size.
 
 Video files created this way are quite large, if you&rsquo;re recording for
 more a few seconds. If you&rsquo;re keeping videos you create this way, you may
@@ -373,14 +372,13 @@ than [Raw (frame copy)](#raw-frame-copy), though.
 Vid&shy;Draw&rsquo;s default encoding. Each frame is converted to and stored as
 a JPEG image. This uses Sharp&shy;Avi&rsquo;s `MotionJpegVideoEncoderWpf`. From
 the [Sharp&shy;Avi
-wiki](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder):
+docs](https://bassill.github.io/SharpAvi/using-video-encoders.html#motion-jpeg):
 
-> Next is
-[MotionJpegVideoEncoderWpf](https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/MotionJpegVideoEncoderWpf.cs)
-which does Motion JPEG encoding. It uses
-`System.Windows.Media.Imaging.JpegBitmapEncoder` under the hood. Besides
-dimensions, you provide the desired quality level to its constructor, ranging
-from 1 (low quality, small size) to 100 (high quality, large size).
+> Next is the `MJpegWpfVideoEncoder` which does Motion JPEG encoding. It uses
+> `System.Windows.Media.Imaging.JpegBitmapEncoder` under the hood. Hence
+> it&rsquo;s only available in Windows targets. Besides dimensions, you provide
+> a desired quality level to its constructor, ranging from 1 (low quality,
+> small size) to 100 (high quality, large size).
 
 Vid&shy;Draw uses a quality of 100, since the pen in Vid&shy;Draw makes
 1-pixel-thick curves, and lower qualities of Motion JPEG (like the oft-used 70)
@@ -405,22 +403,24 @@ quality than [Motion JPEG](#motion-jpeg) at a small fraction of the file size
 [`--keyint 1`](#configure-x264vfw-to-make-every-frame-a-keyframe)).
 
 The [Sharp&shy;Avi
-wiki](https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder)
-says:
+docs](https://bassill.github.io/SharpAvi/using-video-encoders.html#mpeg-4) say:
 
-> Finally,
-[Mpeg4VideoEncoderVcm](https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/Mpeg4VideoEncoderVcm.cs)
-does MPEG-4 encoding using *Video for Windows* (aka *VfW*) or *Video
-Compression Manager* (aka *VCM*) compatible codec installed on the system.
+> Finally, the `Mpeg4VcmVideoEncoder` does MPEG-4 encoding using a *Video for
+> Windows* (aka *VfW*) or *Video Compression Manager* (aka *VCM*) compatible
+> codec installed on the system. Apparently, this encoder works on Windows only
+> (but is available for any target).
 >
 > Currently tested codecs include **Microsoft MPEG-4 V2** and **V3**,
-[Xvid](https://www.xvid.com/download/),
-[DivX](http://www.divx.com/en/software/divx) and
-[x264vfw](http://sourceforge.net/projects/x264vfw/files/). Unfortunately, some
-of them have only 32-bit versions, others produce errors in 64 bits. The only
-codec which looks to work reliably in 64 bits is **x264vfw64**. For **x264vfw**
-(both 32- and 64-bit), it is recommended to check option **Zero Latency** in
-its settings to prevent picture freezes.
+> [Xvid](https://www.xvid.com/download/),
+> [DivX](http://www.divx.com/en/software/divx) and
+> [x264vfw](http://sourceforge.net/projects/x264vfw/files/). Unfortunately,
+> some of them have only 32-bit versions, others produce errors in 64 bits. The
+> only codec which looks to work reliably in 64 bits is **x264vfw64**.
+>
+> ***Tip.*** For **x264vfw** (both 32- and 64-bit), it is recommended to check
+> the option **Zero Latency** in its configuration utility to prevent picture
+> freezes. This configuration utility is installed along with the codec.
+
 
 ### Other Stuff in the Menu
 
@@ -970,10 +970,9 @@ Corporation, under the Apache License, Version 2.0.
 Please note that the `.woff` files in this repository are not the same files as
 downloaded from Google Fonts, which provided the fonts as `.ttf` files. I
 compressed them to produce the `.woff` files found here using
-[`sfnt2woff`](https://manpages.ubuntu.com/manpages/hirsute/en/man1/sfnt2woff.1.html).
-This is lossless; the exact, byte-for-byte original `.ttf` files can be
-recovered by decompressing them with
-[`woff2sfnt`](https://manpages.ubuntu.com/manpages/hirsute/en/man1/woff2sfnt.1.html).
+[`sfnt2woff`](https://manpages.ubuntu.com/sfnt2woff). This is lossless; the
+exact, byte-for-byte original `.ttf` files can be recovered by decompressing
+them with [`woff2sfnt`](https://manpages.ubuntu.com/woff2sfnt).
 
 <details>
 <summary>

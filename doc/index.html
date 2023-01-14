@@ -140,8 +140,8 @@ while Vid­Draw is already running, and H.264 will be ungrayed in
 Vid­Draw’s menu.</p>
 <p>In the x264vfw configuration, you should check the box for “Zero
 Latency” <a
-href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder"
-title="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">to
+href="https://bassill.github.io/SharpAvi/using-video-encoders.html#mpeg-4"
+title="https://bassill.github.io/SharpAvi/using-video-encoders.html#mpeg-4">to
 avoid picture freezes</a> while encoding video in real time. Note that
 the 32-bit and 64-bit x264vfw codecs are configured separately; changing
 the configuration for one doesn’t affect the other.</p>
@@ -373,8 +373,8 @@ of pixels) is stored, so this order is reversed; otherwise, it is a raw
 “frame copy.”</p>
 <p>The only reason I put this in Vid­Draw was to demonstrate how to write
 video frames in Sharp­Avi without an <a
-href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders"
-title="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders">encoder</a>.
+href="https://bassill.github.io/SharpAvi/using-video-encoders.html#using-video-encoders"
+title="https://bassill.github.io/SharpAvi/using-video-encoders.html#using-video-encoders">encoder</a>.
 But you should use an encoder. If you want uncompressed video, I
 recommend using <a href="#uncompressed"
 title="#uncompressed">Uncompressed</a> instead, which leaves out the
@@ -385,13 +385,11 @@ unused alpha channel.</p>
 <p>If you want uncompressed video (where each frame is a bitmap), you
 should use this. It uses Sharp­Avi’s
 <code>UncompressedVideoEncoder</code>. As the <a
-href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder"
-title="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">Sharp­Avi
-wiki</a> says:</p>
+href="https://bassill.github.io/SharpAvi/using-video-encoders.html#uncompressed"
+title="https://bassill.github.io/SharpAvi/using-video-encoders.html#uncompressed">Sharp­Avi
+docs</a> say:</p>
 <blockquote>
-<p>The simplest [encoder] is <a
-href="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/UncompressedVideoEncoder.cs"
-title="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/UncompressedVideoEncoder.cs">UncompressedVideoEncoder</a>.
+<p>The simplest [encoder] is the <code>UncompressedVideoEncoder</code>.
 It does no real encoding, just flips image vertically and converts BGR32
 data to BGR24 data to reduce the size.</p>
 </blockquote>
@@ -409,18 +407,16 @@ title="https://en.wikipedia.org/wiki/Motion_JPEG">Motion JPEG</a> is
 Vid­Draw’s default encoding. Each frame is converted to and stored as a
 JPEG image. This uses Sharp­Avi’s <code>MotionJpegVideoEncoderWpf</code>.
 From the <a
-href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder"
-title="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">Sharp­Avi
-wiki</a>:</p>
+href="https://bassill.github.io/SharpAvi/using-video-encoders.html#motion-jpeg"
+title="https://bassill.github.io/SharpAvi/using-video-encoders.html#motion-jpeg">Sharp­Avi
+docs</a>:</p>
 <blockquote>
-<p>Next is <a
-href="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/MotionJpegVideoEncoderWpf.cs"
-title="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/MotionJpegVideoEncoderWpf.cs">MotionJpegVideoEncoderWpf</a>
-which does Motion JPEG encoding. It uses
+<p>Next is the <code>MJpegWpfVideoEncoder</code> which does Motion JPEG
+encoding. It uses
 <code>System.Windows.Media.Imaging.JpegBitmapEncoder</code> under the
-hood. Besides dimensions, you provide the desired quality level to its
-constructor, ranging from 1 (low quality, small size) to 100 (high
-quality, large size).</p>
+hood. Hence it’s only available in Windows targets. Besides dimensions,
+you provide a desired quality level to its constructor, ranging from 1
+(low quality, small size) to 100 (high quality, large size).</p>
 </blockquote>
 <p>Vid­Draw uses a quality of 100, since the pen in Vid­Draw makes
 1-pixel-thick curves, and lower qualities of Motion JPEG (like the
@@ -452,16 +448,15 @@ JPEG</a> at a small fraction of the file size (<em>even</em> if you use
 <a href="#configure-x264vfw-to-make-every-frame-a-keyframe"
 title="#configure-x264vfw-to-make-every-frame-a-keyframe"><code>--keyint 1</code></a>).</p>
 <p>The <a
-href="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder"
-title="https://github.com/baSSiLL/SharpAvi/wiki/Using-Video-Encoders#creating-video-encoder">Sharp­Avi
-wiki</a> says:</p>
+href="https://bassill.github.io/SharpAvi/using-video-encoders.html#mpeg-4"
+title="https://bassill.github.io/SharpAvi/using-video-encoders.html#mpeg-4">Sharp­Avi
+docs</a> say:</p>
 <blockquote>
-<p>Finally, <a
-href="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/Mpeg4VideoEncoderVcm.cs"
-title="https://github.com/baSSiLL/SharpAvi/blob/master/SharpAvi/Codecs/Mpeg4VideoEncoderVcm.cs">Mpeg4VideoEncoderVcm</a>
-does MPEG-4 encoding using <em>Video for Windows</em> (aka <em>VfW</em>)
-or <em>Video Compression Manager</em> (aka <em>VCM</em>) compatible
-codec installed on the system.</p>
+<p>Finally, the <code>Mpeg4VcmVideoEncoder</code> does MPEG-4 encoding
+using a <em>Video for Windows</em> (aka <em>VfW</em>) or <em>Video
+Compression Manager</em> (aka <em>VCM</em>) compatible codec installed
+on the system. Apparently, this encoder works on Windows only (but is
+available for any target).</p>
 <p>Currently tested codecs include <strong>Microsoft MPEG-4 V2</strong>
 and <strong>V3</strong>, <a href="https://www.xvid.com/download/"
 title="https://www.xvid.com/download/">Xvid</a>, <a
@@ -471,9 +466,12 @@ href="http://sourceforge.net/projects/x264vfw/files/"
 title="http://sourceforge.net/projects/x264vfw/files/">x264vfw</a>.
 Unfortunately, some of them have only 32-bit versions, others produce
 errors in 64 bits. The only codec which looks to work reliably in 64
-bits is <strong>x264vfw64</strong>. For <strong>x264vfw</strong> (both
-32- and 64-bit), it is recommended to check option <strong>Zero
-Latency</strong> in its settings to prevent picture freezes.</p>
+bits is <strong>x264vfw64</strong>.</p>
+<p><em><strong>Tip.</strong></em> For <strong>x264vfw</strong> (both 32-
+and 64-bit), it is recommended to check the option <strong>Zero
+Latency</strong> in its configuration utility to prevent picture
+freezes. This configuration utility is installed along with the
+codec.</p>
 </blockquote>
 </section>
 </section>
@@ -1054,12 +1052,12 @@ Version 2.0.</p>
 not the same files as downloaded from Google Fonts, which provided the
 fonts as <code>.ttf</code> files. I compressed them to produce the
 <code>.woff</code> files found here using <a
-href="https://manpages.ubuntu.com/manpages/hirsute/en/man1/sfnt2woff.1.html"
-title="https://manpages.ubuntu.com/manpages/hirsute/en/man1/sfnt2woff.1.html"><code>sfnt2woff</code></a>.
+href="https://manpages.ubuntu.com/sfnt2woff"
+title="https://manpages.ubuntu.com/sfnt2woff"><code>sfnt2woff</code></a>.
 This is lossless; the exact, byte-for-byte original <code>.ttf</code>
 files can be recovered by decompressing them with <a
-href="https://manpages.ubuntu.com/manpages/hirsute/en/man1/woff2sfnt.1.html"
-title="https://manpages.ubuntu.com/manpages/hirsute/en/man1/woff2sfnt.1.html"><code>woff2sfnt</code></a>.</p>
+href="https://manpages.ubuntu.com/woff2sfnt"
+title="https://manpages.ubuntu.com/woff2sfnt"><code>woff2sfnt</code></a>.</p>
 <pre class="text"><code>                              Apache License
                         Version 2.0, January 2004
                      http://www.apache.org/licenses/
