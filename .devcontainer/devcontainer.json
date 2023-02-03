@@ -16,7 +16,7 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "bierner.markdown-preview-github-styles",
+                "bierner.markdown-preview-github-styles",q
                 "dbaeumer.vscode-eslint",
                 "eamodio.gitlens",
                 "mads-hartmann.bash-ide-vscode",
@@ -35,7 +35,8 @@
             }
         }
     },
-    "postCreateCommand": "sh .devcontainer/postCreate",
+    "postCreateCommand": ".devcontainer/postCreate",
+    "postStartCommand": "dotnet restore",
     "waitFor": "postCreateCommand",
     "containerEnv": {
         "SHELL": "/usr/bin/fish"
