@@ -16,7 +16,7 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "bierner.markdown-preview-github-styles",q
+                "bierner.markdown-preview-github-styles",
                 "dbaeumer.vscode-eslint",
                 "eamodio.gitlens",
                 "mads-hartmann.bash-ide-vscode",
