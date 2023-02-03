@@ -52,9 +52,6 @@
     <main>
 <section id="viddraw---record-video-as-you-draw" class="level1">
 <h1>VidDraw - record video as you draw</h1>
-<p><em>Written in 2021 by Eliah Kagan
-&lt;degeneracypressure<!-- -->@gmail.com&gt;. (Minor updates in 2022,
-2023.)</em></p>
 <p><strong>Vid­Draw</strong> is a Windows program that records a video of
 a canvas as you draw on it. Recording starts when you begin drawing and
 stops when you’re no longer holding down any mouse buttons.</p>
@@ -100,8 +97,8 @@ title="#notices">Notices</a>.</p>
 <p>This alpha version of Vid­Draw doesn’t have binary downloads, so it
 must be built from source. You’ll need the <a
 href="https://dotnet.microsoft.com/download/dotnet/6.0"
-title="https://dotnet.microsoft.com/download/dotnet/6.0">.NET 6</a> SDK.
-To clone the repository and build Vid­Draw, run:</p>
+title="https://dotnet.microsoft.com/download/dotnet/6.0">.NET 6</a> SDK
+(or higher). To clone the repository and build Vid­Draw, run:</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>git clone https<span class="op">://</span>github<span class="op">.</span><span class="fu">com</span><span class="op">/</span>EliahKagan<span class="op">/</span>VidDraw<span class="op">.</span><span class="fu">git</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cd</span> VidDraw</span>
@@ -232,9 +229,9 @@ class="sourceCode powershell"><code class="sourceCode powershell"><span id="cb5-
 Unix-style shell, such as Bash, use the <code>generate</code> shell
 script instead:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pandoc/generate</span></span></code></pre></div>
-<p>Note that while generating Vid­Draw’s documentation is supported on
-Unix-like systems, neither building nor running the program is supported
-on any non-Windows operating systems.</p>
+<p>Note that while building Vid­Draw’ and generating its documentation
+are supported on Windows, GNU/Linux, and macOS, <em>running</em>
+Vid­Draw’ is only supported on Windows systems.</p>
 <p>On 64-bit Windows systems, if you don’t have <a
 href="https://en.wikipedia.org/wiki/Pandoc"
 title="https://en.wikipedia.org/wiki/Pandoc">Pandoc</a>, one way to
@@ -857,7 +854,7 @@ title="../COPYING.0BSD">0BSD</a>. Thus, everything in this repository
 <em>except</em> the contents of <code>doc/bower_components</code> and of
 the subdirectories of <code>doc/fonts</code> is offered under 0BSD:</p>
 <blockquote>
-<p>Copyright (c) 2021 Eliah Kagan</p>
+<p>Copyright (c) 2021-2023 Eliah Kagan</p>
 <p>Permission to use, copy, modify, and/or distribute this software for
 any purpose with or without fee is hereby granted.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL
