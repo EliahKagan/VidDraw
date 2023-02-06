@@ -23,11 +23,16 @@ carry_in() {
     local name="$1" value
 
     if value="$(git config "$name")"; then
-        msg "Carrying host $name=$value into repo config in container."
+        msg "carrying in: $name=$value"
         git config --local "$name" "$value"
     else
-        msg "Host doesn't set $name, so nothing needs to be done for it."
+        msg "skipping: $name"
     fi
 }
 
+# If the host clones the repo Windows-style, have the container play along.
 carry_in core.autocrlf
+
+# Usually these are automatically set in the container, but not always.
+carry_in user.name
+carry_in user.email
