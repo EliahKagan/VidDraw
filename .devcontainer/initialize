@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -e
+
+if autocrlf="$(git config core.autocrlf)"; then
+    git config --local core.autocrlf "$autocrlf"
+fi
