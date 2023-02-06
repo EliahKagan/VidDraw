@@ -35,7 +35,7 @@
             }
         }
     },
-    "initializeCommand": "git config --list --show-scope",
+    "initializeCommand": "git --version",
     "postCreateCommand": ".devcontainer/postCreate",
     "postStartCommand": "dotnet restore",
     "waitFor": "postCreateCommand",
