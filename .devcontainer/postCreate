@@ -39,7 +39,9 @@ pull_in() {
 pull_all_in() {
     local name value
 
-    test -e "$conf_path" || return
+    if ! test -e "$conf_path"; then
+        return
+    fi
 
     while read -r name value; do
         pull_in "$name" "$value"
