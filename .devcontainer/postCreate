@@ -29,9 +29,9 @@ pull_in() {
     local name="$1" value="$2"
 
     if git config "$name" >/dev/null; then
-        msg "in container, not applying: $name"
+        msg "present in container, not applying: $name"
     else
-        msg "not in container, applying: $name"
+        msg "absent in container, applying: $name"
         git config --global "$name" "$value"
     fi
 }
