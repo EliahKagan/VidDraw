@@ -15,24 +15,28 @@
 
 set -e
 
+readonly conf_path='.inherited-configuration'
+
+rm -f -- "$conf_path"
+
 msg() {
     printf '%s: %s\n' "$0" "$1" >&2
 }
 
-carry_in() {
+push_in() {
     local name="$1" value
 
     if value="$(git config "$name")"; then
         msg "carrying in: $name=$value"
-        git config --local "$name" "$value"
+        printf '%s %s\n' "$name" "$value" >>"$conf_path"
     else
         msg "skipping: $name"
     fi
 }
 
 # If the host clones the repo Windows-style, have the container play along.
-carry_in core.autocrlf
+push_in core.autocrlf
 
 # Usually these are automatically set in the container, but not always.
-carry_in user.name
-carry_in user.email
+push_in user.name
+push_in user.email

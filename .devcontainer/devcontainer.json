@@ -36,8 +36,8 @@
             }
         }
     },
-    "initializeCommand": ".devcontainer/initialize",
-    "postCreateCommand": ".devcontainer/postCreate",
+    "initializeCommand": [".devcontainer/initialize"],
+    "postCreateCommand": [".devcontainer/postCreate"],
     "postStartCommand": "dotnet restore",
     "waitFor": "postCreateCommand",
     "containerEnv": {
