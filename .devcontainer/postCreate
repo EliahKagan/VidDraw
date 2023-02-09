@@ -50,7 +50,7 @@ pull_all_in() {
 
 nl
 msg 'Customizing global git configuration...'
-# pull_all_in
+pull_all_in
 git config --global color.diff.new blue
 msg '...global git configuration customized.'
 
