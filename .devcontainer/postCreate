@@ -28,11 +28,11 @@ msg() {
 pull_in() {
     local name="$1" value="$2"
 
-    if git config "$name" >/dev/null; then
+    if git config -- "$name" >/dev/null; then
         msg "not overwriting: $name"
     else
         msg "applying: $name"
-        git config --global "$name" "$value"
+        git config --global -- "$name" "$value"
     fi
 }
 

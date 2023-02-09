@@ -17,8 +17,6 @@ set -e
 
 readonly conf_path='.inherited-configuration'
 
-rm -f -- "$conf_path"
-
 msg() {
     printf '%s: %s\n' "$0" "$1" >&2
 }
@@ -26,13 +24,15 @@ msg() {
 push_in() {
     local name="$1" value
 
-    if value="$(git config "$name")"; then
+    if value="$(git config -- "$name")"; then
         msg "carrying in: $name=$value"
         printf '%s %s\n' "$name" "$value" >>"$conf_path"
     else
         msg "skipping: $name"
     fi
 }
+
+rm -f -- "$conf_path"
 
 # If the host clones the repo Windows-style, have the container play along.
 push_in core.autocrlf
