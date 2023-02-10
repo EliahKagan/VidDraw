@@ -1,5 +1,3 @@
-@echo off
-
 :: Copyright (c) 2023 Eliah Kagan
 ::
 :: Permission to use, copy, modify, and/or distribute this software for any
@@ -13,13 +11,11 @@
 :: OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 :: CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+@echo off
 setlocal enableextensions
 
 set "conf_path=.inherited-configuration"
-set "script_uuid=7d63c880-c89c-4bc4-b440-57e134bf08d9"
-
 set "script_name=%~nx0"
-set "temp_path_prefix=%TEMP%\%script_uuid%-%RANDOM%"
 
 goto begin
 
@@ -27,41 +23,27 @@ goto begin
     echo/%script_name%: %* >&2
     exit /b
 
-:delete_if_exist
-    if exist "%*" (
-        del "%*"
-    )
-    exit /b
-
 :push_in
     setlocal
     set "name=%1"
-    set "temp_path=%temp_path_prefix%-%name%.tmp"
 
-    call :delete_if_exist %temp_path%
+    git config -- "%name%" >NUL
 
-    git config -- "%name%" >"%temp_path%"
     if %ERRORLEVEL% NEQ 0 (
         call :msg skipping: %name%
-        del "%temp_path%"
         exit /b 0
     )
 
-    for /f "usebackq delims=" %%G in ("%temp_path%") do (
+    for /f "usebackq delims=" %%G in (`git config -- "%name%"`) do (
         set "value=%%G"
     )
-    if %ERRORLEVEL% NEQ 0 (
-        call :msg can't read temporary file: %temp_path%
-        exit 1
-    )
 
-    del "%temp_path%"
     call :msg carrying in: %name%=%value%
     echo/%name% %value% >>"%conf_path%"
     exit /b
 
 :begin
-    call :delete_if_exist %conf_path%
+    del "%conf_path%" 2>NUL
 
     :: If the host clones the repo Windows-style, have the container play
     :: along.
