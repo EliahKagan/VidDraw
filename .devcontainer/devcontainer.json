@@ -20,6 +20,7 @@
                 "bierner.markdown-preview-github-styles",
                 "dbaeumer.vscode-eslint",
                 "eamodio.gitlens",
+                "GitHub.vscode-pull-request-github",
                 "mads-hartmann.bash-ide-vscode",
                 "mhutchie.git-graph",
                 "ms-dotnettools.csharp",
