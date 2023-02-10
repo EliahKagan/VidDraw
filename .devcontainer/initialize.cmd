@@ -74,4 +74,3 @@ goto begin
 :begin
     call :delete_if_exist %conf_path%
     call :push_all_in
-    call :delete_if_exist %temp_path_prefix%
