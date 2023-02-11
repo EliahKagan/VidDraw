@@ -1,4 +1,6 @@
-# Copyright (c) 2021, 2023 Eliah Kagan
+#!/usr/bin/env bash
+
+# Copyright (c) 2023 Eliah Kagan
 #
 # Permission to use, copy, modify, and/or distribute this software for any
 # purpose with or without fee is hereby granted.
@@ -11,18 +13,30 @@
 # OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 # PERFORMANCE OF THIS SOFTWARE.
 
-# Shell scripts and batch files are particular about line endings.
-.devcontainer/initialize text eol=lf
-.devcontainer/initialize.cmd text eol=crlf
-.devcontainer/postCreate text eol=lf
-pandoc/generate text eol=lf
-pandoc/generate.cmd text eol=crlf
+set -e
 
-# Consider the custom pandoc HTML template as "code".
-*.html5 linguist-language=HTML
+readonly conf_path='.inherited-configuration'
 
-# Most files in doc/ *support* the documentation, but are actually code.
-/doc/* -linguist-documentation
+msg() {
+    printf '%s: %s\n' "$0" "$1" >&2
+}
 
-# doc/index.html is generated from README.md. For that reason, don't count it.
-/doc/index.html linguist-generated
+push_in() {
+    local name="$1" value
+
+    if value="$(git config -- "$name")"; then
+        msg "carrying in: $name=$value"
+        printf '%s %s\n' "$name" "$value" >>"$conf_path"
+    else
+        msg "skipping: $name"
+    fi
+}
+
+rm -f -- "$conf_path"
+
+# If the host clones the repo Windows-style, have the container play along.
+push_in core.autocrlf
+
+# Usually these are automatically set in the container, but not always.
+push_in user.name
+push_in user.email

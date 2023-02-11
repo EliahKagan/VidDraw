@@ -1,5 +1,5 @@
 <!--
-  Copyright (c) 2021 Eliah Kagan
+  Copyright (c) 2021-2023 Eliah Kagan
 
   Permission to use, copy, modify, and/or distribute this software for any
   purpose with or without fee is hereby granted.
@@ -14,9 +14,6 @@
 -->
 
 # VidDraw - record video as you draw
-
-*Written in 2021 by Eliah Kagan &lt;degeneracypressure<!-- -->@gmail.com&gt;.
-(Minor updates in 2022, 2023.)*
 
 **Vid&shy;Draw** is a Windows program that records a video of a canvas as you
 draw on it. Recording starts when you begin drawing and stops when you&rsquo;re
@@ -55,8 +52,8 @@ licensed under terms other than 0BSD. See [`LICENSE`](LICENSE) and
 
 This alpha version of Vid&shy;Draw doesn&rsquo;t have binary downloads, so it
 must be built from source. You&rsquo;ll need the [.NET
-6](https://dotnet.microsoft.com/download/dotnet/6.0) SDK. To clone the
-repository and build Vid&shy;Draw, run:
+6](https://dotnet.microsoft.com/download/dotnet/6.0) SDK (or higher). To clone
+the repository and build Vid&shy;Draw, run:
 
 ```powershell
 git clone https://github.com/EliahKagan/VidDraw.git
@@ -194,9 +191,9 @@ shell, such as Bash, use the `generate` shell script instead:
 pandoc/generate
 ```
 
-Note that while generating Vid&shy;Draw&rsquo;s documentation is supported on
-Unix-like systems, neither building nor running the program is supported on any
-non-Windows operating systems.
+Note that while building Vid&shy;Draw&rsquo; and generating its documentation
+are supported on Windows, GNU/Linux, and macOS, *running* Vid&shy;Draw&rsquo;
+is only supported on Windows systems.
 
 On 64-bit Windows systems, if you don&rsquo;t have
 [Pandoc](https://en.wikipedia.org/wiki/Pandoc), one way to install it is with
@@ -724,10 +721,10 @@ licensed under [0BSD](COPYING.0BSD). Thus, everything in this repository
 
 <details>
 <summary><strong>View 0BSD</strong>&nbsp;&nbsp;&nbsp;
-<em>&ldquo;Copyright (c) 2021 Eliah Kagan &hellip;&rdquo;</em>
+<em>&ldquo;Copyright (c) 2021-2023 Eliah Kagan &hellip;&rdquo;</em>
 </summary>
 
-> Copyright (c) 2021 Eliah Kagan
+> Copyright (c) 2021-2023 Eliah Kagan
 >
 > Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted.

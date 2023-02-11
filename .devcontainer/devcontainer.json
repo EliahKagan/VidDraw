@@ -1,0 +1,47 @@
+{
+    "name": "VidDraw (build only, no run)",
+    "image": "mcr.microsoft.com/devcontainers/dotnet:0-7.0",
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {},
+        "ghcr.io/devcontainers/features/powershell:1": {},
+        "ghcr.io/lukewiwa/features/shellcheck:0": {},
+        "ghcr.io/meaningful-ooo/devcontainer-features/fish:1": {},
+        "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+            "packages": "file,lua5.4,vim-nox"
+        },
+        "ghcr.io/rocker-org/devcontainer-features/pandoc:1": {}
+    },
+    "overrideFeatureInstallOrder": [
+        "ghcr.io/rocker-org/devcontainer-features/pandoc"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bierner.markdown-preview-github-styles",
+                "dbaeumer.vscode-eslint",
+                "eamodio.gitlens",
+                "GitHub.vscode-pull-request-github",
+                "mads-hartmann.bash-ide-vscode",
+                "mhutchie.git-graph",
+                "ms-dotnettools.csharp",
+                "ms-vsliveshare.vsliveshare",
+                "ritwickdey.LiveServer",
+                "stkb.rewrap",
+                "streetsidesoftware.code-spell-checker",
+                "sumneko.lua",
+                "timonwong.shellcheck"
+            ],
+            "settings": {
+                "gitlens.showWelcomeOnInstall": false,
+                "gitlens.showWhatsNewAfterUpgrades": false
+            }
+        }
+    },
+    "initializeCommand": [".devcontainer/initialize"],
+    "postCreateCommand": [".devcontainer/postCreate"],
+    "postStartCommand": "dotnet restore",
+    "waitFor": "postCreateCommand",
+    "containerEnv": {
+        "SHELL": "/usr/bin/fish"
+    }
+}
