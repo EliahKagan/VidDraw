@@ -14,6 +14,9 @@
 @echo off
 setlocal enableextensions
 
+:: Use the code page for UTF-8.
+chcp 65001 >NUL
+
 set "conf_path=.inherited-configuration"
 set "script_name=%~nx0"
 
