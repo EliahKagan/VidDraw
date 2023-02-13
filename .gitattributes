@@ -12,11 +12,11 @@
 # PERFORMANCE OF THIS SOFTWARE.
 
 # Shell scripts and batch files are particular about line endings.
-.devcontainer/initialize text eol=lf
-.devcontainer/initialize.cmd text eol=crlf
-.devcontainer/postCreate text eol=lf
-pandoc/generate text eol=lf
-pandoc/generate.cmd text eol=crlf
+/.devcontainer/initialize text eol=lf
+/.devcontainer/initialize.cmd text eol=crlf
+/.devcontainer/postCreate text eol=lf
+/pandoc/generate text eol=lf
+/pandoc/generate.cmd text eol=crlf
 
 # Consider the custom pandoc HTML template as "code".
 *.html5 linguist-language=HTML
