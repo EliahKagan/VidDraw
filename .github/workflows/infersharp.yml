@@ -36,7 +36,7 @@ jobs:
           binary-path: 'bin/Debug/net6.0-windows10.0.17763'
 
       - name: Upload SARIF output to GitHub Security Center
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: infer-out/report.sarif
 
