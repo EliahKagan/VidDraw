@@ -6,11 +6,14 @@ on:
   schedule:
     - cron: '15 0,12 * * *'
 
+permissions:
+  contents: read
+
 jobs:
   markdown-link-check:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
-    - uses: EliahKagan/github-action-markdown-link-check@exclude-dir-experimental
-      with:
-        exclude-dirs: ./doc/bower_components
+      - uses: actions/checkout@v5
+      - uses: EliahKagan/github-action-markdown-link-check@exclude-dir-experimental
+        with:
+          exclude-dirs: ./doc/bower_components
