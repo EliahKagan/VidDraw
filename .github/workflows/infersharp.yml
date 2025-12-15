@@ -48,7 +48,7 @@ jobs:
         run: echo "${{ steps.runinfersharp.outputs.results }}"
 
       - name: Upload Infer# report as an artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: report
           path: infer-out/report.txt
